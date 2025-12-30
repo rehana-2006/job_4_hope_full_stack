@@ -1,0 +1,660 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    line-height: 1.6;
+    color: #333;
+}
+
+/* Navigation */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 5%;
+    background: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+}
+
+
+.logo-icon img {
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+}
+
+.logo-text h1 {
+    font-size: 20px;
+    font-weight: 600;
+    color: #000;
+}
+
+.logo-text p {
+    font-size: 12px;
+    color: #666;
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+}
+
+.nav-actions {
+    display: flex;
+    gap: 1rem;
+}
+
+.btn {
+    padding: 0.6rem 1.5rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-login {
+    background: transparent;
+    color: #333;
+}
+
+
+/* Hero Section */
+.hero {
+    background: linear-gradient(to bottom, #e8f4f8, #f0f8ff);
+    padding: 4rem 2rem;
+    text-align: center;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hero-subtitle {
+    font-size: 1.2rem;
+    color: #666;
+    max-width: 900px;
+    margin: 0 auto 3rem;
+}
+
+/* Mission Cards */
+.mission-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.card {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+}
+
+.card-icon {
+    width: 70px;
+    height: 70px;
+    background: #000;
+    border-radius: 50%;
+    margin: 0 auto 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 30px;
+}
+
+.card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.card p {
+    color: #666;
+    line-height: 1.8;
+}
+
+/* Problem Section */
+.problem-section {
+    padding: 5rem 2rem;
+    background: white;
+    text-align: center;
+}
+
+.problem-section h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.problem-section>p {
+    font-size: 1.1rem;
+    color: #666;
+    max-width: 900px;
+    margin: 0 auto 3rem;
+}
+
+.challenges-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    text-align: left;
+}
+
+.challenges-list h3 {
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+}
+
+.challenge-item {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    align-items: flex-start;
+}
+
+.challenge-dot {
+    width: 10px;
+    height: 10px;
+    background: #ff4444;
+    border-radius: 50%;
+    margin-top: 8px;
+    flex-shrink: 0;
+}
+
+.vicious-cycle {
+    background: #fff5f5;
+    padding: 2rem;
+    border-radius: 10px;
+    margin-top: 2rem;
+}
+
+.vicious-cycle h4 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #ff4444;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+.cycle-icon {
+    font-size: 1.5rem;
+}
+
+.cycle-flow {
+    color: #666;
+    line-height: 2;
+}
+
+.challenge-image img {
+    border-radius: 15px;
+    height: 500px
+}
+
+/* How We Create Change */
+.change-section {
+    padding: 5rem 2rem;
+    background: #f9fafb;
+    text-align: center;
+}
+
+.change-section h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.change-section>p {
+    color: #666;
+    margin-bottom: 3rem;
+}
+
+.steps-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+.step {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    text-align: left;
+}
+
+.step-number {
+    width: 50px;
+    height: 50px;
+    background: #000;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+}
+
+.step h4 {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+}
+
+.step p {
+    color: #666;
+    line-height: 1.8;
+}
+
+/* Core Values */
+.values-section {
+    padding: 5rem 2rem;
+    background: white;
+    text-align: center;
+}
+
+.values-section h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.values-section>p {
+    color: #666;
+    margin-bottom: 3rem;
+}
+
+.values-grid {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+}
+
+.value-card {
+    background: white;
+    border: 1px solid #e5e7eb;
+    padding: 2.5rem;
+    border-radius: 15px;
+    text-align: left;
+}
+
+.value-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    font-size: 24px;
+}
+
+.value-icon.shield {
+    background: #dbeafe;
+}
+
+.value-icon.people {
+    background: #dcfce7;
+}
+
+.value-icon.book {
+    background: #fef3c7;
+}
+
+.value-icon.globe {
+    background: #e0e7ff;
+}
+
+.value-card h4 {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+}
+
+.value-card p {
+    color: #666;
+    line-height: 1.8;
+}
+
+/* Impact Section */
+.impact-section {
+    padding: 5rem 2rem;
+    background: #f9fafb;
+    text-align: center;
+}
+
+.impact-section h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.impact-section>p {
+    color: #666;
+    max-width: 1000px;
+    margin: 0 auto 3rem;
+}
+
+.impact-grid {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+}
+
+.impact-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    text-align: center;
+}
+
+.impact-card h4 {
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+}
+
+.impact-number {
+    background: #000;
+    color: white;
+    padding: 2rem;
+    border-radius: 10px;
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.impact-card p {
+    color: #666;
+    margin-top: 1rem;
+    line-height: 1.6;
+}
+
+/* Approach Section */
+.approach-section {
+    padding: 5rem 2rem;
+    background: linear-gradient(to bottom, #f0fdf4, #e0e7ff);
+    text-align: center;
+}
+
+.approach-section h2 {
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+}
+
+.approach-box {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: white;
+    padding: 3rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.approach-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.approach-title h3 {
+    font-size: 1.5rem;
+}
+
+.approach-quote {
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 2rem;
+    font-style: italic;
+}
+
+.cycle-box {
+    background: #f3f4f6;
+    padding: 2rem;
+    border-radius: 10px;
+}
+
+.cycle-box h4 {
+    margin-bottom: 1rem;
+}
+
+.cycle-box p {
+    color: #666;
+}
+
+/* Commitment Section */
+.commitment-section {
+    padding: 5rem 2rem;
+    background: white;
+    text-align: center;
+}
+
+.commitment-section h2 {
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+}
+
+.commitment-grid {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+.commitment-card {
+    background: white;
+    border: 1px solid #e5e7eb;
+    padding: 2.5rem;
+    border-radius: 15px;
+}
+
+.commitment-icon {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    font-size: 28px;
+}
+
+.commitment-icon.blue {
+    background: #dbeafe;
+}
+
+.commitment-icon.green {
+    background: #dcfce7;
+}
+
+.commitment-icon.purple {
+    background: #e9d5ff;
+}
+
+.commitment-card h4 {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+}
+
+.commitment-card p {
+    color: #666;
+    line-height: 1.8;
+}
+
+/* Footer */
+footer {
+    background: #f9f9f9;
+    padding: 3rem 5%;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 3rem;
+    margin-bottom: 2rem;
+}
+
+.footer-about h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.footer-about p {
+    color: #666;
+    line-height: 1.8;
+}
+
+.footer-links h4 {
+    margin-bottom: 1rem;
+}
+
+.footer-links ul {
+    list-style: none;
+}
+
+.footer-links a {
+    color: #666;
+    text-decoration: none;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.footer-emergency {
+    margin-top: 2rem;
+}
+
+.footer-emergency h4 {
+    margin-bottom: 0.5rem;
+}
+
+.footer-emergency p {
+    color: #666;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 2rem;
+    border-top: 1px solid #e0e0e0;
+    color: #666;
+}
+
+@media (max-width: 1024px) {
+    .steps-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .challenges-container {
+        grid-template-columns: 1fr;
+    }
+
+    .challenge-image {
+        height: 300px;
+    }
+}
+
+/* Hamburger Menu */
+.hamburger {
+    display: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+}
+
+@media (max-width: 768px) {
+    nav {
+        flex-wrap: wrap;
+        padding: 1rem 5%;
+        justify-content: space-between;
+    }
+
+    .hamburger {
+        display: block;
+    }
+
+    .logo {
+        flex-grow: 1;
+    }
+
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        text-align: center;
+        gap: 1rem;
+        padding: 1rem 0;
+        border-top: 1px solid #eee;
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    .nav-actions {
+        display: none;
+        width: 100%;
+        justify-content: center;
+        padding-bottom: 1rem;
+    }
+
+    .nav-actions.active {
+        display: flex;
+    }
+
+    .hero h1 {
+        font-size: 2rem;
+    }
+
+    .mission-cards,
+    .steps-container,
+    .values-grid,
+    .impact-grid,
+    .commitment-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 2rem;
+    }
+}

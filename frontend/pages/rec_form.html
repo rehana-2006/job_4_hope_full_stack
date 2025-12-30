@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job4Hope - Recruiter Registration</title>
+    <link rel="stylesheet" href="../style/form.css" />
+    <link rel="icon" href="../assets/logo.png" />
+</head>
+
+<body>
+    <nav>
+        <a href="index.html" class="logo">
+            <div class="logo-icon">
+                <img src="../assets/logo.png" alt="logo" />
+            </div>
+            <div class="logo-text">
+                <h1>Job4Hope</h1>
+                <p>Where jobs meets dream</p>
+            </div>
+        </a>
+        <ul class="nav-links">
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="./parent_dash.html">Parents</a></li>
+            <li><a href="./rec_dash.html">Recruiters</a></li>
+            <li><a href="./edu_dash.html">Educators</a></li>
+            <li><a href="./report.html">Report Incident</a></li>
+            <li><a href="./protect.html">child protection</a></li>
+            <li><a href="./about.html">About Us</a></li>
+            <li><a href="./contact.html">Contact</a></li>
+        </ul>
+        <div class="nav-actions">
+            <a href="./sign_in.html" class="btn btn-login">Login</a>
+        </div>
+    </nav>
+
+    <section>
+        <div class="form-wrapper">
+            <a href="../index.html" class="back-btn">← Back to registration options</a>
+
+            <div id="successMessage" class="success-message" style="display: none;">
+                ✓ <strong>Success!</strong> Your Recruiter registration has been submitted and is under review.
+            </div>
+
+            <div class="form-header">
+                <h2>Register as Recruiter</h2>
+                <p>Partner with us to post job opportunities and support the mission to end child labour.</p>
+            </div>
+
+            <form id="ngoRegistrationForm">
+
+                <div class="form-section">
+                    <h3 class="section-title">🏢 Organisation Details</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="orgName">Organisation Name <span class="required">*</span></label>
+                            <input type="text" id="orgName" name="orgName" placeholder="Enter full name of organisation"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label for="orgType">Organisation Type <span class="required">*</span></label>
+                            <select id="orgType" name="orgType" required>
+                                <option value="">Select type</option>
+                                <option value="ngo">NGO</option>
+                                <option value="charity">Charity Foundation</option>
+                                <option value="government">Government Agency</option>
+                                <option value="private">Private Company (CSR)</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Organisation Mission/Description <span
+                                class="required">*</span></label>
+                        <textarea id="description" name="description"
+                            placeholder="Briefly describe your mission and the impact you aim to make..." rows="4"
+                            required></textarea>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3 class="section-title">📞 Primary Contact Details</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="contactName">Contact Person Name <span class="required">*</span></label>
+                            <input type="text" id="contactName" name="contactName" placeholder="Enter full name"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label for="jobTitle">Job Title/Position <span class="required">*</span></label>
+                            <input type="text" id="jobTitle" name="jobTitle" placeholder="e.g., HR Manager" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">Contact Email <span class="required">*</span></label>
+                            <input type="email" id="email" name="email" placeholder="contact@organisation.org" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password <span class="required">*</span></label>
+                            <input type="password" id="password" name="password" placeholder="Create a password"
+                                required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="phone">Phone Number <span class="required">*</span></label>
+                            <input type="tel" id="phone" name="phone" placeholder="+91 XXXXX XXXXX" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="website">Website (Optional)</label>
+                            <input type="url" id="website" name="website" placeholder="https://yourwebsite.com">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3 class="section-title">📍 Location Details</h3>
+                    <div class="form-group">
+                        <label for="address">Complete Address <span class="required">*</span></label>
+                        <textarea id="address" name="address" placeholder="Enter street address, building name, area..."
+                            rows="3" required></textarea>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="city">City <span class="required">*</span></label>
+                            <input type="text" id="city" name="city" placeholder="Enter city" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="state">State <span class="required">*</span></label>
+                            <input type="text" id="state" name="state" placeholder="Enter state" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="pincode">Pincode <span class="required">*</span></label>
+                            <input type="text" id="pincode" name="pincode" placeholder="Enter pincode" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="country">Country <span class="required">*</span></label>
+                            <input type="text" id="country" name="country" value="India" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3 class="section-title">📄 Verification Documents</h3>
+                    <div class="form-group">
+                        <label for="documents">Upload Documents (for verification) <span
+                                class="required">*</span></label>
+                        <div class="file-input-wrapper">
+                            <input type="file" id="documents" name="documents" class="file-input" required multiple>
+                        </div>
+                        <p class="help-text">Upload registration certificates or CSR accreditation.</p>
+                    </div>
+                    <div class="verification-note">
+                        <strong>Note:</strong> Document review typically takes 3-5 business days to verify credibility.
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" id="submitBtn" class="btn-submit">Register Organisation</button>
+                </div>
+            </form>
+
+            <p class="signin-link">
+                Already a verified partner? <a href="./sign_in.html">Sign in here</a>
+            </p>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-about">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <img src="../assets/logo.png" alt="logo" />
+                    </div>
+                    <div class="logo-text">
+                        <h3>Job4Hope</h3>
+                        <p>Empowering Parents, Protecting Children</p>
+                    </div>
+                </div>
+                <p>Together, we create futures free from child labour through skill-based employment.</p>
+            </div>
+
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="./about.html">About Us</a></li>
+                    <li><a href="./contact.html">Contact</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-links">
+                <h4>Emergency</h4>
+                <p>Child Helpline: <strong>2006</strong></p>
+                <p>Email: <strong>contact@job4hope.org</strong></p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2024 Job4Hope. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/rec_form.js"></script>
+    <script src="../js/responsive.js"></script>
+</body>
+
+</html>

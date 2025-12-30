@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ChildProtect - For NGOs/Employers</title>
+  <link rel="stylesheet" href="../style/rec_dash.css" />
+  <link rel="icon" href="../assets/logo.png" />
+  <style>
+    a {
+      text-decoration: none;
+    }
+
+    /* ADDED BASIC STYLES FOR NEW SECTIONS/FUNCTIONALITY (Assume existing styles are in hiring.css) */
+    .content {
+      padding: 20px;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .profile-card {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 20px;
+      margin-top: 20px;
+      background-color: #f9f9f9;
+    }
+
+    .profile-card h4 {
+      color: #007bff;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 10px;
+      margin-top: 0;
+    }
+
+    .profile-card p strong {
+      display: inline-block;
+      width: 150px;
+      font-weight: 600;
+    }
+
+    /* Applicants Viewer Overlay Styles */
+    .applicants-viewer {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .applicants-content {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      width: 80%;
+      max-width: 900px;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .applicant-card {
+      border: 1px solid #eee;
+      padding: 15px;
+      margin-bottom: 10px;
+      border-radius: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .applicant-card h5 {
+      margin: 0 0 5px 0;
+      color: #28a745;
+    }
+
+    .applicant-card .details-summary {
+      font-size: 0.9em;
+      color: #555;
+    }
+
+    .applicant-card .btn-contact {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <a href="index.html" class="logo">
+      <div class="logo-icon">
+        <img src="../assets/logo.png" alt="logo" />
+      </div>
+      <div class="logo-text">
+        <h1>Job4Hope</h1>
+        <p>Where jobs meets dream</p>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="./parent_dash.html">Parents</a></li>
+      <li><a href="./rec_dash.html">Recruiters</a></li>
+      <li><a href="./edu_dash.html">Educators</a></li>
+      <li><a href="./report.html">Report Incident</a></li>
+      <li><a href="./protect.html">child protection</a></li>
+      <li><a href="./about.html">About Us</a></li>
+      <li><a href="./contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="./sign_in.html" class="btn btn-login">Login</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <h2>Connect with Skilled Parents, Empower Communities</h2>
+    <p>
+      Post your job opportunities and projects to reach parents eager for
+      work, contributing to the fight against child labour.
+    </p>
+    <a href="./rec_form.html" class="btn-primary">
+      <span>📋</span> Register Your Team
+    </a>
+  </section>
+
+  <div class="content">
+    <div class="tabs">
+      <button class="tab active" onclick="showSection('post', this)">
+        <span>✚</span> Post a Job
+      </button>
+      <button class="tab" onclick="showSection('listings', this)">
+        <span>📋</span> My Listings
+      </button>
+      <button class="tab" onclick="showSection('profile', this)">
+        <span>🏢</span> My Profile
+      </button>
+    </div>
+
+    <div id="post-section" class="form-container">
+      <h3>Post a New Opportunity</h3>
+      <form id="postJobForm">
+        <div class="form-grid">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Job Title</label>
+              <input type="text" name="title" placeholder="e.g., Community Kitchen Cook" required />
+            </div>
+            <div class="form-group">
+              <label>Location</label>
+              <input type="text" name="location" placeholder="City, State" required />
+            </div>
+          </div>
+
+          <div class="form-group full-width">
+            <label>Detailed Description</label>
+            <textarea name="description"
+              placeholder="Describe the job responsibilities, requirements, and any other relevant details..."
+              required></textarea>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Work Type</label>
+              <select name="job_type" required>
+                <option value="">Select work type</option>
+                <option value="Full-time">Full-time</option>
+                <option value="Part-time">Part-time</option>
+                <option value="Contract">Contract</option>
+                <option value="Daily">Daily</option>
+                <option value="Weekly">Weekly</option>
+                <option value="Monthly">Monthly</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Estimated Wages/Compensation</label>
+              <input type="number" name="wage" placeholder="e.g., 500" required />
+            </div>
+            <div class="form-group">
+              <label>Contact Person</label>
+              <input type="text" placeholder="Name for applicant contact" />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Start Date</label>
+              <input type="text" placeholder="dd-mm-yyyy" />
+            </div>
+            <div class="form-group">
+              <label>End Date (if applicable)</label>
+              <input type="text" placeholder="dd-mm-yyyy" />
+            </div>
+          </div>
+
+          <div class="skills-section full-width">
+            <label>Required Skills</label>
+            <div class="skills-grid">
+              <div class="skill-checkbox">
+                <input type="checkbox" name="requirements" value="Cooking" id="cooking" />
+                <label for="cooking">Cooking</label>
+              </div>
+              <div class="skill-checkbox">
+                <input type="checkbox" name="requirements" value="Tailoring" id="tailoring" />
+                <label for="tailoring">Tailoring</label>
+              </div>
+              <div class="skill-checkbox">
+                <input type="checkbox" name="requirements" value="Cleaning" id="cleaning" />
+                <label for="cleaning">Cleaning</label>
+              </div>
+              <div class="skill-checkbox">
+                <input type="checkbox" name="requirements" value="Domestic Work" id="domestic" />
+                <label for="domestic">Domestic Work</label>
+              </div>
+              <div class="skill-checkbox">
+                <input type="checkbox" name="requirements" value="Construction" id="construction" />
+                <label for="construction">Construction</label>
+              </div>
+              <div class="skill-checkbox">
+                <input type="checkbox" name="requirements" value="Gardening" id="gardening" />
+                <label for="Gardening">Gardening</label>
+              </div>
+            </div>
+          </div>
+
+          <button type="submit" class="btn-publish">Publish Listing</button>
+        </div>
+      </form>
+    </div>
+
+    <div id="listings-section" class="listings-container hidden">
+      <div class="listings-header">
+        <h3>My Job Listings</h3>
+        <button class="btn-new" onclick="showSection('post', document.querySelector('.tabs button:first-child'))">
+          <span>✚</span> New Listing
+        </button>
+      </div>
+
+      <div class="job-card">
+        <div class="job-header">
+          <div>
+            <h4 class="job-title">Community Kitchen Cook</h4>
+            <div class="job-meta">
+              <span>📍 Mumbai, Maharashtra</span>
+              <span>📅 Posted 2024-01-10</span>
+            </div>
+          </div>
+          <span class="status-badge status-active">Active</span>
+        </div>
+
+        <div class="job-details">
+          <div class="detail-section">
+            <h4>Work Type</h4>
+            <div class="detail-value">Monthly</div>
+          </div>
+          <div class="detail-section">
+            <h4>Wage</h4>
+            <div class="detail-value">₹15,000/month</div>
+          </div>
+          <div class="detail-section">
+            <h4>Applicants</h4>
+            <div class="detail-value">👥 12</div>
+          </div>
+          <div class="detail-section">
+            <h4>Skills Required</h4>
+            <div class="skills-tags">
+              <span class="skill-tag">Cooking</span>
+              <span class="skill-tag">Food Safety</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="job-actions">
+          <button class="btn-action" onclick="showApplicants('Community Kitchen Cook', 12)">
+            👁 View Applicants
+          </button>
+          <button class="btn-action">✏️ Edit</button>
+          <button class="btn-action">Close Listing</button>
+          <button class="btn-action btn-delete">🗑 Delete</button>
+        </div>
+      </div>
+
+      <div class="job-card">
+        <div class="job-header">
+          <div>
+            <h4 class="job-title">Tailoring Trainer</h4>
+            <div class="job-meta">
+              <span>📍 Delhi, India</span>
+              <span>📅 Posted 2024-01-08</span>
+            </div>
+          </div>
+          <span class="status-badge status-active">Active</span>
+        </div>
+
+        <div class="job-details">
+          <div class="detail-section">
+            <h4>Work Type</h4>
+            <div class="detail-value">Weekly</div>
+          </div>
+          <div class="detail-section">
+            <h4>Wage</h4>
+            <div class="detail-value">₹8,000/month</div>
+          </div>
+          <div class="detail-section">
+            <h4>Applicants</h4>
+            <div class="detail-value">👥 7</div>
+          </div>
+          <div class="detail-section">
+            <h4>Skills Required</h4>
+            <div class="skills-tags">
+              <span class="skill-tag">Tailoring</span>
+              <span class="skill-tag">Teaching</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="job-actions">
+          <button class="btn-action" onclick="showApplicants('Tailoring Trainer', 7)">
+            👁 View Applicants
+          </button>
+          <button class="btn-action">✏️ Edit</button>
+          <button class="btn-action">Close Listing</button>
+          <button class="btn-action btn-delete">🗑 Delete</button>
+        </div>
+      </div>
+
+      <div class="job-card">
+        <div class="job-header">
+          <div>
+            <h4 class="job-title">Cleaning Services</h4>
+            <div class="job-meta">
+              <span>📍 Pune, Maharashtra</span>
+              <span>📅 Posted 2024-01-05</span>
+            </div>
+          </div>
+          <span class="status-badge status-closed">Closed</span>
+        </div>
+
+        <div class="job-details">
+          <div class="detail-section">
+            <h4>Work Type</h4>
+            <div class="detail-value">Daily</div>
+          </div>
+          <div class="detail-section">
+            <h4>Wage</h4>
+            <div class="detail-value">₹500/day</div>
+          </div>
+          <div class="detail-section">
+            <h4>Applicants</h4>
+            <div class="detail-value">👥 15</div>
+          </div>
+          <div class="detail-section">
+            <h4>Skills Required</h4>
+            <div class="skills-tags">
+              <span class="skill-tag">Cleaning</span>
+              <span class="skill-tag">Organization</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="job-actions">
+          <button class="btn-action" onclick="showApplicants('Cleaning Services', 15)">
+            👁 View Applicants
+          </button>
+          <button class="btn-action">✏️ Edit</button>
+          <button class="btn-action btn-delete">🗑 Delete</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="profile-section" class="form-container hidden">
+      <h3>🏢 My Organisation Profile</h3>
+      <p>Review and update your team's registration details.</p>
+      <div class="profile-card">
+        <h4>Organisation Details</h4>
+        <p>Loading profile...</p>
+      </div>
+      <div class="profile-card">
+        <h4>Primary Contact</h4>
+        <p>Loading...</p>
+      </div>
+      <div class="job-actions" style="text-align: left">
+        <a href="./rec_edit.html" class="btn-action">✏️ Edit Profile</a>
+      </div>
+    </div>
+  </div>
+
+  <div id="applicants-viewer" class="applicants-viewer hidden">
+    <div class="applicants-content">
+      <h3 id="applicant-job-title">Applicants for: Job Title</h3>
+      <p id="applicant-count">Total Applicants: 0</p>
+
+      <div id="applicant-list"></div>
+
+      <div class="job-actions">
+        <button class="btn-action" onclick="closeApplicants()">
+          Close Viewer
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div id="contact-modal" class="applicants-viewer hidden">
+    <div class="applicants-content">
+      <h3 id="contact-recipient-title">Send Message to Applicant</h3>
+
+      <form id="contactForm">
+        <div class="form-group">
+          <label>Subject</label>
+          <input type="text" id="contactSubject" placeholder="Initial contact for [Job Title]" required />
+        </div>
+
+        <div class="form-group">
+          <label>Your Message (Initial Invitation)</label>
+          <textarea id="contactBody" rows="5"
+            placeholder="Dear [Applicant Name], we were impressed by your profile and would like to schedule an interview..."
+            required></textarea>
+        </div>
+      </form>
+
+      <div class="job-actions" style="margin-top: 20px">
+        <button class="btn-action btn-contact" onclick="sendMessage()">
+          Send Secure Message
+        </button>
+        <button class="btn-action" onclick="closeContactModal()">
+          Cancel
+        </button>
+      </div>
+
+      <p class="help-text" style="text-align: center; margin-top: 15px; font-style: italic">
+        Note: Your message will be sent through the Job4Hope secure server to
+        protect applicant privacy.
+      </p>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-about">
+        <div class="logo">
+          <div class="logo-icon">
+            <img src="../assets/logo.png" alt="logo" />
+          </div>
+          <div class="logo-text">
+            <h3>Job4Hope</h3>
+            <p>Empowering Parents, Protecting Children</p>
+          </div>
+        </div>
+        <p style="margin-top: 1rem">
+          Together, we can create a future where every child has the right to
+          education and a safe childhood. Join our mission to end child labour
+          through skill-based employment opportunities for parents.
+        </p>
+      </div>
+
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="./parent_dash.html">Parents</a></li>
+          <li><a href="./rec_dash.html">Recruiters</a></li>
+          <li><a href="./edu_dash.html">Educators</a></li>
+          <li><a href="./report.html">Report Incident</a></li>
+          <li><a href="./about.html">About Us</a></li>
+          <li><a href="./contact.html">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-links">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="#privacy">Privacy Policy</a></li>
+          <li><a href="#terms">Terms of Service</a></li>
+          <li><a href="#data">Data Security & Privacy</a></li>
+        </ul>
+        <div class="footer-emergency">
+          <h4>Emergency</h4>
+          <p>Child Helpline: <strong>2006</strong></p>
+          <p>Email: <strong>contact@job4hope.org</strong></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>
+        © 2024 Job4Hope. All rights reserved. Building a world free from child
+        labour.
+      </p>
+    </div>
+  </footer>
+
+  <!-- Applicants Viewer Modal (Existing) -->
+  <div id="applicants-viewer" class="applicants-viewer hidden">
+    <!-- ... (existing structure) ... -->
+    <div class="applicants-content">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <h3 id="applicant-job-title" style="margin: 0;">Applicants</h3>
+        <button onclick="closeApplicants()"
+          style="background: none; border: none; font-size: 24px; cursor: pointer;">&times;</button>
+      </div>
+      <p id="applicant-count" style="margin-bottom: 20px; color: #666;"></p>
+      <div id="applicant-list"></div>
+    </div>
+  </div>
+
+  <!-- Applicant Full Profile Modal -->
+  <div id="applicant-profile-modal" class="applicants-viewer hidden" style="z-index: 1001;">
+    <div class="applicants-content" style="max-width: 500px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <h3 style="margin: 0;">Applicant Profile</h3>
+        <button onclick="closeApplicantProfile()"
+          style="background: none; border: none; font-size: 24px; cursor: pointer;">&times;</button>
+      </div>
+      <div id="full-profile-content">
+        <!-- Content populated by JS -->
+      </div>
+      <div style="margin-top: 20px; text-align: right;">
+        <button onclick="closeApplicantProfile()" class="btn-primary" style="padding: 8px 16px;">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast-container" style="position: fixed; top: 20px; right: 20px; z-index: 9999;"></div>
+
+  <script src="../js/api.js"></script>
+  <script src="../js/rec_dash.js"></script>
+  <script src="../js/responsive.js"></script>
+</body>
+
+</html>

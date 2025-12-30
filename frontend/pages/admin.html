@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job4Hope - Admin Dashboard</title>
+    <link rel="stylesheet" href="../style/admin.css" />
+    <link rel="icon" href="../assets/logo.png" />
+</head>
+
+<body>
+    <div class="admin-nav">
+        <h1>👑 Job4Hope Admin Panel</h1>
+        <div>Admin User | <a href="./sign_in.html" style="color: white; text-decoration: none;">Logout</a></div>
+    </div>
+
+    <div class="admin-content-wrapper">
+        <div class="sidebar">
+            <button class="tab active" onclick="showAdminSection('overview', this)">Dashboard Overview</button>
+            <button class="tab" onclick="showAdminSection('users', this)">User Management</button>
+            <button class="tab" onclick="showAdminSection('tracking', this)">Job & Enrollment Tracking</button>
+            <button class="tab" onclick="showAdminSection('content', this)">Content & Settings</button>
+        </div>
+
+        <div class="main-content">
+
+            <div id="overview-section" class="section active">
+                <h2>Dashboard Overview</h2>
+
+                <div class="alert-row">
+                    🔔 Critical Alerts: 5 New Partner Registrations | 3 Pending Job Approvals | 1 Child Protection
+                    Incident Report
+                </div>
+
+                <div class="stat-grid">
+                    <div class="stat-card">
+                        <h4>Total Parents Registered</h4>
+                        <p style="font-size: 2em; font-weight: bold; color: #1f3a69;">1,250</p>
+                    </div>
+                    <div class="stat-card">
+                        <h4>Jobs Currently Active</h4>
+                        <p style="font-size: 2em; font-weight: bold; color: #1f3a69;">84</p>
+                    </div>
+                    <div class="stat-card">
+                        <h4>Children Enrolled in Programs</h4>
+                        <p style="font-size: 2em; font-weight: bold; color: #1f3a69;">412</p>
+                    </div>
+                    <div class="stat-card">
+                        <h4>Pending Verifications</h4>
+                        <p style="font-size: 2em; font-weight: bold; color: #dc3545;">5</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="users-section" class="section">
+                <h2>User Management & Verification</h2>
+
+                <div class="stat-card">
+                    <h4>Pending Partner Registrations (Verification Required)</h4>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name / Org</th>
+                                <th>Type</th>
+                                <th>Submitted</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="pending-partners-body">
+                            <!-- Populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="stat-card">
+                    <h4>Parents Needing Education Placement Review</h4>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Parent Name</th>
+                                <th>Child Status</th>
+                                <th>Skills</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="parent-review-body">
+                            <!-- Populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="tracking-section" class="section">
+                <h2>Job & Enrollment Tracking</h2>
+
+                <div class="stat-card">
+                    <h4>Active Job Listings by Partner</h4>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Job Title</th>
+                                <th>Partner</th>
+                                <th>Applicants</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="active-jobs-body">
+                            <!-- Populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="stat-card">
+                    <h4>Program Enrollment Status</h4>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Child Name</th>
+                                <th>Program</th>
+                                <th>Partner</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="enrollments-body">
+                            <!-- Populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="content-section" class="section">
+                <h2>Content & Settings</h2>
+
+                <div class="stat-card">
+                    <h4>Manage Skill Categories</h4>
+                    <p>Add, remove, or edit the core skill categories available on the Parent registration form.</p>
+                    <button class="btn-action-small" style="background-color: #007bff;" onclick="openSkillsModal()">Edit
+                        Skills</button>
+                </div>
+
+                <div class="stat-card">
+                    <h4>Child Protection Incidents</h4>
+                    <p>Review and action any incident reports filed via the Report Incident page (1 pending).</p>
+
+                    <a href="./review_incident_report.html" class="btn-action-small"
+                        style="background-color: #dc3545; text-decoration: none;">
+                        Review Reports (1 Pending)
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Details Modal -->
+    <div id="user-details-modal" class="modal hidden"
+        style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center; display: none;">
+        <div class="modal-content"
+            style="background: white; padding: 2rem; border-radius: 8px; width: 90%; max-width: 500px; position: relative;">
+            <span class="close-btn" onclick="closeUserModal()"
+                style="position: absolute; top: 10px; right: 15px; font-size: 24px; cursor: pointer;">&times;</span>
+            <h3 style="border-bottom: 1px solid #eee; padding-bottom: 10px;">User Details</h3>
+
+            <div id="user-modal-content" style="margin-top: 15px;">
+                <!-- Populated by JS -->
+            </div>
+
+            <div style="margin-top: 20px; text-align: right;">
+                <button onclick="closeUserModal()"
+                    style="background-color: #6c757d; color: white; padding: 8px 16px; border: none; border-radius: 4px; cursor: pointer;">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Skills Management Modal -->
+    <div id="skills-modal" class="modal hidden"
+        style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center; display: none;">
+        <div class="modal-content"
+            style="background: white; padding: 20px; border-radius: 8px; width: 500px; position: relative;">
+            <span class="close-btn" onclick="closeSkillsModal()"
+                style="position: absolute; top: 10px; right: 15px; cursor: pointer; font-size: 20px;">&times;</span>
+            <h3 style="margin-top: 0;">Manage Skills</h3>
+
+            <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+                <input type="text" id="new-skill-input" placeholder="Enter new skill name"
+                    style="flex: 1; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                <button onclick="addNewSkill()" class="btn-primary"
+                    style="padding: 8px 16px; background-color: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer;">Add</button>
+            </div>
+
+            <div class="skills-list" style="max-height: 300px; overflow-y: auto;">
+                <table style="width: 100%; border-collapse: collapse;">
+                    <thead>
+                        <tr style="background: #f8f9fa;">
+                            <th style="padding: 8px; text-align: left;">Skill Name</th>
+                            <th style="padding: 8px; text-align: right;">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="skills-list-body">
+                        <!-- Skills will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div style="margin-top: 20px; text-align: right;">
+                <button onclick="closeSkillsModal()"
+                    style="background-color: #6c757d; color: white; padding: 8px 16px; border: none; border-radius: 4px; cursor: pointer;">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast-container" style="position: fixed; top: 20px; right: 20px; z-index: 9999;"></div>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/admin.js"></script>
+    <script src="../js/responsive.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Job4Hope - Where Jobs Meet Dreams</title>
+  <link rel="stylesheet" href="../style/form.css" />
+  <link rel="icon" href="../assets/logo.png" />
+  <style>
+    /* Basic styling for the children's blocks */
+    .child-details-static {
+      padding: 15px;
+      border: 1px solid var(--border-color);
+      border-radius: var(--border-radius);
+      margin-bottom: 20px;
+      background-color: var(--bg-lighter);
+    }
+
+    .child-details-static h4 {
+      margin-top: 0;
+      color: #007bff;
+      border-bottom: 1px dashed var(--border-light);
+      padding-bottom: 5px;
+      margin-bottom: 15px;
+    }
+
+    .child-details-static .help-text {
+      font-size: 0.9em;
+      color: var(--text-secondary);
+    }
+
+    /* CSS to hide the optional child forms initially */
+    .optional-child {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <a href="index.html" class="logo">
+      <div class="logo-icon">
+        <img src="../assets/logo.png" alt="logo" />
+      </div>
+      <div class="logo-text">
+        <h1>Job4Hope</h1>
+        <p>Where jobs meets dream</p>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="./parent_dash.html">Parents</a></li>
+      <li><a href="./rec_dash.html">Recruiters</a></li>
+      <li><a href="./edu_dash.html">Educators</a></li>
+      <li><a href="./report.html">Report Incident</a></li>
+      <li><a href="./protect.html">child protection</a></li>
+      <li><a href="./about.html">About Us</a></li>
+      <li><a href="./contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="./sign_in.html" class="btn btn-login">Login</a>
+    </div>
+  </nav>
+  <section>
+    <div class="form-wrapper">
+      <a href="../index.html" class="back-btn">← Back to registration options</a>
+
+      <div id="successMessage" class="success-message" style="display: none">
+        ✓ **Success!** Your profile has been created and submitted for review.
+      </div>
+
+      <div class="form-header">
+        <h2>Parent Profile Creation</h2>
+        <p>
+          Tell us about your skills and availability to connect with
+          opportunities.
+        </p>
+      </div>
+
+      <form id="parentRegForm">
+        <div class="form-section">
+          <h3 class="section-title">Personal Details</h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="fullName">Full Name <span class="required">*</span></label>
+              <input type="text" id="fullName" name="fullName" placeholder="Enter your full name" required />
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address <span class="required">*</span></label>
+              <input type="email" id="email" name="email" placeholder="youremail@example.com" required />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="phone">Phone Number <span class="required">*</span></label>
+              <input type="tel" id="phone" name="phone" placeholder="+91 XXXXX XXXXX" required />
+            </div>
+            <div class="form-group">
+              <label for="password">Password <span class="required">*</span></label>
+              <input type="password" id="password" name="password" placeholder="Create a password" required />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="location">City/Location <span class="required">*</span></label>
+              <input type="text" id="location" name="location" placeholder="City, State/Province" required />
+            </div>
+          </div>
+
+        </div>
+
+        <div class="form-section">
+          <h3 class="section-title">Skills & Experience</h3>
+          <div class="form-group">
+            <label>Your Skills <span class="required">*</span></label>
+            <p class="help-text">Select all skills that apply to you.</p>
+            <div class="checkbox-group">
+              <label class="checkbox-label">
+                <input type="checkbox" name="skills" value="cooking" />
+                <span>🍳 Cooking</span>
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" name="skills" value="tailoring" />
+                <span>✂️ Tailoring</span>
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" name="skills" value="cleaning" />
+                <span>🧹 Cleaning</span>
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" name="skills" value="domestic" />
+                <span>🏠 Domestic Work</span>
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" name="skills" value="construction" />
+                <span>🔨 Construction</span>
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" name="skills" value="gardening" />
+                <span>🌱 Gardening</span>
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" name="skills" value="teaching" />
+                <span>📚 Teaching</span>
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" name="skills" value="childcare" />
+                <span>👶 Childcare</span>
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" name="skills" value="food" />
+                <span>🍽️ Food Service</span>
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" name="skills" value="handicrafts" />
+                <span>🎨 Handicrafts</span>
+              </label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="experience">Work Experience Summary</label>
+            <textarea id="experience" name="experience"
+              placeholder="Briefly describe your relevant work history and experience (Optional)" rows="4"></textarea>
+            <p class="help-text">Max 500 characters.</p>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h3 class="section-title">Children's Information</h3>
+          <p class="help-text">
+            Please provide details for the children in your household (Ages
+            5-18). This helps us ensure their education and safety. Add more
+            children using the button below.
+          </p>
+
+          <div class="child-details-static">
+            <h4>Child 1 Details</h4>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="child1Name">Name</label>
+                <input type="text" id="child1Name" name="child1Name" placeholder="Child's Full Name" />
+              </div>
+              <div class="form-group">
+                <label for="child1Age">Age (5-18)</label>
+                <input type="number" id="child1Age" name="child1Age" min="5" max="18" placeholder="Age" />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="child1Grade">Current Grade/Class (Optional)</label>
+                <input type="text" id="child1Grade" name="child1Grade" placeholder="e.g., Class 5, Standard 8" />
+              </div>
+              <div class="form-group">
+                <label for="child1Status">Current School Status</label>
+                <select id="child1Status" name="child1Status">
+                  <option value="" disabled selected>Select Status</option>
+                  <option value="attending">
+                    Attending School Regularly
+                  </option>
+                  <option value="newly_enrolling">
+                    Needs to be Newly Enrolled
+                  </option>
+                  <option value="drop_out">Needs Re-enrollment</option>
+                  <option value="not_applicable">Not Applicable</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="child1Interests">Interests/Hobbies</label>
+              <input type="text" id="child1Interests" name="child1Interests"
+                placeholder="e.g., Reading, Cricket, Drawing" />
+            </div>
+          </div>
+
+          <div id="child2Block" class="child-details-static optional-child">
+            <h4>Child 2 Details</h4>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="child2Name">Name</label>
+                <input type="text" id="child2Name" name="child2Name" placeholder="Child's Full Name" />
+              </div>
+              <div class="form-group">
+                <label for="child2Age">Age (5-18)</label>
+                <input type="number" id="child2Age" name="child2Age" min="5" max="18" placeholder="Age" />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="child2Grade">Current Grade/Class (Optional)</label>
+                <input type="text" id="child2Grade" name="child2Grade" placeholder="e.g., Class 5, Standard 8" />
+              </div>
+              <div class="form-group">
+                <label for="child2Status">Current School Status</label>
+                <select id="child2Status" name="child2Status">
+                  <option value="" disabled selected>Select Status</option>
+                  <option value="attending">
+                    Attending School Regularly
+                  </option>
+                  <option value="newly_enrolling">
+                    Needs to be Newly Enrolled
+                  </option>
+                  <option value="drop_out">Needs Re-enrollment</option>
+                  <option value="not_applicable">Not Applicable</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="child2Interests">Interests/Hobbies</label>
+              <input type="text" id="child2Interests" name="child2Interests"
+                placeholder="e.g., Reading, Cricket, Drawing" />
+            </div>
+          </div>
+
+          <div id="child3Block" class="child-details-static optional-child">
+            <h4>Child 3 Details</h4>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="child3Name">Name</label>
+                <input type="text" id="child3Name" name="child3Name" placeholder="Child's Full Name" />
+              </div>
+              <div class="form-group">
+                <label for="child3Age">Age (5-18)</label>
+                <input type="number" id="child3Age" name="child3Age" min="5" max="18" placeholder="Age" />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="child3Grade">Current Grade/Class (Optional)</label>
+                <input type="text" id="child3Grade" name="child3Grade" placeholder="e.g., Class 5, Standard 8" />
+              </div>
+              <div class="form-group">
+                <label for="child3Status">Current School Status</label>
+                <select id="child3Status" name="child3Status">
+                  <option value="" disabled selected>Select Status</option>
+                  <option value="attending">
+                    Attending School Regularly
+                  </option>
+                  <option value="newly_enrolling">
+                    Needs to be Newly Enrolled
+                  </option>
+                  <option value="drop_out">Needs Re-enrollment</option>
+                  <option value="not_applicable">Not Applicable</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="child3Interests">Interests/Hobbies</label>
+              <input type="text" id="child3Interests" name="child3Interests"
+                placeholder="e.g., Reading, Cricket, Drawing" />
+            </div>
+          </div>
+
+          <button type="button" class="btn-addChild" onclick="addChildBlock()">
+            + Add Another Child
+          </button>
+          <p id="limitMessage" class="help-text" style="display: none; color: #dc3545; margin-top: 10px;">
+            Maximum of 3 children's details collected per form.
+          </p>
+        </div>
+        <div class="form-section">
+          <h3 class="section-title">Availability</h3>
+          <div class="form-group">
+            <label>Work Availability <span class="required">*</span></label>
+            <p class="help-text">When are you available to work?</p>
+            <div class="checkbox-group">
+              <label class="checkbox-label">
+                <input type="checkbox" name="availability" value="daily" />
+                <span>Daily (Full Time)</span>
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" name="availability" value="weekly" />
+                <span>Weekly (Part Time)</span>
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" name="availability" value="flexible" />
+                <span>Flexible Hours</span>
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" name="availability" value="contract" />
+                <span>Contract Basis</span>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="form-actions">
+          <button type="submit" id="submitBtn" class="btn-submit side">Create Profile</button>
+        </div>
+      </form>
+
+      <p class="signin-link">
+        Already have an account? <a href="./sign_in.html">Sign in here</a>
+      </p>
+    </div>
+  </section>
+  <footer>
+    <div class="footer-content">
+      <div class="footer-about">
+        <div class="logo">
+          <div class="logo-icon">
+            <img src="../assets/logo.png" alt="logo" />
+          </div>
+          <div class="logo-text">
+            <h3>Job4Hope</h3>
+            <p>Empowering Parents, Protecting Children</p>
+          </div>
+        </div>
+        <p style="margin-top: 1rem">
+          Together, we can create a future where every child has the right to
+          education and a safe childhood. Join our mission to end child labour
+          through skill-based employment opportunities for parents.
+        </p>
+      </div>
+
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="./parent_dash.html">Parents</a></li>
+          <li><a href="./rec_dash.html">Recruiters</a></li>
+          <li><a href="./edu_dash.html">Educators</a></li>
+          <li><a href="./report.html">Report Incident</a></li>
+          <li><a href="./about.html">About Us</a></li>
+          <li><a href="./contact.html">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-links">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="#privacy">Privacy Policy</a></li>
+          <li><a href="#terms">Terms of Service</a></li>
+          <li><a href="#data">Data Security & Privacy</a></li>
+        </ul>
+        <div class="footer-emergency">
+          <h4>Emergency</h4>
+          <p>Child Helpline: <strong>2006</strong></p>
+          <p>Email: <strong>contact@job4hope.org</strong></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>
+        © 2024 Job4Hope. All rights reserved. Building a world free from child
+        labour.
+      </p>
+    </div>
+  </footer>
+
+  <script src="../js/api.js"></script>
+  <script src="../js/parent_form.js"></script>
+  <script src="../js/responsive.js"></script>
+</body>
+
+</html>

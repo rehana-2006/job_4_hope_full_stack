@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Job4Hope - Edit Educational Partner Profile</title>
+  <link rel="stylesheet" href="../style/form.css" />
+  <link rel="icon" href="../assets/logo.png" />
+  <style>
+    /* Style for the Save Changes button */
+    .btn-update {
+      background-color: #007bff;
+      /* Primary color */
+      color: white;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1.1em;
+      width: 100%;
+      margin-top: 20px;
+    }
+
+    /* Style for verification note */
+    .verification-note {
+      background-color: #f0f0f0;
+      border: 1px solid #ddd;
+      padding: 15px;
+      border-radius: 4px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <a href="index.html" class="logo">
+      <div class="logo-icon">
+        <img src="../assets/logo.png" alt="logo" />
+      </div>
+      <div class="logo-text">
+        <h1>Job4Hope</h1>
+        <p>Where jobs meets dream</p>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="./parent_dash.html">Parents</a></li>
+      <li><a href="./rec_dash.html">Recruiters</a></li>
+      <li><a href="./edu_dash.html">Educators</a></li>
+      <li><a href="./report.html">Report Incident</a></li>
+      <li><a href="./protect.html">child protection</a></li>
+      <li><a href="./about.html">About Us</a></li>
+      <li><a href="./contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="./sign_in.html" class="btn btn-login">Login</a>
+    </div>
+  </nav>
+
+  <section>
+    <div class="form-wrapper">
+      <a href="./edu_dash.html" class="back-btn">← Back to Dashboard</a>
+
+      <div class="form-header">
+        <h2>Edit Educational Organisation Profile</h2>
+        <p>
+          Update your capacity, specializations, and contact information to
+          maximize child placements.
+        </p>
+      </div>
+
+      <form id="educationalProfileEditForm">
+        <div class="form-section">
+          <h3 class="section-title">🏢 Organisation Details</h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="orgName">Organisation Name <span class="required">*</span></label>
+              <input type="text" id="orgName" name="orgName" value="City Education Trust" required />
+            </div>
+            <div class="form-group">
+              <label for="orgType">Organisation Type <span class="required">*</span></label>
+              <select id="orgType" name="orgType" required>
+                <option value="school">School/Tuition Centre</option>
+                <option value="ngo_edu" selected>Educational NGO</option>
+                <option value="vocational">Vocational Training Centre</option>
+                <option value="govt_edu">Government Education Program</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="description">Organisation Mission/Focus
+              <span class="required">*</span></label>
+            <textarea id="description" name="description" rows="4" required>
+Focuses on basic literacy and numeracy for children pulled out of the workforce, supporting ages 6-12.</textarea>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h3 class="section-title">📚 Capacity & Specialization</h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="capacity">Maximum Children You Can Teach
+                <span class="required">*</span></label>
+              <input type="number" id="capacity" name="capacity" min="1" value="50" required />
+              <p class="help-text">
+                Total enrollment capacity dedicated to Job4Hope referrals.
+              </p>
+            </div>
+            <div class="form-group">
+              <label for="ageRange">Target Age/Grade Range <span class="required">*</span></label>
+              <input type="text" id="ageRange" name="ageRange" value="Ages 6-12, Grades 1-7" required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Areas of Specialization <span class="required">*</span></label>
+            <p class="help-text">Update your core areas of expertise.</p>
+            <div class="checkbox-group">
+              <label class="checkbox-label">
+                <input type="checkbox" name="specialization" value="primary" checked />
+                <span>Primary Education (Ages 5-10)</span>
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" name="specialization" value="secondary" />
+                <span>Secondary Education (Ages 11-16)</span>
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" name="specialization" value="remediation" checked />
+                <span>Academic Remediation/Catch-up</span>
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" name="specialization" value="vocational" />
+                <span>Vocational/Skill Training</span>
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" name="specialization" value="digital" />
+                <span>Digital/Computer Literacy</span>
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" name="specialization" value="arts" />
+                <span>Arts & Creative Skills</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h3 class="section-title">📞 Primary Contact Details</h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="contactName">Contact Person Name <span class="required">*</span></label>
+              <input type="text" id="contactName" name="contactName" value="Geeta Rao" required />
+            </div>
+            <div class="form-group">
+              <label for="jobTitle">Job Title/Position <span class="required">*</span></label>
+              <input type="text" id="jobTitle" name="jobTitle" value="Program Director" required />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="email">Contact Email <span class="required">*</span></label>
+              <input type="email" id="email" name="email" value="geeta.rao@citytrust.org" required />
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone Number <span class="required">*</span></label>
+              <input type="tel" id="phone" name="phone" value="+91 88776 65544" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="website">Website (Optional)</label>
+            <input type="url" id="website" name="website" value="https://cityeducationtrust.org" />
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h3 class="section-title">📍 Location Details</h3>
+          <div class="form-group">
+            <label for="address">Complete Address <span class="required">*</span></label>
+            <textarea id="address" name="address" rows="3" required>
+45, Community Center Road, Pune</textarea>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="city">City <span class="required">*</span></label>
+              <input type="text" id="city" name="city" value="Pune" required />
+            </div>
+            <div class="form-group">
+              <label for="state">State <span class="required">*</span></label>
+              <input type="text" id="state" name="state" value="Maharashtra" required />
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h3 class="section-title">📄 Verification Documents</h3>
+          <div class="form-group">
+            <label for="documents">Upload Updated Documents (Optional)</label>
+            <div class="file-input-wrapper">
+              <input type="file" id="documents" name="documents" class="file-input" multiple />
+            </div>
+            <p class="help-text">
+              Upload new educational accreditation or registration documents
+              only if details have changed.
+            </p>
+          </div>
+          <div class="verification-note">
+            <strong>Current Verification Status:</strong> Verified on
+            2025-01-20.
+          </div>
+        </div>
+
+        <button type="submit" class="btn-update">Save Changes</button>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-about">
+        <div class="logo">
+          <div class="logo-icon">
+            <img src="../assets/logo.png" alt="logo" />
+          </div>
+          <div class="logo-text">
+            <h3>Job4Hope</h3>
+            <p>Empowering Parents, Protecting Children</p>
+          </div>
+        </div>
+        <p style="margin-top: 1rem">
+          Together, we can create a future where every child has the right to
+          education and a safe childhood. Join our mission to end child labour
+          through skill-based employment opportunities for parents.
+        </p>
+      </div>
+
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="./parent_dash.html">Parents</a></li>
+          <li><a href="./rec_dash.html">Recruiters</a></li>
+          <li><a href="./edu_dash.html">Educators</a></li>
+          <li><a href="./report.html">Report Incident</a></li>
+          <li><a href="./protect.html">child protection</a></li>
+          <li><a href="./about.html">About Us</a></li>
+          <li><a href="./contact.html">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-links">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="#privacy">Privacy Policy</a></li>
+          <li><a href="#terms">Terms of Service</a></li>
+          <li><a href="#data">Data Security & Privacy</a></li>
+        </ul>
+        <div class="footer-emergency">
+          <h4>Emergency</h4>
+          <p>Child Helpline: <strong>2006</strong></p>
+          <p>Email: <strong>contact@job4hope.org</strong></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>
+        © 2024 Job4Hope. All rights reserved. Building a world free from child
+        labour.
+      </p>
+    </div>
+  </footer>
+
+  <script src="../js/api.js"></script>
+  <script src="../js/edu_edit.js"></script>
+  <script src="../js/responsive.js"></script>
+</body>
+
+</html>

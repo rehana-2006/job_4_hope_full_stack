@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Job4Hope - Update Enrollment Status</title>
+  <link rel="stylesheet" href="../style/form.css" />
+  <link rel="icon" href="../assets/logo.png" />
+  <style>
+    /* Reusing common form styles, plus specifics for status update */
+    .btn-status-update {
+      background-color: #007bff;
+      color: white;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1.1em;
+      width: 100%;
+      margin-top: 20px;
+    }
+
+    .current-status-box {
+      background-color: #e9f7ff;
+      border: 1px solid #007bff;
+      padding: 15px;
+      border-radius: 5px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .status-badge {
+      font-size: 1.2em;
+      font-weight: bold;
+      padding: 5px 10px;
+      border-radius: 4px;
+      display: inline-block;
+      margin-top: 5px;
+    }
+
+    .status-enrolled {
+      background-color: #28a745;
+      color: white;
+    }
+
+    .status-pending {
+      background-color: #ffc107;
+      color: #333;
+    }
+
+    .status-rejected {
+      background-color: #dc3545;
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <a href="index.html" class="logo">
+      <div class="logo-icon">
+        <img src="../assets/logo.png" alt="logo" />
+      </div>
+      <div class="logo-text">
+        <h1>Job4Hope</h1>
+        <p>Where jobs meets dream</p>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="./parent_dash.html">Parents</a></li>
+      <li><a href="./rec_dash.html">Recruiters</a></li>
+      <li><a href="./edu_dash.html">Educators</a></li>
+      <li><a href="./report.html">Report Incident</a></li>
+      <li><a href="./protect.html">child protection</a></li>
+      <li><a href="./about.html">About Us</a></li>
+      <li><a href="./contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="./sign_in.html" class="btn btn-login">Login</a>
+    </div>
+  </nav>
+
+  <section>
+    <div class="form-wrapper">
+      <a href="./edu_dash.html" class="back-btn">← Back to Dashboard</a>
+
+      <div class="form-header">
+        <h2>Update Enrollment Status</h2>
+        <p>Child: Rohan Sharma (Age 8) | Program: Summer Literacy Camp</p>
+      </div>
+
+      <div class="current-status-box">
+        Current Status:
+        <span class="status-badge status-pending">PENDING REVIEW</span>
+      </div>
+
+      <form id="statusUpdateForm">
+        <div class="form-section">
+          <h3 class="section-title">Change Status</h3>
+
+          <div class="form-group">
+            <label for="newStatus">New Status <span class="required">*</span></label>
+            <select id="newStatus" name="newStatus" required>
+              <option value="" disabled selected>Select New Status</option>
+              <option value="approved">Approve & Enroll</option>
+              <option value="pending">Keep Pending Review</option>
+              <option value="complete">Program Complete</option>
+              <option value="drop_out">Dropped Out</option>
+              <option value="rejected">Rejected</option>
+            </select>
+            <p class="help-text">
+              Approving enrollment will notify the parent and Job4Hope staff.
+            </p>
+          </div>
+
+          <div class="form-group">
+            <label for="updateDetails">Notes / Reason for Status Change (Mandatory for
+              Rejected/Dropped Out)</label>
+            <textarea id="updateDetails" name="updateDetails" rows="4"
+              placeholder="Enter any important updates, performance notes, or reasons for rejection/drop-out..."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="dateEffective">Date of Status Change</label>
+            <input type="date" id="dateEffective" name="dateEffective" value="2025-12-14" />
+          </div>
+        </div>
+
+        <button type="submit" class="btn-status-update">
+          Save Status Update
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-about">
+        <div class="logo">
+          <div class="logo-icon">
+            <img src="../assets/logo.png" alt="logo" />
+          </div>
+          <div class="logo-text">
+            <h3>Job4Hope</h3>
+            <p>Empowering Parents, Protecting Children</p>
+          </div>
+        </div>
+        <p style="margin-top: 1rem">
+          Together, we can create a future where every child has the right to
+          education and a safe childhood. Join our mission to end child labour
+          through skill-based employment opportunities for parents.
+        </p>
+      </div>
+
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="./parent_dash.html">Parents</a></li>
+          <li><a href="./rec_dash.html">Recruiters</a></li>
+          <li><a href="./edu_dash.html">Educators</a></li>
+          <li><a href="./report.html">Report Incident</a></li>
+          <li><a href="./about.html">About Us</a></li>
+          <li><a href="./contact.html">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-links">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="#privacy">Privacy Policy</a></li>
+          <li><a href="#terms">Terms of Service</a></li>
+          <li><a href="#data">Data Security & Privacy</a></li>
+        </ul>
+        <div class="footer-emergency">
+          <h4>Emergency</h4>
+          <p>Child Helpline: <strong>2006</strong></p>
+          <p>Email: <strong>contact@job4hope.org</strong></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>
+        © 2024 Job4Hope. All rights reserved. Building a world free from child
+        labour.
+      </p>
+    </div>
+  </footer>
+  <script src="../js/responsive.js"></script>
+</body>
+
+</html>

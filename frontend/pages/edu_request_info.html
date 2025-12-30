@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job4Hope - Request Information</title>
+    <link rel="stylesheet" href="../style/form.css" />
+    <link rel="icon" href="../assets/logo.png" />
+    <style>
+        .btn-send-request {
+            background-color: #dc3545;
+            /* Red for urgency/attention */
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1em;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .help-note {
+            background-color: #fff8e1;
+            border: 1px solid #ffecb3;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+    </nav>
+
+    <section>
+        <div class="form-wrapper">
+            <a href="./edu_dash.html" class="back-btn">← Back to Dashboard</a>
+
+            <div class="form-header">
+                <h2>Request More Information</h2>
+                <p>Request specific details about Sita Devi (Age 14) before approving enrollment.</p>
+            </div>
+
+            <div class="help-note">
+                <strong>Important:</strong> This message is sent securely to the Job4Hope administration team, who will
+                liaise with the parent for the necessary details.
+            </div>
+
+            <form id="infoRequestForm">
+                <div class="form-section">
+                    <h3 class="section-title">Query Details</h3>
+
+                    <div class="form-group">
+                        <label for="childName">Child Name (Read-Only)</label>
+                        <input type="text" id="childName" value="Sita Devi (Age 14)" readonly>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="programName">Program (Read-Only)</label>
+                        <input type="text" id="programName" value="Vocational Guidance Counseling" readonly>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="subject">Subject/Query Title <span class="required">*</span></label>
+                        <input type="text" id="subject" name="subject"
+                            placeholder="e.g., Needs Re-enrollment Proof, Current Address Confirmation" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="requestBody">Detailed Request/Questions <span class="required">*</span></label>
+                        <textarea id="requestBody" name="requestBody" rows="6"
+                            placeholder="Please list the information required to proceed with the enrollment approval..."></textarea>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-send-request">Send Secure Information Request</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+    </footer>
+    <script src="../js/responsive.js"></script>
+</body>
+
+</html>

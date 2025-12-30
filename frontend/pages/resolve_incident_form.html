@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job4Hope - Admin: Resolve Incident</title>
+    <link rel="icon" href="../assets/logo.png" />
+    <style>
+        /* Shared Styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 0;
+        }
+
+        .admin-nav {
+            background-color: #1f3a69;
+            color: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .admin-nav h1 {
+            margin: 0;
+            font-size: 1.5em;
+        }
+
+        .form-wrapper {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-bottom: 20px;
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+        }
+
+        h2 {
+            color: #28a745;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 10px;
+            margin-bottom: 25px;
+        }
+
+        /* Form Specifics */
+        .form-section {
+            padding: 20px;
+            border: 1px solid #28a745;
+            border-radius: 8px;
+            background-color: #f7fff7;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .form-group input[type="text"],
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .btn-resolve-final {
+            background-color: #28a745;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+        }
+
+        .metadata-box {
+            background-color: #e6ffe6;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+
+        .current-status-box {
+            background-color: #ffc107;
+            padding: 10px;
+            border-radius: 4px;
+            color: #333;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .admin-nav {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+
+            .form-wrapper {
+                margin: 20px 10px;
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="admin-nav">
+        <h1>👑 Job4Hope Admin Panel</h1>
+        <div>Admin User | <a href="./sign_in.html" style="color: white; text-decoration: none;">Logout</a></div>
+    </div>
+
+    <div class="form-wrapper">
+        <a href="./admin.html" class="back-btn">← Back to Dashboard</a>
+
+        <div class="form-header">
+            <h2>Final Resolution: Close Incident Report</h2>
+        </div>
+
+        <div class="current-status-box">
+            Current Status: INVESTIGATING
+        </div>
+
+        <div class="form-section">
+            <h3>Incident Metadata</h3>
+            <div class="metadata-box">
+                **Report ID:** #98765<br>
+                **Initial Classification:** High (Child Labor/Neglect concern)<br>
+                **Routed To:** Educational Partner: City Education Trust
+            </div>
+        </div>
+
+        <form id="resolveIncidentForm">
+            <div class="form-section">
+                <h3>Resolution Details</h3>
+
+                <div class="form-group">
+                    <label for="resolution_status">Final Resolution Status <span class="required">*</span></label>
+                    <select id="resolution_status" name="resolution_status" required>
+                        <option value="" disabled selected>Select Final Status</option>
+                        <option value="resolved_successful">Resolved - Successful Intervention</option>
+                        <option value="resolved_noaction">Resolved - No Action Required</option>
+                        <option value="closed_unresolved">Closed - Unresolved (Requires Documentation)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="resolution_notes">Final Resolution Summary / Admin Notes <span
+                            class="required">*</span></label>
+                    <textarea id="resolution_notes" name="resolution_notes" rows="8"
+                        placeholder="Document the steps taken, the outcome of the partner's conversation with the parent, and any measures put in place to prevent recurrence."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="date_resolved">Date of Final Resolution</label>
+                    <input type="date" id="date_resolved" name="date_resolved" value="2025-12-14">
+                </div>
+            </div>
+
+            <button type="submit" class="btn-resolve-final">Archive & Mark RESOLVED</button>
+        </form>
+    </div>
+    <script src="../js/responsive.js"></script>
+</body>
+
+</html>

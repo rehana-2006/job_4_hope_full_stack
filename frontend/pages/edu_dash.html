@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job4Hope - Educational Partner Dashboard</title>
+    <link rel="stylesheet" href="../style/edu_dash.css" />
+    <link rel="icon" href="../assets/logo.png" />
+    <style>
+        /* Styles specific to this dashboard */
+        .content {
+            padding: 20px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .profile-card,
+        .enrollment-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 15px;
+            background-color: #f9f9f9;
+        }
+
+        .profile-card h4,
+        .enrollment-card h4 {
+            color: #007bff;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .status-badge.status-enrolled {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .status-badge.status-pending {
+            background-color: #ffc107;
+            color: #333;
+        }
+
+        .enrollment-details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 10px;
+        }
+
+        .enrollment-details div {
+            flex: 1 1 45%;
+        }
+
+        .enrollment-actions {
+            margin-top: 15px;
+            text-align: right;
+        }
+
+        .enrollment-actions .btn-action {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 5px;
+            text-decoration: none;
+            /* For the <a> tags */
+            display: inline-block;
+        }
+
+        .enrollment-actions .btn-status,
+        .enrollment-actions .btn-approve {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .enrollment-actions .btn-view {
+            background-color: #6c757d;
+            color: white;
+        }
+
+        .enrollment-actions .btn-request {
+            background-color: #ffc107;
+            color: #333;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <a href="../index.html" class="logo">
+            <div class="logo-icon">
+                <img src="../assets/logo.png" alt="logo" />
+            </div>
+            <div class="logo-text">
+                <h1>Job4Hope</h1>
+                <p>Where jobs meets dream</p>
+            </div>
+        </a>
+        <ul class="nav-links">
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="./parent_dash.html">Parents</a></li>
+            <li><a href="./rec_dash.html">Recruiters</a></li>
+            <li><a href="./edu_dash.html">Educators</a></li>
+            <li><a href="./report.html">Report Incident</a></li>
+            <li><a href="./protect.html">child protection</a></li>
+            <li><a href="./about.html">About Us</a></li>
+            <li><a href="./contact.html">Contact</a></li>
+        </ul>
+        <div class="nav-actions">
+            <a href="./sign_in.html" class="btn btn-login">Login</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <h2>Empower the Next Generation Through Education</h2>
+        <p>Manage your program listings and enroll children whose parents have secured fair employment through Job4Hope.
+        </p>
+        <a href="./edu_form.html" class="btn-primary">
+            <span>🎓</span> Register Your Organisation
+        </a>
+    </section>
+
+    <div class="content">
+        <div class="tabs">
+            <button class="tab active" onclick="showSection('post', this)">
+                <span>✚</span> Post Program / Enrollment
+            </button>
+            <button class="tab" onclick="showSection('enrollments', this)">
+                <span>✅</span> My Enrollments
+            </button>
+            <button class="tab" onclick="showSection('profile', this)">
+                <span>🏢</span> My Profile
+            </button>
+        </div>
+
+        <div id="post-section" class="form-container">
+            <h3>Post a New Educational Program</h3>
+            <form id="postProgramForm">
+                <div class="form-grid">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Program Name</label>
+                            <input type="text" name="title" placeholder="e.g., Summer Literacy Camp" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Location (City/Online)</label>
+                            <input type="text" name="location" placeholder="Physical Address or 'Online'" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label>Detailed Curriculum / Description</label>
+                        <textarea name="description" placeholder="Describe the learning outcomes..."
+                            required></textarea>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Max Enrollment Capacity</label>
+                            <input type="number" name="capacity" min="1" placeholder="e.g., 30" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Target Age Group</label>
+                            <input type="text" name="target_age_group" placeholder="e.g., 6-10" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Program Type</label>
+                            <select name="program_type" required>
+                                <option value="">Select type</option>
+                                <option value="Academic Remediation">Academic Remediation</option>
+                                <option value="Skill Training / Vocational">Skill Training / Vocational</option>
+                                <option value="After-School Tutoring">After-School Tutoring</option>
+                                <option value="Digital Literacy">Digital Literacy</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Start Date</label>
+                            <input type="date" name="start_date" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Program Duration</label>
+                            <input type="text" name="duration" placeholder="e.g., 8 weeks" required>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-publish">Publish Program</button>
+                </div>
+            </form>
+        </div>
+
+        <div id="enrollments-section" class="listings-container hidden">
+            <div class="listings-header">
+                <h3>Children Enrollment Status</h3>
+            </div>
+
+            <div class="enrollment-card">
+                <div class="job-header">
+                    <div>
+                        <h4 class="job-title">Rohan Sharma (Age 8)</h4>
+                        <div class="job-meta">
+                            <span>Program: Summer Literacy Camp</span>
+                            <span>Parent: Priya Sharma</span>
+                        </div>
+                    </div>
+                    <span class="status-badge status-enrolled">Enrolled</span>
+                </div>
+                <div class="enrollment-details">
+                    <div><strong>Start Date:</strong> June 10, 2026</div>
+                    <div><strong>Parent Contact:</strong> [Secure Link]</div>
+                    <div><strong>Special Need:</strong> Requires catch-up in Math</div>
+                </div>
+                <div class="enrollment-actions">
+                    <a href="./edu_update_enroll.html" class="btn-action btn-status">Update Status</a>
+                    <a href="./edu_view_profile.html" class="btn-action btn-view">View Full Profile</a>
+                </div>
+            </div>
+
+            <div class="enrollment-card">
+                <div class="job-header">
+                    <div>
+                        <h4 class="job-title">Sita Devi (Age 14)</h4>
+                        <div class="job-meta">
+                            <span>Program: Vocational Guidance Counseling</span>
+                            <span>Parent: Asha Devi</span>
+                        </div>
+                    </div>
+                    <span class="status-badge status-pending">Review Pending</span>
+                </div>
+                <div class="enrollment-details">
+                    <div><strong>Requested Date:</strong> May 15, 2026</div>
+                    <div><strong>Parent Contact:</strong> [Secure Link]</div>
+                    <div><strong>Special Need:</strong> Needs re-enrollment assistance</div>
+                </div>
+                <div class="enrollment-actions">
+                    <a href="./edu_update_enroll.html" class="btn-action btn-approve">Approve Enrollment</a>
+                    <a href="./edu_request_info.html" class="btn-action btn-request">Request More Info</a>
+                    <a href="./edu_view_profile.html" class="btn-action btn-view">View Full Profile</a>
+                </div>
+            </div>
+        </div>
+
+        <div id="profile-section" class="form-container hidden">
+            <h3>🏢 My Organisation Profile</h3>
+            <p>Review and update your educational capacity and contact details.</p>
+            <div class="profile-card">
+                <h4>Organisation Details</h4>
+                <p>Loading profile...</p>
+            </div>
+            <div class="profile-card">
+                <h4>Specialization & Focus</h4>
+                <p>Loading...</p>
+            </div>
+            <div class="job-actions" style="text-align: left;">
+                <a href="./edu_edit.html" class="btn-action btn-status">✏️ Edit Profile & Capacity</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-about">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <img src="../assets/logo.png" alt="logo" />
+                    </div>
+                    <div class="logo-text">
+                        <h3>Job4Hope</h3>
+                        <p>Empowering Parents, Protecting Children</p>
+                    </div>
+                </div>
+                <p style="margin-top: 1rem;">Together, we can create a future where every child has the right to
+                    education and a safe childhood. Join our mission to end child labour through skill-based employment
+                    opportunities for parents.</p>
+            </div>
+
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="./parent_dash.html">Parents</a></li>
+                    <li><a href="./rec_dash.html">Recruiters</a></li>
+                    <li><a href="./edu_dash.html">Educators</a></li>
+                    <li><a href="./report.html">Report Incident</a></li>
+                    <li><a href="./protect.html">child protection</a></li>
+                    <li><a href="./about.html">About Us</a></li>
+                    <li><a href="./contact.html">Contact</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-links">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#privacy">Privacy Policy</a></li>
+                    <li><a href="#terms">Terms of Service</a></li>
+                    <li><a href="#data">Data Security & Privacy</a></li>
+                </ul>
+                <div class="footer-emergency">
+                    <h4>Emergency</h4>
+                    <p>Child Helpline: <strong>2006</strong></p>
+                    <p>Email: <strong>contact@job4hope.org</strong></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2024 Job4Hope. All rights reserved. Building a world free from child labour.</p>
+        </div>
+    </footer>
+
+    <!-- Data goes here -->
+    </div>
+    </div>
+    </div>
+
+    <!-- Enrollment Modal -->
+    <div id="enrollment-modal" class="modal hidden"
+        style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center; display: none;">
+        <div class="modal-content"
+            style="background: white; padding: 2rem; border-radius: 8px; width: 90%; max-width: 800px; max-height: 80vh; overflow-y: auto; position: relative;">
+            <span class="close-btn" onclick="closeModal()"
+                style="position: absolute; top: 10px; right: 15px; font-size: 24px; cursor: pointer;">&times;</span>
+            <h3 id="enrollment-modal-title">Enrollments</h3>
+            <div id="enrollment-list" style="margin-top: 15px;">
+                <!-- items go here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Student Detail Modal -->
+    <div id="student-detail-modal" class="modal hidden"
+        style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1100; justify-content: center; align-items: center; display: none;">
+        <div class="modal-content"
+            style="background: white; padding: 2rem; border-radius: 8px; width: 90%; max-width: 400px; position: relative;">
+            <span class="close-btn" onclick="closeStudentDetail()"
+                style="position: absolute; top: 10px; right: 15px; font-size: 24px; cursor: pointer;">&times;</span>
+            <h3 style="color: #007bff; border-bottom: 2px solid #eee; padding-bottom: 10px; margin-top: 0;">Student &
+                Parent Details</h3>
+            <div id="student-detail-content" style="margin-top: 20px;">
+                <!-- dynamic content -->
+            </div>
+            <button onclick="closeStudentDetail()"
+                style="width: 100%; background: #6c757d; color: white; padding: 10px; border: none; border-radius: 4px; margin-top: 20px; cursor: pointer;">Close</button>
+        </div>
+    </div>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/edu_dash.js"></script>
+    <script src="../js/responsive.js"></script>
+</body>
+
+</html>

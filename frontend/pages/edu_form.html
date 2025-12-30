@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Job4Hope - Educational Partner Registration</title>
+  <link rel="stylesheet" href="../style/form.css" />
+  <link rel="icon" href="../assets/logo.png" />
+</head>
+
+<body>
+  <nav>
+    <a href="index.html" class="logo">
+      <div class="logo-icon">
+        <img src="../assets/logo.png" alt="logo" />
+      </div>
+      <div class="logo-text">
+        <h1>Job4Hope</h1>
+        <p>Where jobs meets dream</p>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="./parent_dash.html">Parents</a></li>
+      <li><a href="./rec_dash.html">Recruiters</a></li>
+      <li><a href="./edu_dash.html">Educators</a></li>
+      <li><a href="./report.html">Report Incident</a></li>
+      <li><a href="./protect.html">child protection</a></li>
+      <li><a href="./about.html">About Us</a></li>
+      <li><a href="./contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="./sign_in.html" class="btn btn-login">Login</a>
+    </div>
+  </nav>
+
+  <section>
+    <div class="form-wrapper">
+      <a href="../index.html" class="back-btn">← Back to registration options</a>
+
+      <div id="successMessage" class="success-message" style="display: none">
+        ✓ <strong>Success!</strong> Your Educational Organisation registration has been
+        submitted and is under review. You will be notified once verified.
+      </div>
+
+      <div class="form-header">
+        <h2>Educational Organisation Registration</h2>
+        <p>
+          Partner with us to provide educational support to children whose
+          parents gain employment through Job4Hope.
+        </p>
+      </div>
+
+      <form id="educationalRegistrationForm">
+
+        <div class="form-section">
+          <h3 class="section-title">🏢 Organisation Details</h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="orgName">Organisation Name <span class="required">*</span></label>
+              <input type="text" id="orgName" name="orgName" placeholder="Enter full name of organisation" required />
+            </div>
+            <div class="form-group">
+              <label for="orgType">Organisation Type <span class="required">*</span></label>
+              <select id="orgType" name="orgType" required>
+                <option value="">Select type</option>
+                <option value="school">School/Tuition Centre</option>
+                <option value="ngo_edu">Educational NGO</option>
+                <option value="vocational">Vocational Training Centre</option>
+                <option value="govt_edu">Government Education Program</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="description">Organisation Mission/Focus <span class="required">*</span></label>
+            <textarea id="description" name="description" placeholder="Briefly describe your educational mission..."
+              rows="4" required></textarea>
+            <p class="help-text">Focus on how you support underprivileged children.</p>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h3 class="section-title">📚 Educational Capacity & Focus</h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="capacity">Maximum Children Capacity <span class="required">*</span></label>
+              <input type="number" id="capacity" name="capacity" min="1" placeholder="Number of students" required />
+            </div>
+            <div class="form-group">
+              <label for="ageRange">Target Age/Grade Range <span class="required">*</span></label>
+              <input type="text" id="ageRange" name="ageRange" placeholder="e.g., Ages 5-12" required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Areas of Specialization <span class="required">*</span></label>
+            <div class="checkbox-group">
+              <label class="checkbox-label"><input type="checkbox" name="specialization" value="primary" />
+                <span>Primary (5-10)</span></label>
+              <label class="checkbox-label"><input type="checkbox" name="specialization" value="secondary" />
+                <span>Secondary (11-16)</span></label>
+              <label class="checkbox-label"><input type="checkbox" name="specialization" value="remediation" />
+                <span>Remediation</span></label>
+              <label class="checkbox-label"><input type="checkbox" name="specialization" value="vocational" />
+                <span>Vocational</span></label>
+              <label class="checkbox-label"><input type="checkbox" name="specialization" value="digital" />
+                <span>Digital Literacy</span></label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h3 class="section-title">📞 Primary Contact Details</h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="contactName">Contact Person Name <span class="required">*</span></label>
+              <input type="text" id="contactName" name="contactName" required />
+            </div>
+            <div class="form-group">
+              <label for="jobTitle">Job Title <span class="required">*</span></label>
+              <input type="text" id="jobTitle" name="jobTitle" required />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="email">Contact Email <span class="required">*</span></label>
+              <input type="email" id="email" name="email" required />
+            </div>
+            <div class="form-group">
+              <label for="password">Password <span class="required">*</span></label>
+              <input type="password" id="password" name="password" required />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="phone">Phone Number <span class="required">*</span></label>
+              <input type="tel" id="phone" name="phone" required />
+            </div>
+            <div class="form-group">
+              <label for="website">Website (Optional)</label>
+              <input type="url" id="website" name="website" placeholder="https://" />
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h3 class="section-title">📍 Location Details</h3>
+          <div class="form-group">
+            <label for="address">Complete Address <span class="required">*</span></label>
+            <textarea id="address" name="address" placeholder="Street, Building, Area..." rows="3" required></textarea>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="city">City <span class="required">*</span></label>
+              <input type="text" id="city" name="city" required />
+            </div>
+            <div class="form-group">
+              <label for="state">State <span class="required">*</span></label>
+              <input type="text" id="state" name="state" required />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="pincode">Pincode <span class="required">*</span></label>
+              <input type="text" id="pincode" name="pincode" required />
+            </div>
+            <div class="form-group">
+              <label for="country">Country <span class="required">*</span></label>
+              <input type="text" id="country" name="country" value="India" required />
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h3 class="section-title">📄 Verification Documents</h3>
+          <div class="form-group">
+            <label for="documents">Upload Documents (PDF/Images) <span class="required">*</span></label>
+            <input type="file" id="documents" name="documents" required multiple />
+            <p class="help-text">Upload registration or accreditation certificates.</p>
+          </div>
+          <div class="verification-note"
+            style="background: #fff4e5; padding: 10px; border-radius: 5px; font-size: 0.9rem;">
+            <strong>Note:</strong> Verification takes 3-5 business days to ensure child safety standards.
+          </div>
+        </div>
+
+        <button type="submit" id="submitBtn" class="btn-submit" style="background: #000; color: #fff;">Register
+          Organisation</button>
+      </form>
+      <p class="signin-link">
+        Already a verified educational partner?
+        <a href="./sign_in.html">Sign in here</a>
+      </p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-about">
+        <div class="logo">
+          <div class="logo-icon"><img src="../assets/logo.png" alt="logo" /></div>
+          <div class="logo-text">
+            <h3>Job4Hope</h3>
+            <p>Empowering Parents, Protecting Children</p>
+          </div>
+        </div>
+        <p class="footer-about-text">Together, we can create a future free from child labour.</p>
+      </div>
+
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="./about.html">About Us</a></li>
+          <li><a href="./contact.html">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-links">
+        <h4>Emergency</h4>
+        <p>Child Helpline: <strong>2006</strong></p>
+        <p>Email: <strong>contact@job4hope.org</strong></p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2024 Job4Hope. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="../js/api.js"></script>
+  <script src="../js/edu_form.js"></script>
+</body>
+
+</html>

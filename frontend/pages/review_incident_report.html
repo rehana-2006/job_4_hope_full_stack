@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job4Hope - Admin: Review Incident Report</title>
+    <link rel="icon" href="../assets/logo.png" />
+    <style>
+        /* General Admin/Form Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 0;
+        }
+
+        .admin-nav {
+            background-color: #1f3a69;
+            color: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .admin-nav h1 {
+            margin: 0;
+            font-size: 1.5em;
+        }
+
+        .form-wrapper {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-bottom: 20px;
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+        }
+
+        h2 {
+            color: #dc3545;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 10px;
+            margin-bottom: 25px;
+        }
+
+        /* Report Details Display */
+        .report-card {
+            border: 1px solid #ffc107;
+            background-color: #fffaf0;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+        }
+
+        .report-card h3 {
+            color: #dc3545;
+            margin-top: 0;
+        }
+
+        .detail-row {
+            display: flex;
+            margin-bottom: 10px;
+            border-bottom: 1px dashed #eee;
+            padding-bottom: 5px;
+        }
+
+        .detail-row strong {
+            width: 180px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        /* Classification and Actions */
+        .classification-section {
+            margin-top: 30px;
+            padding: 20px;
+            border: 1px solid #007bff;
+            border-radius: 8px;
+            background-color: #f7fcff;
+        }
+
+        .classification-section h3 {
+            color: #007bff;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .form-group select,
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+
+        .btn-route,
+        .btn-resolve {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 50%;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .btn-route {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        /* Highlight as the most critical next step */
+        .btn-resolve {
+            background-color: #28a745;
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .admin-nav {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+
+            .form-wrapper {
+                margin: 20px 10px;
+                padding: 15px;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .btn-route,
+            .btn-resolve {
+                width: 100%;
+            }
+
+            .detail-row {
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            .detail-row strong {
+                width: 100%;
+                margin-bottom: 2px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="admin-nav">
+        <h1>👑 Job4Hope Admin Panel</h1>
+        <div>Admin User | <a href="./sign_in.html" style="color: white; text-decoration: none;">Logout</a></div>
+    </div>
+
+    <div class="form-wrapper">
+        <a href="./admin.html" class="back-btn">← Back to Dashboard</a>
+
+        <div class="form-header">
+            <h2>Review Child Protection Incident Report</h2>
+        </div>
+
+        <div class="report-card" id="report-content">
+            <p>Loading report details...</p>
+        </div>
+
+        <div class="classification-section hidden" id="action-section">
+            <h3>Admin Classification & Routing Decision</h3>
+
+            <form id="incidentClassificationForm">
+                <div class="form-group">
+                    <label for="classification">Classification / Severity Level <span class="required">*</span></label>
+                    <select id="classification" name="classification" required>
+                        <option value="" disabled selected>Select Classification</option>
+                        <option value="critical">Critical (Immediate danger/abuse)</option>
+                        <option value="high">High (Child Labor/Neglect concern)</option>
+                        <option value="medium" selected>Medium (Non-compliance, requires follow-up)</option>
+                        <option value="low">Low (General inquiry)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="routing_entity">Recommended Routing Entity</label>
+                    <select id="routing_entity" name="routing_entity">
+                        <option value="" disabled selected>Select Partner/Agency for Action</option>
+                        <option value="edu_partner_citytrust" selected>Educational Partner: City Education Trust (Direct
+                            Handler)</option>
+                        <option value="hiring_org_savechild">Hiring Partner: Save the Children (Parent's Employer)
+                        </option>
+                        <option value="child_protection_ngo">External Agency: Child Safety NGO</option>
+                        <option value="internal_admin">Handle Internally (General Admin)</option>
+                    </select>
+                </div>
+            </form>
+
+            <div class="action-buttons">
+                <!-- Using buttons instead of links for API interaction -->
+                <button type="button" onclick="updateReportStatus('routed')" class="btn-route">
+                    Route & Send Secure Notification
+                </button>
+
+                <button type="button" onclick="updateReportStatus('resolved')" class="btn-resolve"
+                    style="background-color: #6c757d;">
+                    Flag for Internal Resolution
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="../js/review_incident_report.js"></script>
+    <script src="../js/responsive.js"></script>
+</body>
+
+</html>

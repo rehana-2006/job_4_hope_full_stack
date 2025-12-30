@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ChildProtect - Report Incident</title>
+  <link rel="stylesheet" href="../style/report.css" />
+  <link rel="icon" href="../assets/logo.png" />
+</head>
+
+<body>
+  <nav>
+    <a href="index.html" class="logo">
+      <div class="logo-icon">
+        <img src="../assets/logo.png" alt="logo" />
+      </div>
+      <div class="logo-text">
+        <h1>Job4Hope</h1>
+        <p>Where jobs meets dream</p>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="./parent_dash.html">Parents</a></li>
+      <li><a href="./rec_dash.html">Recruiters</a></li>
+      <li><a href="./edu_dash.html">Educators</a></li>
+      <li><a href="./report.html">Report Incident</a></li>
+      <li><a href="./protect.html">child protection</a></li>
+      <li><a href="./about.html">About Us</a></li>
+      <li><a href="./contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="./sign_in.html" class="btn btn-login">Login</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="emergency-alert">
+      <div class="icon">⚠️</div>
+      <div class="emergency-content">
+        <strong>Emergency?</strong>
+        <p>If a child is in immediate danger, please call the</p>
+        <p>
+          <span class="helpline">Child Helpline: 2006</span><br />or local
+          police: 000
+        </p>
+      </div>
+    </div>
+
+    <div class="hero-section">
+      <div class="shield-icon">🛡️</div>
+      <h1>Report Child Labor Incident</h1>
+      <p>
+        Your report helps us protect children from exploitation. All reports
+        are taken seriously and handled confidentially. You can choose to
+        remain anonymous.
+      </p>
+    </div>
+
+    <div class="info-box">
+      <h3>ℹ️ Your report is confidential and will be used to:</h3>
+      <ul>
+        <li>Investigate the incident and protect the child</li>
+        <li>Coordinate with authorities and NGOs</li>
+        <li>Provide support to affected families</li>
+        <li>Take legal action if necessary</li>
+      </ul>
+    </div>
+
+    <div class="form-section">
+      <h2>Incident Details</h2>
+      <p class="subtitle">
+        Please provide as much information as possible to help us respond
+        effectively
+      </p>
+
+      <form id="incidentReportForm">
+        <div class="form-group">
+          <label>Type of Incident <span class="required">*</span></label>
+          <select id="incidentType" name="incident_type" required>
+            <option value="">Select incident type</option>
+            <option value="Child Labor">Child Labor</option>
+            <option value="Hazardous Work">Hazardous Work</option>
+            <option value="Trafficking">Trafficking</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Detailed Description <span class="required">*</span></label>
+          <textarea id="description" name="description" placeholder="Please describe what you witnessed..."
+            required></textarea>
+          <div class="char-count">Minimum 20 characters. Current: 0</div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Location/Address <span class="required">*</span></label>
+            <input type="text" id="location" name="location" placeholder="Street, area, landmark" required />
+          </div>
+          <div class="form-group">
+            <label>District/City</label>
+            <input type="text" id="city" name="city" placeholder="Enter district or city" required />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>State/Union Territory <span class="required">*</span></label>
+          <select id="state" name="state" required>
+            <option value="">Select state</option>
+            <option value="Andhra Pradesh">Andhra Pradesh</option>
+            <option value="Karnataka">Karnataka</option>
+            <option value="Maharashtra">Maharashtra</option>
+            <option value="Tamil Nadu">Tamil Nadu</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Date of Incident</label>
+            <input type="date" id="date" name="date" />
+          </div>
+          <div class="form-group">
+            <label>Approximate Time</label>
+            <input type="time" id="time" name="time" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Urgency Level <span class="required">*</span></label>
+          <div class="urgency-options">
+            <div class="urgency-option">
+              <input type="radio" name="urgency" value="high" id="high" required />
+              <label for="high"><span class="urgency-high">High</span></label>
+            </div>
+            <div class="urgency-option">
+              <input type="radio" name="urgency" value="medium" id="medium" required />
+              <label for="medium"><span class="urgency-medium">Medium</span></label>
+            </div>
+            <div class="urgency-option">
+              <input type="radio" name="urgency" value="low" id="low" required />
+              <label for="low"><span class="urgency-low">Low</span></label>
+            </div>
+          </div>
+        </div>
+
+        <div class="checkbox-group">
+          <input type="checkbox" id="anonymous" name="is_anonymous" value="true" />
+          <label for="anonymous"><strong>Report anonymously</strong></label>
+        </div>
+
+        <div class="form-group">
+          <label>Your Name</label>
+          <input type="text" id="reporterName" name="reporter_name" placeholder="Enter your full name" />
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Phone Number</label>
+            <input type="tel" id="reporterContact" name="reporter_contact" placeholder="+91" />
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" id="submitBtn" class="btn btn-submit">Submit Report</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="services-section">
+      <div class="service-card blue">
+        <div class="service-icon">📞</div>
+        <h3>Child Helpline</h3>
+        <div class="number">1098</div>
+        <p>24/7 emergency hotline</p>
+      </div>
+      <div class="service-card green">
+        <div class="service-icon">🛡️</div>
+        <h3>Child Protection</h3>
+        <p>
+          We work with local authorities and NGOs to ensure every child is
+          safe
+        </p>
+      </div>
+      <div class="service-card purple">
+        <div class="service-icon">⚠️</div>
+        <h3>Emergency Services</h3>
+        <p>Police: 100<br />Women Helpline: 181</p>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-about">
+        <div class="logo">
+          <div class="logo-icon">
+            <img src="../assets/logo.png" alt="logo" />
+          </div>
+          <div class="logo-text">
+            <h3>Job4Hope</h3>
+            <p>Empowering Parents, Protecting Children</p>
+          </div>
+        </div>
+        <p style="margin-top: 1rem">
+          Together, we can create a future where every child has the right to
+          education and a safe childhood. Join our mission to end child labour
+          through skill-based employment opportunities for parents.
+        </p>
+      </div>
+
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="./parent_dash.html">Parents</a></li>
+          <li><a href="./rec_dash.html">Recruiters</a></li>
+          <li><a href="./edu_dash.html">Educators</a></li>
+          <li><a href="./report.html">Report Incident</a></li>
+          <li><a href="./about.html">About Us</a></li>
+          <li><a href="./contact.html">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-links">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="#privacy">Privacy Policy</a></li>
+          <li><a href="#terms">Terms of Service</a></li>
+          <li><a href="#data">Data Security & Privacy</a></li>
+        </ul>
+        <div class="footer-emergency">
+          <h4>Emergency</h4>
+          <p>Child Helpline: <strong>2006</strong></p>
+          <p>Email: <strong>contact@job4hope.org</strong></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>
+        © 2024 Job4Hope. All rights reserved. Building a world free from child
+        labour.
+      </p>
+    </div>
+  </footer>
+  <script src="../js/api.js"></script>
+  <script src="../js/report.js"></script>
+  <script src="../js/responsive.js"></script>
+</body>
+
+</html>
