@@ -496,6 +496,10 @@ footer {
 }
 
 /* Hamburger Menu */
+.nav-toggle {
+    display: none;
+}
+
 .hamburger {
     display: none;
     font-size: 1.5rem;
@@ -504,14 +508,16 @@ footer {
 }
 
 @media (max-width: 768px) {
+
+    /* Navigation Reset */
     nav {
         flex-wrap: wrap;
         padding: 1rem 5%;
-        justify-content: space-between;
     }
 
     .hamburger {
         display: block;
+        margin-left: auto;
     }
 
     .logo {
@@ -526,9 +532,15 @@ footer {
         gap: 1rem;
         padding: 1rem 0;
         border-top: 1px solid #eee;
+        background: white;
     }
 
     .nav-links.active {
+        display: flex;
+    }
+
+    /* Checkbox Hack Support */
+    #nav-toggle:checked~.nav-links {
         display: flex;
     }
 
@@ -537,23 +549,82 @@ footer {
         width: 100%;
         justify-content: center;
         padding-bottom: 1rem;
+        background: white;
     }
 
     .nav-actions.active {
         display: flex;
     }
 
-    .hero h1 {
-        font-size: 2rem;
+    #nav-toggle:checked~.nav-actions {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 
+    /* Content Layout - Forced Stacking */
+    .contact-section {
+        display: flex !important;
+        flex-direction: column !important;
+        grid-template-columns: 1fr !important;
+        padding: 0 1rem !important;
+        gap: 2rem !important;
+        margin: 2rem auto !important;
+        width: 100% !important;
+    }
+
+    .form-row {
+        display: flex !important;
+        flex-direction: column !important;
+        grid-template-columns: 1fr !important;
+        gap: 1rem !important;
+    }
+
+    .contact-form,
+    .contact-info {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+    }
+
+    .contact-info {
+        display: flex !important;
+        flex-direction: column !important;
+    }
+
+    .info-card {
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+    }
+
+    .info-icon {
+        margin-bottom: 1rem;
+    }
+
+    /* Hero Fixes */
+    .hero {
+        padding: 3rem 1rem !important;
+    }
+
+    .hero h1 {
+        font-size: 2rem !important;
+    }
+
+    /* Footer Fixes */
     .footer-content {
-        grid-template-columns: 1fr;
+        display: flex !important;
+        flex-direction: column !important;
+        grid-template-columns: 1fr !important;
         text-align: center;
         gap: 2rem;
     }
 
-    .faq-question {
-        font-size: 1rem;
+    /* Global Safety */
+    img,
+    select,
+    input,
+    textarea {
+        max-width: 100%;
     }
 }

@@ -506,6 +506,10 @@ footer {
 
 /* Responsive */
 /* Hamburger Menu */
+.nav-toggle {
+    display: none;
+}
+
 .hamburger {
     display: none;
     font-size: 1.5rem;
@@ -522,7 +526,18 @@ footer {
     .hamburger {
         display: block;
         margin-left: auto;
-        /* Push to right if using standard flex */
+    }
+
+    #nav-toggle:checked~.nav-links {
+        display: flex;
+    }
+
+    #nav-toggle:checked~.nav-actions {
+        display: flex;
+        flex-direction: column;
+        /* Ensure vertical layout on mobile */
+        align-items: center;
+        width: 100%;
     }
 
     /* Adjust for logo on left, hamburger on right */
@@ -578,6 +593,40 @@ footer {
         grid-template-columns: 1fr;
         text-align: center;
         gap: 2rem;
+    }
+
+    /* Stack Search & Filters on Mobile */
+    .central-search-bar {
+        flex-direction: column;
+        align-items: stretch;
+        /* Make inputs/buttons fill width */
+    }
+
+    .central-search-bar input,
+    .central-search-bar button {
+        width: 100%;
+    }
+
+    .search-filters {
+        grid-template-columns: 1fr;
+        /* Stack filters */
+        gap: 1rem;
+    }
+
+    .search-input,
+    .search-filters button {
+        width: 100%;
+    }
+
+    /* Fix Popups/Modals on Mobile */
+    .modal-content {
+        width: 95% !important;
+        /* Override inline styles for better fit */
+        padding: 1.5rem !important;
+        max-height: 85vh;
+        overflow-y: auto;
+        /* Enable scrolling if content is too long */
+        margin: 0 auto;
     }
 }
 

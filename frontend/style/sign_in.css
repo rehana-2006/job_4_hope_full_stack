@@ -369,6 +369,10 @@ footer {
 
 /* Responsive Design */
 /* Hamburger Menu */
+.nav-toggle {
+    display: none;
+}
+
 .hamburger {
     display: none;
     font-size: 1.5rem;
@@ -380,11 +384,22 @@ footer {
     nav {
         flex-wrap: wrap;
         padding: 1rem 5%;
-        justify-content: space-between;
     }
 
     .hamburger {
         display: block;
+        margin-left: auto;
+    }
+
+    #nav-toggle:checked~.nav-links {
+        display: flex;
+    }
+
+    #nav-toggle:checked~.nav-actions {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
     }
 
     .logo {

@@ -580,7 +580,23 @@ footer {
     .hamburger {
         display: block;
         order: 3;
-        /* Ensure it's on the right if needed, or flex logic handles it */
+        font-size: 1.5rem;
+        cursor: pointer;
+        padding: 0.5rem;
+    }
+
+    /* Hide the checkbox */
+    .nav-toggle {
+        display: none;
+    }
+
+    /* Logic: When checked, show the sibling nav-links */
+    #nav-toggle:checked ~ .nav-links {
+        display: flex;
+    }
+
+    #nav-toggle:checked ~ .nav-actions {
+        display: flex; /* Optional: if you want login btn to show too */
     }
 
     .logo {

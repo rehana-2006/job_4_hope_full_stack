@@ -457,6 +457,10 @@ footer {
 }
 
 /* Hamburger Menu */
+.nav-toggle {
+    display: none;
+}
+
 .hamburger {
     display: none;
     font-size: 1.5rem;
@@ -468,15 +472,30 @@ footer {
     nav {
         flex-wrap: wrap;
         padding: 1rem 5%;
-        justify-content: space-between;
     }
 
     .hamburger {
         display: block;
+        margin-left: auto;
     }
 
     .logo {
         flex-grow: 1;
+    }
+
+    .hamburger {
+        flex-grow: 0;
+    }
+
+    #nav-toggle:checked~.nav-links {
+        display: flex;
+    }
+
+    #nav-toggle:checked~.nav-actions {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
     }
 
     .nav-links {
@@ -487,6 +506,7 @@ footer {
         gap: 1rem;
         padding: 1rem 0;
         border-top: 1px solid #eee;
+        background: white;
     }
 
     .nav-links.active {
@@ -498,28 +518,50 @@ footer {
         width: 100%;
         justify-content: center;
         padding-bottom: 1rem;
+        background: white;
     }
 
     .nav-actions.active {
         display: flex;
     }
 
+    .container {
+        padding: 1rem;
+        max-width: 100%;
+    }
+
+    .hero-section {
+        padding: 2rem 1rem;
+    }
+
+    .hero-section h1 {
+        font-size: 1.8rem;
+    }
+
+    .emergency-alert {
+        flex-direction: column;
+        /* Stack icon and text */
+        text-align: center;
+        padding: 1rem;
+    }
+
     .form-row {
         grid-template-columns: 1fr;
+        /* Stack side-by-side inputs */
+        display: grid;
+        gap: 1rem;
     }
 
     .services-section {
         grid-template-columns: 1fr;
+        /* Stack service cards */
+        display: grid;
+        gap: 1.5rem;
     }
 
     .footer-content {
         grid-template-columns: 1fr;
         text-align: center;
         gap: 2rem;
-    }
-
-    .emergency-alert {
-        flex-direction: column;
-        text-align: center;
     }
 }

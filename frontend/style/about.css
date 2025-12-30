@@ -110,7 +110,7 @@ nav {
 /* Mission Cards */
 .mission-cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 2rem;
     max-width: 1400px;
     margin: 0 auto;
@@ -593,6 +593,10 @@ footer {
 }
 
 /* Hamburger Menu */
+.nav-toggle {
+    display: none;
+}
+
 .hamburger {
     display: none;
     font-size: 1.5rem;
@@ -609,10 +613,26 @@ footer {
 
     .hamburger {
         display: block;
+        margin-left: auto;
     }
 
     .logo {
         flex-grow: 1;
+    }
+
+    .hamburger {
+        flex-grow: 0;
+    }
+
+    #nav-toggle:checked~.nav-links {
+        display: flex;
+    }
+
+    #nav-toggle:checked~.nav-actions {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
     }
 
     .nav-links {
@@ -623,6 +643,7 @@ footer {
         gap: 1rem;
         padding: 1rem 0;
         border-top: 1px solid #eee;
+        background: white;
     }
 
     .nav-links.active {
@@ -634,10 +655,16 @@ footer {
         width: 100%;
         justify-content: center;
         padding-bottom: 1rem;
+        background: white;
     }
 
     .nav-actions.active {
         display: flex;
+    }
+
+    /* Content Responsiveness Fixes */
+    .hero {
+        padding: 3rem 1rem;
     }
 
     .hero h1 {
@@ -645,11 +672,43 @@ footer {
     }
 
     .mission-cards,
+    .challenges-container,
     .steps-container,
     .values-grid,
     .impact-grid,
-    .commitment-grid {
+    .commitment-grid,
+    .approach-box {
         grid-template-columns: 1fr;
+        padding: 0 1rem;
+        width: 100%;
+        display: grid;
+        /* Ensure grid behavior is kept but single column */
+    }
+
+    .card,
+    .step,
+    .value-card,
+    .impact-card,
+    .commitment-card {
+        padding: 1.5rem;
+    }
+
+    .challenge-item {
+        flex-direction: column;
+    }
+
+    .challenge-image img {
+        height: auto;
+        width: 100%;
+    }
+
+    .problem-section,
+    .change-section,
+    .values-section,
+    .impact-section,
+    .approach-section,
+    .commitment-section {
+        padding: 3rem 1rem;
     }
 
     .footer-content {
