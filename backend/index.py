@@ -1,11 +1,12 @@
 import sys
 import os
 
-# Add backend directory to path
-sys.path.insert(0, os.path.dirname(__file__))
+# Add parent directory to path so 'backend' module can be found
+parent_dir = os.path.dirname(os.path.dirname(__file__))
+sys.path.insert(0, parent_dir)
 
-# Now import from main.py in the same directory
-from main import app
+# Now import using the backend module path
+from backend.main import app
 
 # This is the entry point for Vercel
 handler = app
