@@ -8,14 +8,9 @@ models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
-origins = []
-
-# Allow all localhost ports dynamically
-origin_regex = r"http://(localhost|127\.0\.0\.1)(:\d+)?"
-
 app.add_middleware(
     CORSMiddleware,
-    allow_origin_regex=origin_regex,
+    allow_origins=["*"],  # Allow all domains (Netlify, Vercel, Localhost)
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

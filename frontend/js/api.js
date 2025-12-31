@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:8000";
+const API_URL = "https://job-4-hope-full-stack.vercel.app";
 
 async function loginUser(email, password) {
     const formData = new FormData();
