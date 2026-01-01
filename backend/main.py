@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from contextlib import asynccontextmanager
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 import os
@@ -7,9 +8,16 @@ from .database import engine
 from . import models
 from .routers import auth, parents, educators, recruiters, reports, jobs, events, admin, profile, skills, contact
 
-models.Base.metadata.create_all(bind=engine)
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    try:
+        models.Base.metadata.create_all(bind=engine)
+        print("Tables created")
+    except Exception as e:
+        print(f"DB Init Error: {e}")
+    yield
 
-app = FastAPI()
+app = FastAPI(lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,

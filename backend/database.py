@@ -11,6 +11,10 @@ load_dotenv(dotenv_path=env_path)
 
 SQLALCHEMY_DATABASE_URL = os.getenv("DATABASE_URL")
 
+if not SQLALCHEMY_DATABASE_URL:
+    print("Warning: DATABASE_URL environment variable not set. Using SQLite fallback.")
+    SQLALCHEMY_DATABASE_URL = "sqlite:///./sql_app.db"
+
 engine = create_engine(
     SQLALCHEMY_DATABASE_URL
 )
