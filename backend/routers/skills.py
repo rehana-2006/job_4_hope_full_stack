@@ -1,9 +1,9 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from typing import List
-from backend.database import get_db
-from backend.models.skill import Skill
-from backend.schemas.skill import SkillCreate, SkillResponse
+from ..database import get_db
+from ..models.skill import Skill
+from ..schemas.skill import SkillCreate, SkillResponse
 
 router = APIRouter(prefix="/skills", tags=["Skills"])
 

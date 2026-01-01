@@ -1,4 +1,4 @@
-from backend.database import Base
+from ..database import Base
 from .user import User
 from .parent import ParentProfile, Child
 from .educator import EducatorProfile

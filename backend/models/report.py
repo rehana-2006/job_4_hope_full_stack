@@ -1,5 +1,5 @@
 from sqlalchemy import Column, Integer, String, Text, Date, Time, Boolean
-from backend.database import Base
+from ..database import Base
 
 class IncidentReport(Base):
     __tablename__ = "incident_reports"
