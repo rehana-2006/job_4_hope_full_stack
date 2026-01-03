@@ -1,38 +1,24 @@
 @echo off
-echo ===================================================
-echo   Job4Hope Server Launcher
-echo ===================================================
-echo.
-echo [1/2] Checking for existing server processes...
+cd /d "%~dp0"
+echo Starting Job4Hope Server...
 
-:: Find the process ID (PID) listening on port 8000
-for /f "tokens=5" %%a in ('netstat -aon ^| find ":8000" ^| find "LISTENING"') do (
-    echo       Found old process (PID: %%a). Killing it...
-    taskkill /F /PID %%a >nul 2>&1
-)
-
-echo       Port 8000 is clean.
-echo.
-echo [2/2] Starting server...
-echo.
-
-:: Try to activate virtual environment if it exists
+:: 1. Try to activate venv (if exists)
+:: 1. Try to activate venv (if exists)
 if exist "venv\Scripts\activate.bat" (
-    echo       Activating virtual environment (venv)...
     call venv\Scripts\activate.bat
-) else if exist ".venv\Scripts\activate.bat" (
-    echo       Activating virtual environment (.venv)...
-    call .venv\Scripts\activate.bat
-) else if exist "env\Scripts\activate.bat" (
-    echo       Activating virtual environment (env)...
-    call env\Scripts\activate.bat
 ) else if exist "project\Scripts\activate.bat" (
-    echo       Activating virtual environment (project)...
     call project\Scripts\activate.bat
+) else (
+    echo No virtual environment found! Attempting to run with global python...
 )
 
-:: Start the server
-uvicorn backend.main:app --reload
+:: 2. Install Dependencies
+echo Installing dependencies...
+python -m pip install PyJWT
+python -m pip install -r requirements.txt
 
-:: Pause so the user can see errors if it crashes immediately
+:: 3. Start Server
+echo Starting API...
+python -m uvicorn backend.main:app --reload
+
 pause
