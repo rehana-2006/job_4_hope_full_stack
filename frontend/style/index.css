@@ -95,6 +95,10 @@ nav {
     gap: 1rem;
 }
 
+.nav-toggle {
+    display: none;
+}
+
 .btn {
     padding: 0.6rem 1.5rem;
     border-radius: 6px;
@@ -204,7 +208,7 @@ nav {
     left: 0;
     right: 0;
     height: 5px;
-    background: linear-gradient(90deg, #f0d6f2 0%, #b69bd2 100%);
+    /* background: linear-gradient(90deg, #f0d6f2 0%, #b69bd2 100%); */
     opacity: 0;
     transition: opacity 0.3s ease;
 }
@@ -214,7 +218,13 @@ nav {
 }
 
 .role-card:hover {
-    border-color: #e1c9e3;
+    /* border-color: #e7b8da; */
+    transform: translateY(-8px);
+    box-shadow: 0 12px 35px rgba(102, 126, 234, 0.2);
+    background: white;
+}
+.btn-role:hover {
+    /* border-color: #e7b8da; */
     transform: translateY(-8px);
     box-shadow: 0 12px 35px rgba(102, 126, 234, 0.2);
     background: white;
@@ -256,8 +266,8 @@ nav {
     display: block;
 }
 
-.role-card:hover .btn-role {
-    background: #8d98c7;
+.btn-role:hover {
+    background: #626062;
     transform: scale(1.02);
 }
 
