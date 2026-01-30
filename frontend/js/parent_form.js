@@ -1,3 +1,31 @@
+document.addEventListener('DOMContentLoaded', () => {
+    loadDynamicSkills();
+});
+
+async function loadDynamicSkills() {
+    const skillsContainer = document.querySelector('.checkbox-group');
+    if (!skillsContainer) return;
+
+    try {
+        const skills = await getSkills();
+        if (skills && skills.length > 0) {
+            // Clear static skills and replace with dynamic ones
+            skillsContainer.innerHTML = '';
+            skills.forEach(skill => {
+                const label = document.createElement('label');
+                label.className = 'checkbox-label';
+                label.innerHTML = `
+                    <input type="checkbox" name="skills" value="${skill.name}" />
+                    <span>${skill.name}</span>
+                `;
+                skillsContainer.appendChild(label);
+            });
+        }
+    } catch (error) {
+        console.error("Failed to load skills dynamically:", error);
+    }
+}
+
 function addChildBlock() {
     const hiddenBlocks = document.querySelectorAll('.child-details-static.optional-child');
     // Find the first hidden block
@@ -12,6 +40,22 @@ function addChildBlock() {
             }
             break;
         }
+    }
+}
+
+function removeChildBlock(index) {
+    const block = document.getElementById(`child${index}Block`);
+    if (block) {
+        block.style.display = 'none';
+        // Clear all inputs in this block
+        const inputs = block.querySelectorAll('input, select');
+        inputs.forEach(input => {
+            input.value = '';
+        });
+
+        // Ensure the add button is visible again
+        document.querySelector('.btn-addChild').style.display = 'flex';
+        document.getElementById('limitMessage').style.display = 'none';
     }
 }
 

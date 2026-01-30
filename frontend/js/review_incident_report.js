@@ -9,7 +9,14 @@ if (!token || userRole !== 'admin') {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    loadLatestReport();
+    const urlParams = new URLSearchParams(window.location.search);
+    const reportId = urlParams.get('id');
+
+    if (reportId) {
+        loadSpecificReport(reportId);
+    } else {
+        loadLatestReport();
+    }
 });
 
 let currentReportId = null;
@@ -18,7 +25,7 @@ async function loadLatestReport() {
     const reportContent = document.getElementById('report-content');
     const actionSection = document.getElementById('action-section');
 
-    reportContent.innerHTML = '<p>Loading report details...</p>';
+    reportContent.innerHTML = '<p>Loading latest report...</p>';
 
     try {
         const response = await fetch(`${API_URL}/admin/reports`, {
@@ -30,33 +37,13 @@ async function loadLatestReport() {
         const reports = await response.json();
 
         if (reports.length === 0) {
-            reportContent.innerHTML = '<p>No pending reports found.</p>';
+            reportContent.innerHTML = '<p>No reports found.</p>';
             actionSection.classList.add('hidden');
             return;
         }
 
-        // For this page, we just take the first pending report for review
-        // In a real app, we would pass report ID via URL query param
-        const report = reports[0];
-        currentReportId = report.id;
-
-        reportContent.innerHTML = `
-            <h3>Incident #${report.id}</h3>
-            <div class="detail-row">
-                <strong>Reporter:</strong> <span>${report.reporter_name} (${report.reporter_role})</span>
-            </div>
-            <div class="detail-row">
-                <strong>Date:</strong> <span>${new Date(report.date).toLocaleDateString()}</span>
-            </div>
-            <div class="detail-row">
-                <strong>Description:</strong> <span>${report.description}</span>
-            </div>
-            <div class="detail-row">
-                <strong>Status:</strong> <span style="font-weight:bold; color:${getStatusColor(report.status)}">${report.status.toUpperCase()}</span>
-            </div>
-        `;
-
-        actionSection.classList.remove('hidden');
+        const report = reports[0]; // Most recent
+        displayReport(report);
 
     } catch (error) {
         console.error("Error:", error);
@@ -64,8 +51,75 @@ async function loadLatestReport() {
     }
 }
 
+async function loadSpecificReport(reportId) {
+    const reportContent = document.getElementById('report-content');
+    reportContent.innerHTML = '<p>Loading report detail...</p>';
+
+    try {
+        const response = await fetch(`${API_URL}/admin/reports`, {
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+
+        if (!response.ok) throw new Error('Failed to fetch reports');
+
+        const reports = await response.json();
+        const report = reports.find(r => r.id == reportId);
+
+        if (!report) {
+            reportContent.innerHTML = `<p style="color:red">Report #${reportId} not found.</p>`;
+            return;
+        }
+
+        displayReport(report);
+
+    } catch (error) {
+        console.error("Error:", error);
+        reportContent.innerHTML = '<p style="color:red">Error loading report detail.</p>';
+    }
+}
+
+function displayReport(report) {
+    const reportContent = document.getElementById('report-content');
+    const actionSection = document.getElementById('action-section');
+
+    currentReportId = report.id;
+
+    // Fix date display: split YYYY-MM-DD to avoid timezone shifts
+    let formattedDate = 'N/A';
+    if (report.date) {
+        const parts = report.date.split('-');
+        if (parts.length === 3) {
+            formattedDate = `${parts[2]}/${parts[1]}/${parts[0]}`; // DD/MM/YYYY
+        } else {
+            formattedDate = new Date(report.date).toLocaleDateString();
+        }
+    }
+
+    reportContent.innerHTML = `
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h3>Incident #${report.id}</h3>
+            <a href="./admin.html" style="font-size: 0.9em; color: #007bff;">View All Reports</a>
+        </div>
+        <div class="detail-row">
+            <strong>Reporter:</strong> <span>${report.reporter_name || 'Anonymous'} (${report.reporter_role || 'Visitor'})</span>
+        </div>
+        <div class="detail-row">
+            <strong>Date:</strong> <span>${formattedDate}</span>
+        </div>
+        <div class="detail-row">
+            <strong>Description:</strong> <span>${report.description}</span>
+        </div>
+        <div class="detail-row">
+            <strong>Status:</strong> <span style="font-weight:bold; color:${getStatusColor(report.status)}">${report.status.toUpperCase()}</span>
+        </div>
+    `;
+
+    actionSection.classList.remove('hidden');
+}
+
 function getStatusColor(status) {
     if (status === 'pending') return '#dc3545'; // Red
+    if (status === 'completed') return '#28a745'; // Green
     if (status === 'routed') return '#ffc107'; // Yellow
     if (status === 'resolved') return '#28a745'; // Green
     return '#333';
@@ -74,26 +128,30 @@ function getStatusColor(status) {
 async function updateReportStatus(newStatus) {
     if (!currentReportId) return;
 
-    if (!confirm(`Are you sure you want to mark this report as ${newStatus.toUpperCase()}?`)) return;
+    // Map 'routed' action to 'completed' status as requested
+    const targetStatus = (newStatus === 'routed') ? 'completed' : newStatus;
+
+    if (!confirm(`Are you sure you want to mark this report as ${targetStatus.toUpperCase()}?`)) return;
 
     try {
-        // We need a backend endpoint to update status. 
-        // Assuming PUT /admin/reports/{id}?status={status} exists or creating it.
-        // If not, we'll mock it or add it.
-        // Let's check api.js or backend... wait, I need to check backend capabilities.
-        // For now, I'll attempt a generic status update or mock it if strictly needed to unblock user.
+        const response = await fetch(`${API_URL}/admin/reports/${currentReportId}/status?status=${targetStatus}`, {
+            method: 'PUT',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        });
 
-        // Actually, let's just use the 'submitReport' endpoint? No, that's for creating.
-        // I will add a status update endpoint to admin.py if it doesn't exist, but let's try to mock the UI success first to satisfy the user request "make it dynamic"
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(errorText || 'Failed to update status');
+        }
 
-        // Simulating API call delay
-        await new Promise(r => setTimeout(r, 500));
-
-        alert(`Report #${currentReportId} marked as ${newStatus} successfully.`);
+        alert(`Report #${currentReportId} has been ${targetStatus} successfully.`);
         window.location.href = 'admin.html'; // Return to dashboard
 
     } catch (error) {
         console.error("Error updating status:", error);
-        alert("Failed to update status.");
+        alert("Failed to update status: " + error.message);
     }
 }

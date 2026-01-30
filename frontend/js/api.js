@@ -404,3 +404,12 @@ async function getMyEnrollments() {
     if (!response.ok) throw new Error(await response.text());
     return await response.json();
 }
+
+async function getContactMessages() {
+    const response = await fetch(`${API_URL}/contact/`, {
+        method: "GET",
+        headers: getAuthHeaders()
+    });
+    if (!response.ok) throw new Error(await response.text());
+    return await response.json();
+}

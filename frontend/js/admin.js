@@ -21,6 +21,7 @@ function showAdminSection(sectionId, btn) {
     if (sectionId === 'users') loadUsers();
     if (sectionId === 'tracking') loadTracking();
     if (sectionId === 'content') loadReports();
+    if (sectionId === 'contact') loadContactMessages();
 }
 
 async function loadDashboardStats() {
@@ -424,16 +425,162 @@ async function loadReports() {
 
         if (cards.length > 1) {
             const reportCard = cards[1];
-            reportCard.querySelector('p').textContent =
-                `Review and action any incident reports filed via the Report Incident page (${reports.length} total).`;
 
-            const btn = reportCard.querySelector('a');
-            btn.textContent = `Review Reports (${reports.length} Total)`;
+            // Create table for reports if it doesn't exist, otherwise update it
+            let tableContainer = reportCard.querySelector('.reports-table-container');
+            if (!tableContainer) {
+                tableContainer = document.createElement('div');
+                tableContainer.className = 'reports-table-container';
+                tableContainer.style.marginTop = '20px';
+                reportCard.appendChild(tableContainer);
+            }
+
+            if (reports.length === 0) {
+                tableContainer.innerHTML = '<p>No incident reports found.</p>';
+                return;
+            }
+
+            // Filter out completed ones as per user request "remove once routed/completed"
+            // But allow toggling to see history
+            const activeReports = showCompletedReports ? reports : reports.filter(r => r.status !== 'completed');
+
+            // Add toggle button if not exists
+            let toggleBtn = reportCard.querySelector('#history-toggle-btn');
+            if (!toggleBtn) {
+                toggleBtn = document.createElement('button');
+                toggleBtn.id = 'history-toggle-btn';
+                toggleBtn.className = 'btn-action-small';
+                toggleBtn.style.backgroundColor = '#6c757d';
+                toggleBtn.style.marginTop = '10px';
+                toggleBtn.textContent = "Show Completed Reports";
+                toggleBtn.onclick = toggleReportHistory;
+                reportCard.insertBefore(toggleBtn, tableContainer);
+            }
+
+            if (activeReports.length === 0) {
+                tableContainer.innerHTML = `<p>No ${showCompletedReports ? '' : 'pending or active '}incident reports found.</p>`;
+                return;
+            }
+
+            let tableHtml = `
+                <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+                    <thead>
+                        <tr style="background: #f8f9fa;">
+                            <th style="padding: 10px; border: 1px solid #ddd;">ID</th>
+                            <th style="padding: 10px; border: 1px solid #ddd;">Reporter</th>
+                            <th style="padding: 10px; border: 1px solid #ddd;">Date</th>
+                            <th style="padding: 10px; border: 1px solid #ddd;">Status</th>
+                            <th style="padding: 10px; border: 1px solid #ddd;">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+
+            activeReports.forEach(report => {
+                // Formatting date safely
+                let dStr = 'N/A';
+                if (report.date) {
+                    const parts = report.date.split('-');
+                    dStr = parts.length === 3 ? `${parts[2]}/${parts[1]}/${parts[0]}` : report.date;
+                }
+
+                tableHtml += `
+                    <tr>
+                        <td style="padding: 10px; border: 1px solid #ddd;">#${report.id}</td>
+                        <td style="padding: 10px; border: 1px solid #ddd;">${report.reporter_name || 'Anonymous'}</td>
+                        <td style="padding: 10px; border: 1px solid #ddd;">${dStr}</td>
+                        <td style="padding: 10px; border: 1px solid #ddd;">
+                            <span style="color: ${getStatusColorAdmin(report.status)}; font-weight: bold;">
+                                ${report.status.toUpperCase()}
+                            </span>
+                        </td>
+                        <td style="padding: 10px; border: 1px solid #ddd;">
+                            <a href="./review_incident_report.html?id=${report.id}" class="btn-action-small" style="text-decoration: none; background-color: #007bff;">Review</a>
+                        </td>
+                    </tr>
+                `;
+            });
+
+            tableHtml += '</tbody></table>';
+            tableContainer.innerHTML = tableHtml;
+
+            // Simple description update
+            const p = reportCard.querySelector('p');
+            if (p) p.textContent = `Review and action pending incident reports (${reports.filter(r => r.status !== 'completed').length} pending).`;
+
+            // Hide the old single link button if it exists
+            const oldBtn = reportCard.querySelector('a.btn-action-small:not(#history-toggle-btn)');
+            if (oldBtn && oldBtn.parentElement === reportCard && !oldBtn.id) oldBtn.style.display = 'none';
         }
 
     } catch (error) {
         console.error("Failed to load reports", error);
     }
+}
+
+function getStatusColorAdmin(status) {
+    if (status === 'pending') return '#dc3545';
+    if (status === 'completed') return '#28a745';
+    if (status === 'routed') return '#ffc107';
+    if (status === 'resolved') return '#28a745';
+    return '#333';
+}
+
+async function loadContactMessages() {
+    const container = document.getElementById('contact-messages-container');
+    container.innerHTML = '<p>Loading messages...</p>';
+
+    try {
+        const messages = await getContactMessages();
+        if (messages.length === 0) {
+            container.innerHTML = '<p>No messages received yet.</p>';
+            return;
+        }
+
+        let html = `
+            <table style="width: 100%; border-collapse: collapse; margin-top: 15px;">
+                <thead>
+                    <tr style="background: #f8f9fa;">
+                        <th style="padding: 10px; border: 1px solid #ddd;">From</th>
+                        <th style="padding: 10px; border: 1px solid #ddd;">Category</th>
+                        <th style="padding: 10px; border: 1px solid #ddd;">Subject</th>
+                        <th style="padding: 10px; border: 1px solid #ddd;">Message</th>
+                        <th style="padding: 10px; border: 1px solid #ddd;">Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+        `;
+
+        messages.forEach(msg => {
+            html += `
+                <tr>
+                    <td style="padding: 10px; border: 1px solid #ddd;">
+                        <strong>${msg.full_name}</strong><br>
+                        <small>${msg.email}</small>
+                    </td>
+                    <td style="padding: 10px; border: 1px solid #ddd;">${msg.category}</td>
+                    <td style="padding: 10px; border: 1px solid #ddd;">${msg.subject}</td>
+                    <td style="padding: 10px; border: 1px solid #ddd; max-width: 300px; white-space: normal; word-wrap: break-word;">${msg.message}</td>
+                    <td style="padding: 10px; border: 1px solid #ddd;">${new Date(msg.created_at).toLocaleDateString()}</td>
+                </tr>
+            `;
+        });
+
+        html += '</tbody></table>';
+        container.innerHTML = html;
+    } catch (error) {
+        console.error("Failed to load contact messages", error);
+        container.innerHTML = '<p style="color:red">Error loading messages: ' + error.message + '</p>';
+    }
+}
+
+let showCompletedReports = false;
+
+function toggleReportHistory() {
+    showCompletedReports = !showCompletedReports;
+    const btn = document.getElementById('history-toggle-btn');
+    btn.textContent = showCompletedReports ? "Hide Completed Reports" : "Show Completed Reports";
+    loadReports();
 }
 
 

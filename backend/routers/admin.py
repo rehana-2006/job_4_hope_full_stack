@@ -219,3 +219,18 @@ def get_parents_detailed(
             "children": children_data
         })
     return result
+@router.put("/reports/{report_id}/status")
+def update_report_status(
+    report_id: int,
+    status: str,
+    db: Session = Depends(get_db),
+    admin: models.User = Depends(verify_admin)
+):
+    """Update status of an incident report"""
+    report = db.query(models.IncidentReport).filter(models.IncidentReport.id == report_id).first()
+    if not report:
+        raise HTTPException(status_code=404, detail="Report not found")
+    
+    report.status = status
+    db.commit()
+    return {"message": f"Report status updated to {status}"}

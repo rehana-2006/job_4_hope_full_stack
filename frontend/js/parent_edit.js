@@ -6,9 +6,33 @@ if (!token || userRole !== 'parent') {
     window.location.href = '../pages/sign_in.html';
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    loadProfileData();
+document.addEventListener('DOMContentLoaded', async () => {
+    await loadDynamicSkills();
+    await loadProfileData();
 });
+
+async function loadDynamicSkills() {
+    const skillsContainer = document.querySelector('.checkbox-group');
+    if (!skillsContainer) return;
+
+    try {
+        const skills = await getSkills();
+        if (skills && skills.length > 0) {
+            skillsContainer.innerHTML = '';
+            skills.forEach(skill => {
+                const label = document.createElement('label');
+                label.className = 'checkbox-label';
+                label.innerHTML = `
+                    <input type="checkbox" name="skills" value="${skill.name}" />
+                    <span>${skill.name}</span>
+                `;
+                skillsContainer.appendChild(label);
+            });
+        }
+    } catch (error) {
+        console.error("Failed to load skills dynamically:", error);
+    }
+}
 
 async function loadProfileData() {
     try {

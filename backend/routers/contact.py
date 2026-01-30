@@ -1,8 +1,9 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from typing import List
-from .. import models, schemas
+from .. import models, schemas, auth
 from ..database import get_db
+from .admin import verify_admin
 
 router = APIRouter(
     prefix="/contact",
@@ -28,6 +29,9 @@ def submit_contact_message(
     return db_message
 
 @router.get("/", response_model=List[schemas.ContactMessage])
-def get_contact_messages(db: Session = Depends(get_db)):
-    """Get all contact messages (admin only - add auth later)"""
+def get_contact_messages(
+    db: Session = Depends(get_db),
+    admin: models.User = Depends(verify_admin)
+):
+    """Get all contact messages (admin only)"""
     return db.query(models.ContactMessage).order_by(models.ContactMessage.created_at.desc()).all()
