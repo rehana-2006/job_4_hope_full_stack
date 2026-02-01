@@ -331,6 +331,8 @@ nav {
     justify-content: center;
     gap: 0.5rem;
     font-weight: 500;
+    text-decoration: none;
+    color: inherit;
 }
 
 .learn-more-btn:hover {
@@ -393,39 +395,7 @@ nav {
     line-height: 1.6;
 }
 
-.impact-section {
-    background: white;
-    border-radius: 12px;
-    padding: 3rem;
-    text-align: center;
-}
 
-.impact-section h3 {
-    font-size: 1.8rem;
-    margin-bottom: 1rem;
-}
-
-.impact-section>p {
-    color: #666;
-    margin-bottom: 2rem;
-    line-height: 1.8;
-}
-
-.impact-stats {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 3rem;
-}
-
-.stat-item h4 {
-    font-size: 2.5rem;
-    color: #000;
-    margin-bottom: 0.5rem;
-}
-
-.stat-item p {
-    color: #666;
-}
 
 /* Resources Section */
 .resources-section {
@@ -644,8 +614,7 @@ footer {
     .resources-grid,
     .facts-grid,
     .program-grid,
-    .benefits-grid,
-    .impact-stats {
+    .benefits-grid {
         display: flex !important;
         /* Use flex column as fallback for stubborn grids */
         flex-direction: column !important;
@@ -658,7 +627,6 @@ footer {
     .key-facts,
     .welfare-section,
     .benefits-section,
-    .impact-section,
     .resources-section {
         padding: 3rem 1rem !important;
     }
@@ -667,7 +635,6 @@ footer {
     .key-facts h2,
     .welfare-section h2,
     .benefits-section h2,
-    .impact-section h3,
     .resources-section h2 {
         font-size: 1.8rem !important;
     }

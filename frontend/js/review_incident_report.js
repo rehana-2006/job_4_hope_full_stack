@@ -84,14 +84,13 @@ function displayReport(report) {
 
     currentReportId = report.id;
 
-    // Fix date display: split YYYY-MM-DD to avoid timezone shifts
+    // Display date and time from database accurately
     let formattedDate = 'N/A';
     if (report.date) {
-        const parts = report.date.split('-');
-        if (parts.length === 3) {
-            formattedDate = `${parts[2]}/${parts[1]}/${parts[0]}`; // DD/MM/YYYY
-        } else {
-            formattedDate = new Date(report.date).toLocaleDateString();
+        formattedDate = report.date;
+        if (report.time) {
+            const t = report.time.length > 5 ? report.time.substring(0, 5) : report.time;
+            formattedDate += ` (${t})`;
         }
     }
 

@@ -353,59 +353,7 @@ nav {
     line-height: 1.8;
 }
 
-/* Impact Section */
-.impact-section {
-    padding: 5rem 2rem;
-    background: #f9fafb;
-    text-align: center;
-}
 
-.impact-section h2 {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-}
-
-.impact-section>p {
-    color: #666;
-    max-width: 1000px;
-    margin: 0 auto 3rem;
-}
-
-.impact-grid {
-    max-width: 1400px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 2rem;
-}
-
-.impact-card {
-    background: white;
-    padding: 2rem;
-    border-radius: 15px;
-    text-align: center;
-}
-
-.impact-card h4 {
-    font-size: 1.2rem;
-    margin-bottom: 1.5rem;
-}
-
-.impact-number {
-    background: #000;
-    color: white;
-    padding: 2rem;
-    border-radius: 10px;
-    font-size: 2rem;
-    font-weight: bold;
-    margin-bottom: 1rem;
-}
-
-.impact-card p {
-    color: #666;
-    margin-top: 1rem;
-    line-height: 1.6;
-}
 
 /* Approach Section */
 .approach-section {
@@ -675,7 +623,6 @@ footer {
     .challenges-container,
     .steps-container,
     .values-grid,
-    .impact-grid,
     .commitment-grid,
     .approach-box {
         grid-template-columns: 1fr;
@@ -688,7 +635,6 @@ footer {
     .card,
     .step,
     .value-card,
-    .impact-card,
     .commitment-card {
         padding: 1.5rem;
     }
@@ -705,7 +651,6 @@ footer {
     .problem-section,
     .change-section,
     .values-section,
-    .impact-section,
     .approach-section,
     .commitment-section {
         padding: 3rem 1rem;

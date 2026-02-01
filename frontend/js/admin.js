@@ -477,11 +477,15 @@ async function loadReports() {
             `;
 
             activeReports.forEach(report => {
-                // Formatting date safely
+                // Show date and time from database accurately
                 let dStr = 'N/A';
                 if (report.date) {
-                    const parts = report.date.split('-');
-                    dStr = parts.length === 3 ? `${parts[2]}/${parts[1]}/${parts[0]}` : report.date;
+                    dStr = report.date;
+                    if (report.time) {
+                        // Backend time might have seconds or be HH:MM
+                        const t = report.time.length > 5 ? report.time.substring(0, 5) : report.time;
+                        dStr += ` (${t})`;
+                    }
                 }
 
                 tableHtml += `

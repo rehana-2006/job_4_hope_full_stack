@@ -267,18 +267,8 @@ nav {
     width: auto;
 }
 
-.urgency-high {
-    color: #c53030;
-    font-weight: 500;
-}
-
-.urgency-medium {
-    color: #dd6b20;
-    font-weight: 500;
-}
-
-.urgency-low {
-    color: #d69e2e;
+.urgency{
+    color: #0a0808;
     font-weight: 500;
 }
 
