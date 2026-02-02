@@ -139,17 +139,12 @@ document.getElementById('parentProfileEditForm').addEventListener('submit', asyn
         }
 
         const payload = {
-            email: document.getElementById('email').value, // Required by schema but ignored by backend update logic usually
-            password: "dummy", // Schema might require it, need to check. Ideally update schema to separate update/create. 
-            // Checking parents.py: uses ParentProfileCreate which requires password. 
-            // We should send a dummy password or refactor backend to use a meaningful Update schema.
-            // For now, sending dummy to satisfy Pydantic.
             full_name: fullName,
             phone: phone,
             location: location,
             skills: skills,
             experience: experience,
-            availability: ["Morning", "Evening"], // Default or add form field
+            availability: ["Morning", "Evening"],
             children: children
         };
 

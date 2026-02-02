@@ -252,26 +252,8 @@ async function getAdminReports() {
     return await response.json();
 }
 
-async function getAdminUsers() {
-    const response = await fetch(`${API_URL}/admin/users`, {
-        method: "GET",
-        headers: getAuthHeaders()
-    });
-    if (!response.ok) throw new Error(await response.text());
-    return await response.json();
-}
-
 async function getAdminJobs() {
     const response = await fetch(`${API_URL}/admin/jobs`, {
-        method: "GET",
-        headers: getAuthHeaders()
-    });
-    if (!response.ok) throw new Error(await response.text());
-    return await response.json();
-}
-
-async function getAdminEvents() {
-    const response = await fetch(`${API_URL}/admin/events`, {
         method: "GET",
         headers: getAuthHeaders()
     });
@@ -374,10 +356,6 @@ async function getEventEnrollments(eventId) {
     if (!response.ok) throw new Error(await response.text());
     return await response.json();
 }
-
-
-
-
 async function updateEnrollmentStatus(enrollmentId, status) {
     const response = await fetch(`${API_URL}/events/enrollments/${enrollmentId}/status?status=${status}`, {
         method: "PUT",

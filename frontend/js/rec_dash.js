@@ -54,15 +54,9 @@ if (!token || userRole !== 'recruiter') {
 
 document.addEventListener('DOMContentLoaded', () => {
   loadMyJobs();
-  setupTabs();
-  // Load profile data immediately
   loadProfile();
 });
 
-function setupTabs() {
-  const tabs = document.querySelectorAll('.tab');
-  // Just ensure logic works
-}
 
 function showSection(sectionId, btn) {
   // Hide all sections
@@ -343,10 +337,8 @@ function closeApplicants() {
 }
 
 async function loadProfile() {
-  console.log("Loading recruiter profile...");
   try {
     const data = await getMyProfile();
-    console.log("Recruiter data:", data);
 
     const profileSection = document.getElementById('profile-section');
     if (!profileSection) return;

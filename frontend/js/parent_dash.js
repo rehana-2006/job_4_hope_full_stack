@@ -28,17 +28,11 @@ function showPage(pageId, btn) {
 }
 
 async function loadProfile() {
-    console.log("=== loadProfile called ===");
     const profileSection = document.getElementById('profile-page');
-    if (!profileSection) {
-        console.error("profile-page element not found!");
-        return;
-    }
+    if (!profileSection) return;
 
     try {
-        console.log("Calling getMyProfile()...");
         const data = await getMyProfile();
-        console.log("Profile data received:", data);
 
         if (!data || !data.profile) {
             console.warn("No profile data found");
@@ -48,7 +42,6 @@ async function loadProfile() {
         }
 
         const cards = profileSection.querySelectorAll('.profile-info-card');
-        console.log("Found cards:", cards.length);
 
         // Update personal details card
         if (cards[0]) {
@@ -103,9 +96,7 @@ async function loadProfile() {
                 `;
             } catch (e) { console.error("Error updating children card:", e); }
         }
-        console.log("=== Profile loaded successfully ===");
     } catch (error) {
-        console.error("=== Failed to load profile ===", error);
         // Show error in the first card so user sees it
         const cards = profileSection.querySelectorAll('.profile-info-card');
         if (cards[0]) {
@@ -239,7 +230,7 @@ function createToastContainer() {
     return container;
 }
 
-// ... existing code ...
+// ... application logic ...
 
 async function handleApply(jobId, btnElement) {
     if (!confirm("Are you sure you want to apply for this job?")) return;
@@ -431,8 +422,6 @@ async function loadEvents() {
 }
 
 // Enrollment Logic
-let currentChildren = [];
-
 async function openEnrollmentModal(eventId, eventTitle) {
     const modal = document.getElementById('enrollment-modal');
     modal.classList.remove('hidden'); // Remove hidden class if used in CSS
@@ -510,5 +499,5 @@ document.getElementById('enrollment-form').addEventListener('submit', async (e) 
 // Search filters integration
 function filterJobs() {
     const query = document.getElementById('jobSearchInput').value;
-    loadJobs({ skill: query }); // Simple search mapping
+    loadJobs({ skill: query });
 }

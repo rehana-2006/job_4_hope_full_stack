@@ -16,13 +16,6 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 async function loadProfileData() {
-    // Assuming we have a getMyProfile function in api.js 
-    // We might need to ensure api.js is included in the html
-    if (typeof getMyProfile !== 'function') {
-        console.error("api.js not loaded");
-        return;
-    }
-
     try {
         const data = await getMyProfile();
         if (!data || !data.profile) {
@@ -97,21 +90,7 @@ async function updateProfile() {
         specialization: Array.from(document.querySelectorAll('input[name="specialization"]:checked')).map(cb => cb.value)
     };
 
-    // Note: The backend schema for EducatorProfileUpdate needs to be checked.
-    // If it expects 'location', we might combine city/state or use address.
-
     try {
-        // We need an updateProfile endpoint in api.js or call fetch directly
-        // Assuming updateEducatorProfile exists or we make a generic Put
-        // For now, let's use a hypothetical updateMyProfile(profileData) wrapper
-
-        // Since we don't have updateMyProfile in api.js yet, let's implement the fetch here or add to api.js
-        // Ideally add to api.js, but for speed, I'll allow this file to handle logic if api.js is missing it.
-        // BUT api.js is better for consistency.
-
-        // Let's check api.js for update function.
-        // PROCEEDING to write this file first, then check/update api.js
-
         await updateEducatorProfile(profileData);
 
         alert("Profile updated successfully!");

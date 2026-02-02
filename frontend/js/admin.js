@@ -219,12 +219,8 @@ async function approveUser(userId, btn) {
     if (!confirm("Are you sure you want to approve this partner?")) return;
 
     // Placeholder - assuming backend has an approve endpoint or we just mock it for now
-    // Since we don't have a specific /approve endpoint in the plan yet, 
-    // I will add a TOAST simply stating it's approved for demo or call an update endpoint if one exists.
     // Real implementation would be: await api.approveUser(userId);
 
-    // For now, let's just visually approve it
-    // For now, let's just visually approve it
     btn.textContent = "Approved";
     btn.disabled = true;
     showToast("User approved successfully!");
@@ -602,8 +598,3 @@ function toggleReportHistory() {
     btn.textContent = showCompletedReports ? "Hide Completed Reports" : "Show Completed Reports";
     loadReports();
 }
-
-
-
-
-

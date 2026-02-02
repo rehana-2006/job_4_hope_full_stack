@@ -8,9 +8,7 @@ if (!token || userRole !== 'educator') {
 
 document.addEventListener('DOMContentLoaded', () => {
     loadMyEvents();
-    // Load profile data immediately
     loadProfile();
-    // Default tab logic handled by inline attributes or we can init here
 });
 
 function showSection(sectionId, btn) {
@@ -281,10 +279,8 @@ function closeModal() {
 }
 
 async function loadProfile() {
-    console.log("Loading educator profile...");
     try {
         const data = await getMyProfile();
-        console.log("Profile data:", data);
 
         if (!data || !data.profile) {
             console.warn("No profile data found");
