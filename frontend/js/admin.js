@@ -484,10 +484,12 @@ async function loadReports() {
                 // Show date and time from database accurately
                 let dStr = 'N/A';
                 if (report.date) {
-                    dStr = report.date;
+                    // Convert YYYY-MM-DD to DD/MM/YYYY for better reading
+                    const parts = report.date.toString().split('-');
+                    dStr = parts.length === 3 ? `${parts[2]}/${parts[1]}/${parts[0]}` : report.date;
+
                     if (report.time) {
-                        // Backend time might have seconds or be HH:MM
-                        const t = report.time.length > 5 ? report.time.substring(0, 5) : report.time;
+                        const t = report.time.toString().substring(0, 5);
                         dStr += ` (${t})`;
                     }
                 }

@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:8000";
+// API_URL is provided by api.js
 
 // Check authentication
 const token = localStorage.getItem('token');
@@ -87,10 +87,13 @@ function displayReport(report) {
     // Display date and time from database accurately
     let formattedDate = 'N/A';
     if (report.date) {
-        formattedDate = report.date;
+        // Ensure date is treated as string if it's already one, or format it
+        formattedDate = typeof report.date === 'string' ? report.date : new Date(report.date).toLocaleDateString();
+
         if (report.time) {
-            const t = report.time.length > 5 ? report.time.substring(0, 5) : report.time;
-            formattedDate += ` (${t})`;
+            // Handle time string (HH:MM:SS or HH:MM)
+            const t = report.time.toString().substring(0, 5);
+            formattedDate += ` at ${t}`;
         }
     }
 
