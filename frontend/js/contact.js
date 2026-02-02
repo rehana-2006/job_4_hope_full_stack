@@ -19,17 +19,7 @@ document.getElementById('contactForm').addEventListener('submit', async (e) => {
     submitBtn.disabled = true;
 
     try {
-        const response = await fetch('http://localhost:8000/contact', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(formData)
-        });
-
-        if (!response.ok) {
-            throw new Error('Failed to send message');
-        }
+        await submitContact(formData);
 
         // Success!
         alert('✅ Message sent successfully! We will get back to you within 24 hours.');

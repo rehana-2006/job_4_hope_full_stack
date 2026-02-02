@@ -107,6 +107,26 @@ async function submitReport(data) {
     }
 }
 
+async function submitContact(data) {
+    try {
+        const response = await fetch(`${API_URL}/contact/`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+        });
+
+        if (!response.ok) {
+            const text = await response.text();
+            throw new Error(`Contact submission failed: ${text}`);
+        }
+        return await response.json();
+    } catch (error) {
+        throw error;
+    }
+}
+
 // Helper to get headers with token
 function getAuthHeaders() {
     const token = localStorage.getItem('token');
