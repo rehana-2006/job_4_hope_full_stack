@@ -12,6 +12,16 @@ from .routers import auth, parents, educators, recruiters, reports, jobs, events
 async def lifespan(app: FastAPI):
     try:
         models.Base.metadata.create_all(bind=engine)
+        # Check if created_at column exists in incident_reports, add it if not
+        from sqlalchemy import text
+        with engine.connect() as conn:
+            try:
+                # This is safe for PostgreSQL/SQLite
+                conn.execute(text("ALTER TABLE incident_reports ADD COLUMN IF NOT EXISTS created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP"))
+                conn.commit()
+                print("Database migrated: added created_at to incident_reports if it was missing")
+            except Exception as e:
+                print(f"Migration Notice (may already exist): {e}")
         print("Tables created")
     except Exception as e:
         print(f"DB Init Error: {e}")
