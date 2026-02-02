@@ -492,6 +492,10 @@ async function loadReports() {
                         const t = report.time.toString().substring(0, 5);
                         dStr += ` (${t})`;
                     }
+                } else if (report.created_at) {
+                    // Fallback to Submission Date (created_at) if incident date wasn't specified
+                    const dt = new Date(report.created_at);
+                    dStr = dt.toLocaleDateString() + ' (Submitted)';
                 }
 
                 tableHtml += `

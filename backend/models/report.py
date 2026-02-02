@@ -1,4 +1,5 @@
-from sqlalchemy import Column, Integer, String, Text, Date, Time, Boolean
+from sqlalchemy import Column, Integer, String, Text, Date, Time, Boolean, DateTime
+from sqlalchemy.sql import func
 from ..database import Base
 
 class IncidentReport(Base):
@@ -18,3 +19,4 @@ class IncidentReport(Base):
     reporter_contact = Column(String, nullable=True)
     status = Column(String, default="pending")
     reporter_role = Column(String, nullable=True)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())

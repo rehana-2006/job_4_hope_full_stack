@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 from typing import Optional
-from datetime import date, time
+from datetime import date, time, datetime
 
 class IncidentReportBase(BaseModel):
     incident_type: str
@@ -20,5 +20,6 @@ class IncidentReportCreate(IncidentReportBase):
 
 class IncidentReport(IncidentReportBase):
     id: int
+    created_at: Optional[datetime] = None
     class Config:
         from_attributes = True
