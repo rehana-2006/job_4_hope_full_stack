@@ -87,7 +87,7 @@ function displayReport(report) {
     // Display date and time from database accurately
     let formattedDate = 'N/A';
     if (report.date) {
-        // Ensure date is treated as string if it's already one, or format it
+        // Use user-provided incident date
         formattedDate = typeof report.date === 'string' ? report.date : new Date(report.date).toLocaleDateString();
 
         if (report.time) {
@@ -95,6 +95,10 @@ function displayReport(report) {
             const t = report.time.toString().substring(0, 5);
             formattedDate += ` at ${t}`;
         }
+    } else if (report.created_at) {
+        // Fallback to system submission date
+        const dt = new Date(report.created_at);
+        formattedDate = dt.toLocaleDateString() + ' (Submission Date)';
     }
 
     reportContent.innerHTML = `
