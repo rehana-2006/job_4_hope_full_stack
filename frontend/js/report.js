@@ -1,10 +1,19 @@
 document.getElementById('incidentReportForm').addEventListener('submit', async function (e) {
     e.preventDefault();
 
+    const description = document.getElementById('description').value;
+    if (description.length < 20) {
+        alert("Please provide a more detailed description (at least 20 characters).");
+        return;
+    }
+
     const submitBtn = document.getElementById('submitBtn');
     const originalText = submitBtn.textContent;
     submitBtn.textContent = 'Submitting...';
     submitBtn.disabled = true;
+
+    const dateEl = document.getElementById('date');
+    const timeEl = document.getElementById('time');
 
     const formData = {
         incident_type: document.getElementById('incidentType').value,
@@ -12,8 +21,8 @@ document.getElementById('incidentReportForm').addEventListener('submit', async f
         location: document.getElementById('location').value,
         city: document.getElementById('city').value,
         state: document.getElementById('state').value,
-        date: document.getElementById('date').value || null,
-        time: document.getElementById('time').value ? document.getElementById('time').value + ":00" : null, // Add seconds if needed by Time type
+        date: dateEl ? (dateEl.value || null) : null,
+        time: timeEl && timeEl.value ? timeEl.value + ":00" : null,
         urgency: document.querySelector('input[name="urgency"]:checked').value,
         is_anonymous: document.getElementById('anonymous').checked,
         reporter_name: document.getElementById('reporterName').value,
