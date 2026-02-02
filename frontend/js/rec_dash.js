@@ -189,6 +189,13 @@ async function loadMyJobs() {
 
   } catch (error) {
     console.error("Failed to load jobs", error);
+    if (container) {
+      const errMsg = document.createElement('p');
+      errMsg.className = 'job-card';
+      errMsg.style.color = 'red';
+      errMsg.textContent = "Error loading your job listings.";
+      container.appendChild(errMsg);
+    }
   }
 }
 

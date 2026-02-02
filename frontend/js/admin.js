@@ -55,6 +55,8 @@ async function loadDashboardStats() {
 
     } catch (error) {
         console.error("Failed to load stats", error);
+        const statGrid = document.querySelector('.stat-grid');
+        if (statGrid) statGrid.innerHTML = '<p style="color:red; padding: 20px;">Error loading platform statistics.</p>';
     }
 }
 
@@ -384,6 +386,8 @@ async function loadActiveJobs() {
         });
     } catch (error) {
         console.error("Failed to load jobs", error);
+        const tbody = document.getElementById('active-jobs-body');
+        if (tbody) tbody.innerHTML = '<tr><td colspan="4" style="color:red">Error loading active jobs.</td></tr>';
     }
 }
 
@@ -519,6 +523,12 @@ async function loadReports() {
 
     } catch (error) {
         console.error("Failed to load reports", error);
+        const contentSection = document.getElementById('content-section');
+        const cards = contentSection ? contentSection.querySelectorAll('.stat-card') : [];
+        if (cards.length > 1) {
+            const tableContainer = cards[1].querySelector('.reports-table-container');
+            if (tableContainer) tableContainer.innerHTML = '<p style="color:red">Error loading incident reports.</p>';
+        }
     }
 }
 

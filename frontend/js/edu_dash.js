@@ -155,6 +155,13 @@ async function loadMyEvents() {
 
     } catch (error) {
         console.error("Failed to load events", error);
+        if (container) {
+            const errP = document.createElement('p');
+            errP.className = 'enrollment-card';
+            errP.style.color = 'red';
+            errP.textContent = "Error loading programs. Please try again later.";
+            container.appendChild(errP);
+        }
     }
 }
 
