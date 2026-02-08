@@ -32,10 +32,8 @@ document.getElementById('incidentReportForm').addEventListener('submit', async f
     try {
         await submitReport(formData);
 
-        // Reset form
         document.getElementById('incidentReportForm').reset();
 
-        // Show success message (simple alert or custom UI)
         alert("Report submitted successfully. Thank you for helping protecting children.");
 
         submitBtn.textContent = originalText;
@@ -47,7 +45,7 @@ document.getElementById('incidentReportForm').addEventListener('submit', async f
     }
 });
 
-// Character count logic (kept from original requirement if needed, or re-implemented)
+
 const descInput = document.getElementById('description');
 const charCountDiv = document.querySelector('.char-count');
 if (descInput && charCountDiv) {

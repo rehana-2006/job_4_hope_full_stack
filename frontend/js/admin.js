@@ -76,7 +76,7 @@ function storeUsers(users) {
 
 async function loadPendingPartners() {
     const tbody = document.getElementById('pending-partners-body');
-    tbody.innerHTML = '<tr><td colspan="4">Loading pending partners...</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="4">Loading partners...</td></tr>';
 
     try {
         const users = await getPendingPartners();
@@ -85,7 +85,7 @@ async function loadPendingPartners() {
         tbody.innerHTML = '';
 
         if (users.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="4">No pending partners found.</td></tr>';
+            tbody.innerHTML = '<tr><td colspan="4">No partners found.</td></tr>';
             return;
         }
 
@@ -100,7 +100,6 @@ async function loadPendingPartners() {
                 <td>N/A</td> 
                 <td>
                     <button class="btn-action-small" onclick="viewUserDetails(${user.id})">View Details</button>
-                    <button class="btn-action-small" style="background-color: #28a745;" onclick="approveUser(${user.id}, this)">Approve</button>
                 </td>
             `;
             tbody.appendChild(row);

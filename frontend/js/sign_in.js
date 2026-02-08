@@ -14,15 +14,13 @@ if (loginForm) {
 
             const data = await loginUser(email, password);
 
-            // Decode token to get role (simple decoding for frontend logic, verification happens on backend)
-            // JWT structure: header.payload.signature
+            
             const payload = JSON.parse(atob(data.access_token.split('.')[1]));
 
             localStorage.setItem('token', data.access_token);
             localStorage.setItem('role', payload.role);
             localStorage.setItem('email', payload.sub);
 
-            // Redirect based on role
             switch (payload.role) {
                 case 'parent':
                     window.location.href = './parent_dash.html';

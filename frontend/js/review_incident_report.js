@@ -1,6 +1,4 @@
-// API_URL is provided by api.js
 
-// Check authentication
 const token = localStorage.getItem('token');
 const userRole = localStorage.getItem('role');
 
@@ -84,19 +82,15 @@ function displayReport(report) {
 
     currentReportId = report.id;
 
-    // Display date and time from database accurately
     let formattedDate = 'N/A';
     if (report.date) {
-        // Use user-provided incident date
         formattedDate = typeof report.date === 'string' ? report.date : new Date(report.date).toLocaleDateString();
 
         if (report.time) {
-            // Handle time string (HH:MM:SS or HH:MM)
             const t = report.time.toString().substring(0, 5);
             formattedDate += ` at ${t}`;
         }
     } else if (report.created_at) {
-        // Fallback to system submission date
         const dt = new Date(report.created_at);
         formattedDate = dt.toLocaleDateString() + ' (Submission Date)';
     }
@@ -124,17 +118,16 @@ function displayReport(report) {
 }
 
 function getStatusColor(status) {
-    if (status === 'pending') return '#dc3545'; // Red
-    if (status === 'completed') return '#28a745'; // Green
-    if (status === 'routed') return '#ffc107'; // Yellow
-    if (status === 'resolved') return '#28a745'; // Green
+    if (status === 'pending') return '#dc3545'; 
+    if (status === 'completed') return '#28a745'; 
+    if (status === 'routed') return '#ffc107'; 
+    if (status === 'resolved') return '#28a745'; 
     return '#333';
 }
 
 async function updateReportStatus(newStatus) {
     if (!currentReportId) return;
 
-    // Map 'routed' action to 'completed' status as requested
     const targetStatus = (newStatus === 'routed') ? 'completed' : newStatus;
 
     if (!confirm(`Are you sure you want to mark this report as ${targetStatus.toUpperCase()}?`)) return;
@@ -154,7 +147,7 @@ async function updateReportStatus(newStatus) {
         }
 
         alert(`Report #${currentReportId} has been ${targetStatus} successfully.`);
-        window.location.href = 'admin.html'; // Return to dashboard
+        window.location.href = 'admin.html'; 
 
     } catch (error) {
         console.error("Error updating status:", error);
