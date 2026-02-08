@@ -97,7 +97,6 @@ async function loadPendingPartners() {
             row.innerHTML = `
                 <td>${name}</td>
                 <td>${type}</td>
-                <td>N/A</td> 
                 <td>
                     <button class="btn-action-small" onclick="viewUserDetails(${user.id})">View Details</button>
                 </td>
