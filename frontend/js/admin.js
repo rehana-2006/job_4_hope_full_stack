@@ -185,11 +185,6 @@ function viewUserDetails(userId) {
 }
 
 function viewParentProfile(parentId) {
-    // Re-use the same modal structure but for parent details
-    // Since this parent data comes from a different list, we might need a separate store or fetch it
-    // For simplicity, let's fetch it or filter from a global parents list if we store it.
-    // But wait! loadParentReviews has the 'p' object.
-    // Let's attach the data to the button click directly or use a global parents array.
     console.log("Viewing parent:", parentId);
     const parent = currentParents.find(p => p.id === parentId);
     if (!parent) return;
@@ -211,17 +206,6 @@ function viewParentProfile(parentId) {
     const modal = document.getElementById('user-details-modal');
     modal.classList.remove('hidden');
     modal.style.display = 'flex';
-}
-
-async function approveUser(userId, btn) {
-    if (!confirm("Are you sure you want to approve this partner?")) return;
-
-    // Placeholder - assuming backend has an approve endpoint or we just mock it for now
-    // Real implementation would be: await api.approveUser(userId);
-
-    btn.textContent = "Approved";
-    btn.disabled = true;
-    showToast("User approved successfully!");
 }
 
 function closeUserModal() {
@@ -424,7 +408,6 @@ async function loadReports() {
         if (cards.length > 1) {
             const reportCard = cards[1];
 
-            // Create table for reports if it doesn't exist, otherwise update it
             let tableContainer = reportCard.querySelector('.reports-table-container');
             if (!tableContainer) {
                 tableContainer = document.createElement('div');
@@ -438,11 +421,8 @@ async function loadReports() {
                 return;
             }
 
-            // Filter out completed ones as per user request "remove once routed/completed"
-            // But allow toggling to see history
             const activeReports = showCompletedReports ? reports : reports.filter(r => r.status !== 'completed');
 
-            // Add toggle button if not exists
             let toggleBtn = reportCard.querySelector('#history-toggle-btn');
             if (!toggleBtn) {
                 toggleBtn = document.createElement('button');
@@ -475,10 +455,8 @@ async function loadReports() {
             `;
 
             activeReports.forEach(report => {
-                // Show date and time from database accurately
                 let dStr = 'N/A';
                 if (report.date) {
-                    // Convert YYYY-MM-DD to DD/MM/YYYY for better reading
                     const parts = report.date.toString().split('-');
                     dStr = parts.length === 3 ? `${parts[2]}/${parts[1]}/${parts[0]}` : report.date;
 
@@ -512,11 +490,9 @@ async function loadReports() {
             tableHtml += '</tbody></table>';
             tableContainer.innerHTML = tableHtml;
 
-            // Simple description update
             const p = reportCard.querySelector('p');
             if (p) p.textContent = `Review and action pending incident reports (${reports.filter(r => r.status !== 'completed').length} pending).`;
 
-            // Hide the old single link button if it exists
             const oldBtn = reportCard.querySelector('a.btn-action-small:not(#history-toggle-btn)');
             if (oldBtn && oldBtn.parentElement === reportCard && !oldBtn.id) oldBtn.style.display = 'none';
         }

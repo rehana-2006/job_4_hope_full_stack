@@ -24,9 +24,9 @@ async function loadProfileData() {
         }
 
         const p = data.profile;
-        const user = data; // email wraps the profile
+        const user = data;
 
-        // Populate fields
+      
         setValue('orgName', p.org_name);
         setValue('orgType', p.org_type);
         setValue('description', p.description);
@@ -34,14 +34,14 @@ async function loadProfileData() {
         setValue('ageRange', p.age_range);
         setValue('contactName', p.contact_name);
         setValue('jobTitle', p.job_title);
-        setValue('email', user.email); // Read-only usually? Or pre-fill
+        setValue('email', user.email); 
         setValue('phone', p.phone);
         setValue('website', p.website);
-        setValue('address', p.address); // Note: schema might have address or location. Check schema.
+        setValue('address', p.address); 
         setValue('city', p.city);
         setValue('state', p.state);
 
-        // Checkboxes for specializations
+     
         if (p.specialization && Array.isArray(p.specialization)) {
             const checkboxes = document.querySelectorAll('input[name="specialization"]');
             checkboxes.forEach(cb => {
@@ -82,9 +82,6 @@ async function updateProfile() {
         job_title: formData.get('jobTitle'),
         phone: formData.get('phone'),
         website: formData.get('website'),
-        // Address might need concatenation or separate fields depending on schema
-        // For now, let's assume we update location string or separate fields if backend supports it.
-        // Looking at schema: city, state, location. 
         city: formData.get('city'),
         state: formData.get('state'),
         specialization: Array.from(document.querySelectorAll('input[name="specialization"]:checked')).map(cb => cb.value)

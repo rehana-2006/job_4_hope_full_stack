@@ -42,10 +42,9 @@ if (postProgramForm) {
             title: postProgramForm.querySelector('input[name="title"]').value,
             location: postProgramForm.querySelector('input[name="location"]').value,
             description: postProgramForm.querySelector('textarea[name="description"]').value,
-            // Mapping fields to schema
             category: postProgramForm.querySelector('select[name="program_type"]').value,
             date: postProgramForm.querySelector('input[name="start_date"]').value,
-            time: "09:00:00" // Default time as form doesn't have it, or we add input
+            time: "09:00:00" 
         };
 
         try {
@@ -106,11 +105,9 @@ function createToastContainer() {
 async function loadMyEvents() {
     const container = document.getElementById('enrollments-section');
 
-    // Clear existing static content if any (first run)
-    // We want to preserve the header though
+
     const header = container.querySelector('.listings-header') || container.querySelector('h3').parentNode;
 
-    // Remove all card elements
     const oldCards = container.querySelectorAll('.enrollment-card');
     oldCards.forEach(c => c.remove());
 

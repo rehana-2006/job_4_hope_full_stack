@@ -5,7 +5,6 @@ document.getElementById('contactForm').addEventListener('submit', async (e) => {
     const submitBtn = form.querySelector('button[type="submit"]');
     const originalText = submitBtn.textContent;
 
-    // Get form data
     const formData = {
         full_name: form.querySelector('[name="full_name"]').value,
         email: form.querySelector('[name="email"]').value,
@@ -14,14 +13,12 @@ document.getElementById('contactForm').addEventListener('submit', async (e) => {
         message: form.querySelector('[name="message"]').value
     };
 
-    // Disable button and show loading
     submitBtn.textContent = 'Sending...';
     submitBtn.disabled = true;
 
     try {
         await submitContact(formData);
 
-        // Success!
         alert('✅ Message sent successfully! We will get back to you within 24 hours.');
         form.reset();
 
