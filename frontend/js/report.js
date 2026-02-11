@@ -12,17 +12,14 @@ document.getElementById('incidentReportForm').addEventListener('submit', async f
     submitBtn.textContent = 'Submitting...';
     submitBtn.disabled = true;
 
-    const dateEl = document.getElementById('date');
-    const timeEl = document.getElementById('time');
-
     const formData = {
         incident_type: document.getElementById('incidentType').value,
         description: document.getElementById('description').value,
         location: document.getElementById('location').value,
         city: document.getElementById('city').value,
         state: document.getElementById('state').value,
-        date: dateEl ? (dateEl.value || null) : null,
-        time: timeEl && timeEl.value ? timeEl.value + ":00" : null,
+        date: null,
+        time: null,
         urgency: document.querySelector('input[name="urgency"]:checked').value,
         is_anonymous: document.getElementById('anonymous').checked,
         reporter_name: document.getElementById('reporterName').value,
