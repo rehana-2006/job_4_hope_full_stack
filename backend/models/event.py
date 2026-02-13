@@ -19,7 +19,7 @@ class Event(Base):
 
     # Relationships
     educator = relationship("EducatorProfile", back_populates="events")
-    enrollments = relationship("Enrollment", back_populates="event")
+    enrollments = relationship("Enrollment", back_populates="event", cascade="all, delete-orphan")
 
 class Enrollment(Base):
     __tablename__ = "enrollments"

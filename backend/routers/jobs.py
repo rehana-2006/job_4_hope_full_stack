@@ -119,7 +119,10 @@ def get_my_applications(
     if not parent:
         return []
         
-    applications = db.query(models.Application).filter(models.Application.parent_id == parent.id).all()
+    applications = db.query(models.Application).filter(
+        models.Application.parent_id == parent.id,
+        models.Application.job_id.isnot(None)
+    ).all()
     
     for app in applications:
         job = db.query(models.Job).filter(models.Job.id == app.job_id).first()

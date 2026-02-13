@@ -213,7 +213,10 @@ def get_my_enrollments(
     if not parent:
         return []
         
-    enrollments = db.query(models.Enrollment).filter(models.Enrollment.parent_id == parent.id).all()
+    enrollments = db.query(models.Enrollment).filter(
+        models.Enrollment.parent_id == parent.id,
+        models.Enrollment.event_id.isnot(None)
+    ).all()
     
     # Populate helper fields if schema allows
     for en in enrollments:

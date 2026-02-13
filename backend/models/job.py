@@ -18,7 +18,7 @@ class Job(Base):
 
     # Relationships
     recruiter = relationship("RecruiterProfile", back_populates="jobs")
-    applications = relationship("Application", back_populates="job")
+    applications = relationship("Application", back_populates="job", cascade="all, delete-orphan")
 
 class Application(Base):
     __tablename__ = "applications"
