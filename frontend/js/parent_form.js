@@ -63,10 +63,15 @@ document.getElementById('parentRegForm').addEventListener('submit', async functi
     e.preventDefault();
 
     const submitBtn = document.querySelector('.btn-submit');
+    const fullName = document.getElementById('fullName').value;
+
+    if (!validateName(fullName)) {
+        alert("Please enter a valid full name (only letters and spaces, at least 2 characters).");
+        return;
+    }
+
     submitBtn.textContent = 'Creating Profile...';
     submitBtn.disabled = true;
-
-    // Collect Skills
     const skills = [];
     document.querySelectorAll('input[name="skills"]:checked').forEach(cb => {
         skills.push(cb.value);
@@ -84,6 +89,12 @@ document.getElementById('parentRegForm').addEventListener('submit', async functi
     // Child 1 (Always present)
     const c1Name = document.getElementById('child1Name').value;
     if (c1Name) {
+        if (!validateName(c1Name)) {
+            alert("Please enter a valid name for Child 1 (only letters and spaces).");
+            submitBtn.textContent = 'Create Profile';
+            submitBtn.disabled = false;
+            return;
+        }
         children.push({
             name: c1Name,
             age: parseInt(document.getElementById('child1Age').value) || 0,
@@ -97,6 +108,12 @@ document.getElementById('parentRegForm').addEventListener('submit', async functi
     for (let i = 2; i <= 3; i++) {
         const name = document.getElementById(`child${i}Name`).value;
         if (name) { // Only add if name is provided
+            if (!validateName(name)) {
+                alert(`Please enter a valid name for Child ${i} (only letters and spaces).`);
+                submitBtn.textContent = 'Create Profile';
+                submitBtn.disabled = false;
+                return;
+            }
             children.push({
                 name: name,
                 age: parseInt(document.getElementById(`child${i}Age`).value) || 0,
@@ -130,3 +147,8 @@ document.getElementById('parentRegForm').addEventListener('submit', async functi
         submitBtn.disabled = false;
     }
 });
+
+function validateName(name) {
+    const re = /^[A-Za-z\s]{2,50}$/;
+    return re.test(name.trim());
+}

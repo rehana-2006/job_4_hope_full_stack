@@ -34,6 +34,39 @@ async function loadDynamicSkills() {
     }
 }
 
+function addChildBlock() {
+    const hiddenBlocks = document.querySelectorAll('.child-details-static.optional-child');
+    // Find the first hidden block
+    for (let i = 0; i < hiddenBlocks.length; i++) {
+        if (hiddenBlocks[i].style.display !== 'block') {
+            hiddenBlocks[i].style.display = 'block';
+
+            // If this was the last hidden block, hide the add button
+            if (i === hiddenBlocks.length - 1) {
+                document.querySelector('.btn-addChild').style.display = 'none';
+                document.getElementById('limitMessage').style.display = 'block';
+            }
+            break;
+        }
+    }
+}
+
+function removeChildBlock(index) {
+    const block = document.getElementById(`child${index}Block`);
+    if (block) {
+        block.style.display = 'none';
+        // Clear all inputs in this block
+        const inputs = block.querySelectorAll('input, select');
+        inputs.forEach(input => {
+            input.value = '';
+        });
+
+        // Ensure the add button is visible again
+        document.querySelector('.btn-addChild').style.display = 'flex';
+        document.getElementById('limitMessage').style.display = 'none';
+    }
+}
+
 async function loadProfileData() {
     try {
         const data = await getMyProfile();
@@ -76,6 +109,10 @@ async function loadProfileData() {
 
             if (p.children.length > 1) {
                 const c2 = p.children[1];
+                document.getElementById('child2Block').style.display = 'block';
+                document.querySelector('.btn-addChild').style.display = 'none';
+                document.getElementById('limitMessage').style.display = 'block';
+
                 document.getElementById('child2Name').value = c2.name || '';
                 document.getElementById('child2Age').value = c2.age || '';
                 document.getElementById('child2Grade').value = c2.grade || '';
@@ -95,12 +132,17 @@ document.getElementById('parentProfileEditForm').addEventListener('submit', asyn
 
     const btn = document.querySelector('.btn-update');
     const originalText = btn.textContent;
+    const fullName = document.getElementById('fullName').value;
+
+    if (!validateName(fullName)) {
+        alert("Please enter a valid full name (only letters and spaces, at least 2 characters).");
+        return;
+    }
+
     btn.textContent = "Saving...";
     btn.disabled = true;
 
     try {
-        // Collect Data
-        const fullName = document.getElementById('fullName').value;
         const phone = document.getElementById('phone').value;
         const location = document.getElementById('location').value;
         const experience = document.getElementById('experience').value;
@@ -117,6 +159,12 @@ document.getElementById('parentProfileEditForm').addEventListener('submit', asyn
         // Child 1
         const c1Name = document.getElementById('child1Name').value;
         if (c1Name) {
+            if (!validateName(c1Name)) {
+                alert("Please enter a valid name for Child 1 (only letters and spaces).");
+                btn.textContent = originalText;
+                btn.disabled = false;
+                return;
+            }
             children.push({
                 name: c1Name,
                 age: parseInt(document.getElementById('child1Age').value) || 0,
@@ -129,6 +177,12 @@ document.getElementById('parentProfileEditForm').addEventListener('submit', asyn
         // Child 2
         const c2Name = document.getElementById('child2Name').value;
         if (c2Name) {
+            if (!validateName(c2Name)) {
+                alert("Please enter a valid name for Child 2 (only letters and spaces).");
+                btn.textContent = originalText;
+                btn.disabled = false;
+                return;
+            }
             children.push({
                 name: c2Name,
                 age: parseInt(document.getElementById('child2Age').value) || 0,
@@ -172,3 +226,8 @@ document.getElementById('parentProfileEditForm').addEventListener('submit', asyn
         btn.disabled = false;
     }
 });
+
+function validateName(name) {
+    const re = /^[A-Za-z\s]{2,50}$/;
+    return re.test(name.trim());
+}

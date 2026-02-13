@@ -45,11 +45,14 @@ def create_job(
 def get_jobs(
     skill: Optional[str] = None, 
     location: Optional[str] = None, 
+    frequency: Optional[str] = None,
     db: Session = Depends(get_db)
 ):
     query = db.query(models.Job)
     if location:
         query = query.filter(models.Job.location.ilike(f"%{location}%"))
+    if frequency:
+        query = query.filter(models.Job.frequency.ilike(f"%{frequency}%"))
     
     jobs = query.all()
     
@@ -123,9 +126,12 @@ def get_my_applications(
         if job:
             app.job_title = job.title
             app.location = job.location
+            app.wage = job.wage
+            app.frequency = job.frequency
             recruiter = db.query(models.RecruiterProfile).filter(models.RecruiterProfile.id == job.recruiter_id).first()
             if recruiter:
                 app.recruiter_name = recruiter.org_name
+            app.description = job.description
                 
     return applications
 

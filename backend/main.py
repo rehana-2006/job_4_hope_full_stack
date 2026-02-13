@@ -18,8 +18,9 @@ async def lifespan(app: FastAPI):
             try:
                 # This is safe for PostgreSQL/SQLite
                 conn.execute(text("ALTER TABLE incident_reports ADD COLUMN IF NOT EXISTS created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP"))
+                conn.execute(text("ALTER TABLE events ADD COLUMN IF NOT EXISTS capacity INTEGER DEFAULT 0"))
                 conn.commit()
-                print("Database migrated: added created_at to incident_reports if it was missing")
+                print("Database migrated: added created_at to incident_reports and capacity to events if they were missing")
             except Exception as e:
                 print(f"Migration Notice (may already exist): {e}")
         print("Tables created")
@@ -71,5 +72,6 @@ if os.path.exists(os.path.join(FRONTEND_DIR, "assets")):
     app.mount("/assets", StaticFiles(directory=os.path.join(FRONTEND_DIR, "assets")), name="assets")
 
 @app.get("/")
+@app.get("/index.html")
 async def read_index():
     return FileResponse(os.path.join(FRONTEND_DIR, "index.html"))

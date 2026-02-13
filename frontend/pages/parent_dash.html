@@ -75,55 +75,18 @@
         <h2>Find Job Opportunities</h2>
 
         <div class="central-search-bar">
-          <input type="text" id="jobSearchInput"
-            placeholder="Search by skill (e.g., Cooking), job title, or organization name..." onkeyup="filterJobs()" />
+          <input type="text" id="jobSearchInput" placeholder="Search by skill (e.g., Cooking) or job title..." />
           <button onclick="filterJobs()">Search Jobs</button>
         </div>
         <div class="search-filters">
-          <input type="text" class="search-input" placeholder="Filter by Location" />
-          <select class="search-input">
-            <option>Work Type</option>
-            <option>Daily</option>
-            <option>Weekly</option>
-            <option>Monthly</option>
+          <input type="text" id="filterLocation" class="search-input" placeholder="Filter by Location" />
+          <select id="filterWorkType" class="search-input">
+            <option value="">Work Type (All)</option>
+            <option value="Daily">Daily</option>
+            <option value="Weekly">Weekly</option>
+            <option value="Monthly">Monthly</option>
           </select>
-          <button class="clear-filters">Clear Filters</button>
-        </div>
-
-        <div class="skills-filter-section">
-          <h3>Skills Filter</h3>
-          <div class="skills-filter">
-            <label class="skill-checkbox">
-              <input type="checkbox" /> Cooking
-            </label>
-            <label class="skill-checkbox">
-              <input type="checkbox" /> Tailoring
-            </label>
-            <label class="skill-checkbox">
-              <input type="checkbox" /> Cleaning
-            </label>
-            <label class="skill-checkbox">
-              <input type="checkbox" /> Domestic Work
-            </label>
-            <label class="skill-checkbox">
-              <input type="checkbox" /> Construction
-            </label>
-            <label class="skill-checkbox">
-              <input type="checkbox" /> Gardening
-            </label>
-            <label class="skill-checkbox">
-              <input type="checkbox" /> Teaching
-            </label>
-            <label class="skill-checkbox">
-              <input type="checkbox" /> Childcare
-            </label>
-            <label class="skill-checkbox">
-              <input type="checkbox" /> Food Service
-            </label>
-            <label class="skill-checkbox">
-              <input type="checkbox" /> Handicrafts
-            </label>
-          </div>
+          <button class="clear-filters" onclick="clearFilters()">Clear Filters</button>
         </div>
       </section>
 
@@ -206,19 +169,20 @@
         <h2>Find Educational Support Events</h2>
 
         <div class="central-search-bar">
-          <input type="text" placeholder="Search by topic (e.g., Math, Digital Skills), or organisation..." />
-          <button>Search Events</button>
+          <input type="text" id="eventSearchInput"
+            placeholder="Search by topic (e.g., Math, Digital Skills), or organisation..." />
+          <button onclick="filterEvents()">Search Events</button>
         </div>
         <div class="search-filters">
-          <input type="text" class="search-input" placeholder="Filter by City/Area" />
-          <select class="search-input">
-            <option>Filter by Topic</option>
-            <option>Basic Literacy</option>
-            <option>Digital Skills</option>
-            <option>Vocational Guidance</option>
-            <option>Health & Nutrition</option>
+          <input type="text" id="filterEventLocation" class="search-input" placeholder="Filter by City/Area" />
+          <select id="filterEventCategory" class="search-input">
+            <option value="">Filter by Topic (All)</option>
+            <option value="Basic Literacy">Basic Literacy</option>
+            <option value="Digital Skills">Digital Skills</option>
+            <option value="Vocational Guidance">Vocational Guidance</option>
+            <option value="Health & Nutrition">Health & Nutrition</option>
           </select>
-          <button class="clear-filters">Clear Filters</button>
+          <button class="clear-filters" onclick="clearEventFilters()">Clear Filters</button>
         </div>
       </section>
 

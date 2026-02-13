@@ -43,6 +43,34 @@
       width: 100%;
       margin-top: 20px;
     }
+
+    /* CSS to hide the optional child forms initially */
+    .optional-child {
+      display: none;
+    }
+
+    .btn-addChild {
+      background-color: #28a745;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-remove {
+      background-color: #dc3545;
+      color: white;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.8em;
+    }
   </style>
 </head>
 
@@ -87,21 +115,22 @@
           <div class="form-row">
             <div class="form-group">
               <label for="fullName">Full Name <span class="required">*</span></label>
-              <input type="text" id="fullName" name="fullName" value="Priya Sharma" required />
+              <input type="text" id="fullName" name="fullName" placeholder="Full Name" pattern="[A-Za-z\s]{2,50}"
+                title="Letters and spaces only, 2-50 characters" required />
             </div>
             <div class="form-group">
               <label for="phone">Phone Number <span class="required">*</span></label>
-              <input type="tel" id="phone" name="phone" value="+91 98765 43210" required />
+              <input type="tel" id="phone" name="phone" placeholder="+91 XXXXX XXXXX" required />
             </div>
           </div>
           <div class="form-row">
             <div class="form-group">
               <label for="email">Email Address <span class="required">*</span></label>
-              <input type="email" id="email" name="email" value="priya.sharma@example.com" required />
+              <input type="email" id="email" name="email" placeholder="email@example.com" required />
             </div>
             <div class="form-group">
               <label for="location">City/Location <span class="required">*</span></label>
-              <input type="text" id="location" name="location" value="Pune, Maharashtra" required />
+              <input type="text" id="location" name="location" placeholder="City, State" required />
             </div>
           </div>
         </div>
@@ -115,7 +144,7 @@
             </p>
             <div class="checkbox-group">
               <label class="checkbox-label">
-                <input type="checkbox" name="skills" value="cooking" checked />
+                <input type="checkbox" name="skills" value="cooking" />
                 <span>🍳 Cooking</span>
               </label>
               <label class="checkbox-label">
@@ -127,7 +156,7 @@
                 <span>🧹 Cleaning</span>
               </label>
               <label class="checkbox-label">
-                <input type="checkbox" name="skills" value="domestic" checked />
+                <input type="checkbox" name="skills" value="domestic" />
                 <span>🏠 Domestic Work</span>
               </label>
               <label class="checkbox-label">
@@ -142,8 +171,7 @@
           </div>
           <div class="form-group">
             <label for="experience">Work Experience Summary</label>
-            <textarea id="experience" name="experience" rows="4">
-5 years experience in domestic roles, recently completed a 6-month certificate in professional cooking and hygiene.</textarea>
+            <textarea id="experience" name="experience" rows="4" placeholder="Describe your experience..."></textarea>
             <p class="help-text">Max 500 characters.</p>
           </div>
         </div>
@@ -160,25 +188,24 @@
             <div class="form-row">
               <div class="form-group">
                 <label for="child1Name">Name</label>
-                <input type="text" id="child1Name" name="child1Name" value="Rohan Sharma"
-                  placeholder="Child's Full Name" />
+                <input type="text" id="child1Name" name="child1Name" placeholder="Child's Full Name"
+                  pattern="[A-Za-z\s]{2,50}" title="Letters and spaces only, 2-50 characters" />
               </div>
               <div class="form-group">
                 <label for="child1Age">Age (5-18)</label>
-                <input type="number" id="child1Age" name="child1Age" min="5" max="18" value="8" placeholder="Age" />
+                <input type="number" id="child1Age" name="child1Age" min="5" max="18" placeholder="Age" />
               </div>
             </div>
             <div class="form-row">
               <div class="form-group">
                 <label for="child1Grade">Current Grade/Class (Optional)</label>
-                <input type="text" id="child1Grade" name="child1Grade" value="Class 3"
-                  placeholder="e.g., Class 5, Standard 8" />
+                <input type="text" id="child1Grade" name="child1Grade" placeholder="e.g., Class 5, Standard 8" />
               </div>
               <div class="form-group">
                 <label for="child1Status">Current School Status</label>
                 <select id="child1Status" name="child1Status">
                   <option value="" disabled>Select Status</option>
-                  <option value="attending" selected>
+                  <option value="attending">
                     Attending School Regularly
                   </option>
                   <option value="newly_enrolling">
@@ -190,41 +217,44 @@
             </div>
             <div class="form-group">
               <label for="child1Interests">Interests/Hobbies</label>
-              <input type="text" id="child1Interests" name="child1Interests" value="Drawing, Football"
+              <input type="text" id="child1Interests" name="child1Interests"
                 placeholder="e.g., Reading, Cricket, Drawing" />
             </div>
           </div>
 
-          <div class="child-details-static">
-            <h4>Child 2 Details</h4>
+          <div id="child2Block" class="child-details-static optional-child">
+            <div
+              style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px dashed #ccc; padding-bottom: 5px;">
+              <h4 style="margin: 0; border: none; padding: 0; color: #007bff;">Child 2 Details</h4>
+              <button type="button" class="btn-remove" onclick="removeChildBlock(2)">✕ Remove</button>
+            </div>
             <div class="form-row">
               <div class="form-group">
                 <label for="child2Name">Name</label>
-                <input type="text" id="child2Name" name="child2Name" value="Sita Sharma"
-                  placeholder="Child's Full Name" />
+                <input type="text" id="child2Name" name="child2Name" placeholder="Child's Full Name"
+                  pattern="[A-Za-z\s]{2,50}" title="Letters and spaces only, 2-50 characters" />
               </div>
               <div class="form-group">
                 <label for="child2Age">Age (5-18)</label>
-                <input type="number" id="child2Age" name="child2Age" min="5" max="18" value="14" placeholder="Age" />
+                <input type="number" id="child2Age" name="child2Age" min="5" max="18" placeholder="Age" />
               </div>
             </div>
             <div class="form-row">
               <div class="form-group">
                 <label for="child2Grade">Current Grade/Class (Optional)</label>
-                <input type="text" id="child2Grade" name="child2Grade" value="N/A"
-                  placeholder="e.g., Class 5, Standard 8" />
+                <input type="text" id="child2Grade" name="child2Grade" placeholder="e.g., Class 5, Standard 8" />
               </div>
               <div class="form-group">
                 <label for="child2Status">Current School Status</label>
                 <select id="child2Status" name="child2Status">
-                  <option value="" disabled>Select Status</option>
+                  <option value="" disabled selected>Select Status</option>
                   <option value="attending">
                     Attending School Regularly
                   </option>
                   <option value="newly_enrolling">
                     Needs to be Newly Enrolled
                   </option>
-                  <option value="drop_out" selected>
+                  <option value="drop_out">
                     Needs Re-enrollment
                   </option>
                 </select>
@@ -232,10 +262,17 @@
             </div>
             <div class="form-group">
               <label for="child2Interests">Interests/Hobbies</label>
-              <input type="text" id="child2Interests" name="child2Interests" value="Cricket, Movies"
+              <input type="text" id="child2Interests" name="child2Interests"
                 placeholder="e.g., Reading, Cricket, Drawing" />
             </div>
           </div>
+
+          <button type="button" class="btn-addChild" onclick="addChildBlock()">
+            + Add Another Child
+          </button>
+          <p id="limitMessage" class="help-text" style="display: none; color: #dc3545; margin-top: 10px;">
+            Maximum of 2 children's details collected here.
+          </p>
         </div>
 
         <button type="submit" class="btn-update">Save Changes</button>

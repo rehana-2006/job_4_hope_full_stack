@@ -88,7 +88,8 @@
           <div class="form-row">
             <div class="form-group">
               <label for="fullName">Full Name <span class="required">*</span></label>
-              <input type="text" id="fullName" name="fullName" placeholder="Enter your full name" required />
+              <input type="text" id="fullName" name="fullName" placeholder="Enter your full name"
+                pattern="[A-Za-z\s]{2,50}" title="Letters and spaces only, 2-50 characters" required />
             </div>
             <div class="form-group">
               <label for="email">Email Address <span class="required">*</span></label>
@@ -183,7 +184,8 @@
             <div class="form-row">
               <div class="form-group">
                 <label for="child1Name">Name</label>
-                <input type="text" id="child1Name" name="child1Name" placeholder="Child's Full Name" />
+                <input type="text" id="child1Name" name="child1Name" placeholder="Child's Full Name"
+                  pattern="[A-Za-z\s]{2,50}" title="Letters and spaces only, 2-50 characters" />
               </div>
               <div class="form-group">
                 <label for="child1Age">Age (5-18)</label>

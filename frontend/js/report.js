@@ -9,6 +9,13 @@ document.getElementById('incidentReportForm').addEventListener('submit', async f
 
     const submitBtn = document.getElementById('submitBtn');
     const originalText = submitBtn.textContent;
+
+    const reporterName = document.getElementById('reporterName').value;
+    if (reporterName && !validateName(reporterName)) {
+        alert("Please enter a valid name (only letters and spaces, at least 2 characters).");
+        return;
+    }
+
     submitBtn.textContent = 'Submitting...';
     submitBtn.disabled = true;
 
@@ -41,6 +48,11 @@ document.getElementById('incidentReportForm').addEventListener('submit', async f
         submitBtn.disabled = false;
     }
 });
+
+function validateName(name) {
+    const re = /^[A-Za-z\s]{2,50}$/;
+    return re.test(name.trim());
+}
 
 
 const descInput = document.getElementById('description');

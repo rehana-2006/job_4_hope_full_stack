@@ -56,6 +56,13 @@ function setValue(id, value) {
 async function updateProfile() {
     const btn = document.querySelector('.btn-update');
     const originalText = btn.textContent;
+    const contactName = document.getElementById('contactName').value;
+
+    if (!validateName(contactName)) {
+        alert("Please enter a valid contact name (only letters and spaces, at least 2 characters).");
+        return;
+    }
+
     btn.textContent = "Saving...";
     btn.disabled = true;
 
@@ -86,4 +93,9 @@ async function updateProfile() {
         btn.textContent = originalText;
         btn.disabled = false;
     }
+}
+
+function validateName(name) {
+    const re = /^[A-Za-z\s]{2,50}$/;
+    return re.test(name.trim());
 }

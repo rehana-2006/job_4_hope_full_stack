@@ -13,6 +13,11 @@ document.getElementById('contactForm').addEventListener('submit', async (e) => {
         message: form.querySelector('[name="message"]').value
     };
 
+    if (!validateName(formData.full_name)) {
+        alert("Please enter a valid full name (only letters and spaces, at least 2 characters).");
+        return;
+    }
+
     submitBtn.textContent = 'Sending...';
     submitBtn.disabled = true;
 
@@ -30,3 +35,8 @@ document.getElementById('contactForm').addEventListener('submit', async (e) => {
         submitBtn.disabled = false;
     }
 });
+
+function validateName(name) {
+    const re = /^[A-Za-z\s]{2,50}$/;
+    return re.test(name.trim());
+}

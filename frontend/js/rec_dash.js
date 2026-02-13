@@ -55,6 +55,13 @@ if (!token || userRole !== 'recruiter') {
 document.addEventListener('DOMContentLoaded', () => {
   loadMyJobs();
   loadProfile();
+
+  // Set minimum date for job start date to Today
+  const dateInput = document.querySelector('input[name="start_date"]');
+  if (dateInput) {
+    const today = new Date().toISOString().split('T')[0];
+    dateInput.setAttribute('min', today);
+  }
 });
 
 
@@ -91,6 +98,17 @@ if (postJobForm) {
     // Collect requirements (skills)
     const skills = [];
     postJobForm.querySelectorAll('input[name="requirements"]:checked').forEach(cb => skills.push(cb.value));
+
+    const startDate = postJobForm.querySelector('input[name="start_date"]').value;
+    const today = new Date().toISOString().split('T')[0];
+
+    // Validate date if provided
+    if (startDate && startDate < today) {
+      showToast("Start date cannot be in the past.", "error");
+      btn.textContent = originalText;
+      btn.disabled = false;
+      return;
+    }
 
     const jobData = {
       title: postJobForm.querySelector('input[name="title"]').value,
@@ -148,6 +166,10 @@ async function loadMyJobs() {
                     </div>
                   </div>
                   <span class="status-badge status-active">Active</span>
+                </div>
+                
+                <div style="margin: 10px 0; color: #555; line-height: 1.4;">
+                  ${job.description}
                 </div>
         
                 <div class="job-details">
@@ -262,15 +284,15 @@ async function viewApplicants(jobId, jobTitle) {
                 </div>
                 <div class="action-area">
                     ${app.status === 'pending' ? `
-                        <button class="btn-contact" style="background-color: green;" 
+                        <button class="btn-contact" style="background-color: #28a745; display: flex; align-items: center; gap: 5px;" 
                             onclick="updateStatus(${app.application_id}, 'accepted', ${jobId})">
-                            ✓ Accept
+                            📞 Call for Interview
                         </button>
                         <button class="btn-contact" style="background-color: red;" 
                             onclick="updateStatus(${app.application_id}, 'rejected', ${jobId})">
                             ✗ Reject
                         </button>
-                    ` : `<span style="color: gray;">Decision Made (${app.status})</span>`}
+                    ` : `<span style="color: #28a745; font-weight: bold;">${app.status === 'accepted' ? '✓ Shortlisted for Interview' : 'Decision Made (' + app.status + ')'}</span>`}
                 </div>
             `;
       list.appendChild(card);
@@ -318,8 +340,11 @@ async function updateStatus(applicationId, status, jobId) {
       const statusText = card.querySelector('.status-text');
       const actionArea = card.querySelector('.action-area');
 
-      if (statusText) statusText.textContent = status.toUpperCase();
-      if (actionArea) actionArea.innerHTML = `<span style="color: gray;">Decision Made (${status})</span>`;
+      if (statusText) statusText.textContent = status === 'accepted' ? 'SHORTLISTED' : status.toUpperCase();
+      if (actionArea) {
+        const displayText = status === 'accepted' ? '✓ Shortlisted for Interview' : `Decision Made (${status})`;
+        actionArea.innerHTML = `<span style="color: #28a745; font-weight: bold;">${displayText}</span>`;
+      }
 
       showToast(`Application ${status}!`, "success");
     } else {

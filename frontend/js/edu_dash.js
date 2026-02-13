@@ -9,6 +9,13 @@ if (!token || userRole !== 'educator') {
 document.addEventListener('DOMContentLoaded', () => {
     loadMyEvents();
     loadProfile();
+
+    // Set minimum date for program start date to Today
+    const dateInput = document.querySelector('input[name="start_date"]');
+    if (dateInput) {
+        const today = new Date().toISOString().split('T')[0];
+        dateInput.setAttribute('min', today);
+    }
 });
 
 function showSection(sectionId, btn) {
@@ -38,13 +45,23 @@ if (postProgramForm) {
         btn.textContent = "Publishing...";
         btn.disabled = true;
 
+        const startDate = postProgramForm.querySelector('input[name="start_date"]').value;
+        const today = new Date().toISOString().split('T')[0];
+        if (startDate < today) {
+            showToast("You cannot select a date in the past.", "error");
+            btn.textContent = originalText;
+            btn.disabled = false;
+            return;
+        }
+
         const eventData = {
             title: postProgramForm.querySelector('input[name="title"]').value,
             location: postProgramForm.querySelector('input[name="location"]').value,
             description: postProgramForm.querySelector('textarea[name="description"]').value,
             category: postProgramForm.querySelector('select[name="program_type"]').value,
-            date: postProgramForm.querySelector('input[name="start_date"]').value,
-            time: "09:00:00" 
+            capacity: parseInt(postProgramForm.querySelector('input[name="capacity"]').value) || 0,
+            date: startDate,
+            time: "09:00:00"
         };
 
         try {
@@ -138,11 +155,12 @@ async function loadMyEvents() {
                 </div>
                 <div class="enrollment-details">
                     <div><strong>Location:</strong> ${evt.location}</div>
-                    <div><strong>Description:</strong> ${evt.description.substring(0, 50)}...</div>
-                    <div><strong>Enrollments:</strong> ${evt.enrollment_count || 0}</div>
+                    <div><strong>Description:</strong> ${evt.description}</div>
+                    <div><strong>Enrollments:</strong> ${evt.enrollment_count || 0} / ${evt.capacity}</div>
                 </div>
                 <div class="enrollment-actions">
                      <button class="btn-action btn-view" onclick="loadEnrollmentsForEvent(${evt.id}, '${evt.title.replace(/'/g, "\\'")}')">View Enrollments</button>
+                     <button class="btn-action btn-delete" onclick="handleDeleteEvent(${evt.id}, '${evt.title.replace(/'/g, "\\'")}')">Delete</button>
                 </div>
             `;
             container.appendChild(card);
@@ -157,6 +175,21 @@ async function loadMyEvents() {
             errP.textContent = "Error loading programs. Please try again later.";
             container.appendChild(errP);
         }
+    }
+}
+
+async function handleDeleteEvent(eventId, eventTitle) {
+    if (!confirm(`Are you sure you want to delete the program "${eventTitle}"? This action cannot be undone.`)) {
+        return;
+    }
+
+    try {
+        await deleteEvent(eventId);
+        showToast("Program deleted successfully!", "success");
+        loadMyEvents(); // Reload the list
+    } catch (error) {
+        console.error("Delete failed", error);
+        showToast("Failed to delete program: " + error.message, "error");
     }
 }
 

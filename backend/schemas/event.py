@@ -9,6 +9,7 @@ class EventBase(BaseModel):
     date: date
     time: time
     category: str
+    capacity: int
 
 class EventCreate(EventBase):
     pass
@@ -18,6 +19,7 @@ class Event(EventBase):
     educator_id: int
     created_at: datetime
     enrollment_count: Optional[int] = 0
+    capacity: int
 
     class Config:
         from_attributes = True

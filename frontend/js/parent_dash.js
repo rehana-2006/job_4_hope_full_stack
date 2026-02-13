@@ -132,7 +132,7 @@ async function loadJobs(filters = {}) {
                 <span class="urgent-badge">New</span>
                 <h3>${job.title}</h3>
                 <p class="org-name">Posted by Recruiter</p> 
-                <p class="job-description">${job.description.substring(0, 100)}...</p>
+                <p class="job-description">${job.description}</p>
 
                 <div class="job-meta">
                     <div class="job-meta-item">📍 ${job.location}</div>
@@ -147,7 +147,6 @@ async function loadJobs(filters = {}) {
 
                 <div class="job-actions">
                     <button class="btn btn-apply" onclick="handleApply(${job.id}, this)">Apply Now</button>
-                    <button class="btn btn-view" onclick="openJobDetails(${job.id})">View Details</button>
                 </div>
             `;
             container.appendChild(card);
@@ -270,12 +269,21 @@ async function loadApplications() {
                     <div class="application-info">
                        <h3>${app.job_title || 'Job #' + app.job_id}</h3>
                        <p class="org-name">${app.recruiter_name || 'Unknown Recruiter'}</p>
-                       <p class="applied-date">
+                       <div class="job-meta" style="margin: 10px 0; font-size: 0.9em; color: #666;">
+                            <span>📍 ${app.location || 'N/A'}</span> | 
+                            <span>💰 ${app.wage || 'N/A'}</span> | 
+                            <span>⏰ ${app.frequency || 'N/A'}</span>
+                       </div>
+                       <p class="job-description" style="margin: 10px 0; font-size: 0.95em; color: #555;">
+                            ${app.description || 'No description available.'}
+                       </p>
+                       <p class="applied-date" style="font-size: 0.85em; color: #888;">
                             Applied on: ${new Date(app.applied_at).toLocaleDateString()}
-                            ${app.location ? ` | 📍 ${app.location}` : ''}
                        </p>
                     </div>
-                    <span class="status-badge status-${(app.status || 'pending').toLowerCase()}">${app.status || 'Pending'}</span>
+                    <span class="status-badge status-${(app.status || 'pending').toLowerCase()}">
+                        ${app.status === 'accepted' ? 'Shortlisted' : (app.status || 'Pending')}
+                    </span>
                 `;
                 container.appendChild(card);
             });
@@ -319,6 +327,9 @@ async function loadMyEnrollments() {
                 <div class="application-info">
                     <h3>${en.event_title || 'Event #' + en.event_id}</h3>
                     <p class="org-name">Event Date: ${en.event_date || 'N/A'}</p>
+                    <p class="event-description" style="margin: 10px 0; font-size: 0.95em; color: #555;">
+                        ${en.event_description || 'No description available.'}
+                    </p>
                     <p class="applied-date">
                         Child: <strong>${en.child_name}</strong> | Enrolled on: ${new Date(en.enrolled_at).toLocaleDateString()}
                         ${en.location ? ` | 📍 ${en.location}` : ''}
@@ -374,22 +385,21 @@ function closeEventDetailsModal() {
 
 
 
-async function loadEvents() {
+async function loadEvents(filters = {}) {
     const container = document.querySelector('#events-page .event-listings');
     // Keep header logic if needed, but here simple clear
     // container.innerHTML = ''; // Careful not to clear fixed headers
-
     // Finding a place to append inside .event-listings, but it contains H3. 
     // Let's look for .event-card and remove them or create a wrapper
     const oldCards = container.querySelectorAll('.event-card');
     oldCards.forEach(c => c.remove());
 
     try {
-        const events = await getEvents();
+        const events = await getEvents(filters);
         if (events.length === 0) {
             const p = document.createElement('p');
             p.className = 'event-card';
-            p.textContent = "No upcoming events.";
+            p.textContent = "No upcoming events matching your search.";
             container.appendChild(p);
             return;
         }
@@ -407,11 +417,18 @@ async function loadEvents() {
                     <div class="event-meta-item">📍 ${evt.location}</div>
                     <div class="event-meta-item">🗓️ ${evt.date}</div>
                     <div class="event-meta-item">⏰ ${evt.time}</div>
+                    <div class="event-meta-item">👥 ${evt.enrollment_count || 0} / ${evt.capacity} Enrolled</div>
                 </div>
-
-                <div class="event-actions">
-                    <button class="btn btn-register" onclick="openEnrollmentModal(${evt.id}, '${evt.title}')">Register Now</button>
-                </div>
+                
+                ${(evt.enrollment_count || 0) >= evt.capacity ? `
+                    <div class="event-actions">
+                        <button class="btn" style="background-color: #ccc; cursor: not-allowed;" disabled>Event Full</button>
+                    </div>
+                ` : `
+                    <div class="event-actions">
+                        <button class="btn btn-register" onclick="openEnrollmentModal(${evt.id}, '${evt.title}')">Register Now</button>
+                    </div>
+                `}
              `;
             container.appendChild(card);
         });
@@ -419,6 +436,25 @@ async function loadEvents() {
     } catch (error) {
         console.error(error);
     }
+}
+
+function filterEvents() {
+    const search = document.getElementById('eventSearchInput').value.trim();
+    const location = document.getElementById('filterEventLocation').value.trim();
+    const category = document.getElementById('filterEventCategory').value;
+
+    loadEvents({
+        search: search,
+        location: location,
+        category: category
+    });
+}
+
+function clearEventFilters() {
+    document.getElementById('eventSearchInput').value = '';
+    document.getElementById('filterEventLocation').value = '';
+    document.getElementById('filterEventCategory').value = '';
+    loadEvents();
 }
 
 // Enrollment Logic
@@ -498,6 +534,20 @@ document.getElementById('enrollment-form').addEventListener('submit', async (e) 
 
 // Search filters integration
 function filterJobs() {
-    const query = document.getElementById('jobSearchInput').value;
-    loadJobs({ skill: query });
+    const skill = document.getElementById('jobSearchInput').value.trim();
+    const location = document.getElementById('filterLocation').value.trim();
+    const frequency = document.getElementById('filterWorkType').value;
+
+    loadJobs({
+        skill: skill,
+        location: location,
+        frequency: frequency
+    });
+}
+
+function clearFilters() {
+    document.getElementById('jobSearchInput').value = '';
+    document.getElementById('filterLocation').value = '';
+    document.getElementById('filterWorkType').value = '';
+    loadJobs();
 }

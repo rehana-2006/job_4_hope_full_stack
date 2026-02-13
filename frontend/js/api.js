@@ -149,8 +149,9 @@ async function createJob(data) {
 
 async function getJobs(filters = {}) {
     let url = `${API_URL}/jobs/?`;
-    if (filters.skill) url += `skill=${filters.skill}&`;
-    if (filters.location) url += `location=${filters.location}&`;
+    if (filters.skill) url += `skill=${encodeURIComponent(filters.skill)}&`;
+    if (filters.location) url += `location=${encodeURIComponent(filters.location)}&`;
+    if (filters.frequency) url += `frequency=${encodeURIComponent(filters.frequency)}&`;
 
     // Public endpoint for browsing
     const response = await fetch(url);
@@ -207,8 +208,9 @@ async function createEvent(data) {
 
 async function getEvents(filters = {}) {
     let url = `${API_URL}/events/?`;
-    if (filters.category) url += `category=${filters.category}&`;
-    if (filters.location) url += `location=${filters.location}&`;
+    if (filters.category) url += `category=${encodeURIComponent(filters.category)}&`;
+    if (filters.location) url += `location=${encodeURIComponent(filters.location)}&`;
+    if (filters.search) url += `search=${encodeURIComponent(filters.search)}&`;
 
     const response = await fetch(url);
     if (!response.ok) throw new Error(await response.text());
@@ -222,6 +224,15 @@ async function getMyEvents() {
     });
     if (!response.ok) throw new Error(await response.text());
     return await response.json();
+}
+
+async function deleteEvent(eventId) {
+    const response = await fetch(`${API_URL}/events/${eventId}`, {
+        method: "DELETE",
+        headers: getAuthHeaders()
+    });
+    if (!response.ok) throw new Error(await response.text());
+    return;
 }
 
 async function enrollInEvent(eventId, childName) {

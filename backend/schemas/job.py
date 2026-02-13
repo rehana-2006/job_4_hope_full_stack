@@ -45,6 +45,9 @@ class Application(ApplicationBase):
     job_title: Optional[str] = None
     recruiter_name: Optional[str] = None
     location: Optional[str] = None
+    wage: Optional[str] = None
+    frequency: Optional[str] = None
+    description: Optional[str] = None
     
     class Config:
         from_attributes = True

@@ -26,7 +26,7 @@ async function loadProfileData() {
         const p = data.profile;
         const user = data;
 
-      
+
         setValue('orgName', p.org_name);
         setValue('orgType', p.org_type);
         setValue('description', p.description);
@@ -34,14 +34,14 @@ async function loadProfileData() {
         setValue('ageRange', p.age_range);
         setValue('contactName', p.contact_name);
         setValue('jobTitle', p.job_title);
-        setValue('email', user.email); 
+        setValue('email', user.email);
         setValue('phone', p.phone);
         setValue('website', p.website);
-        setValue('address', p.address); 
+        setValue('address', p.address);
         setValue('city', p.city);
         setValue('state', p.state);
 
-     
+
         if (p.specialization && Array.isArray(p.specialization)) {
             const checkboxes = document.querySelectorAll('input[name="specialization"]');
             checkboxes.forEach(cb => {
@@ -67,6 +67,13 @@ function setValue(id, value) {
 async function updateProfile() {
     const btn = document.querySelector('.btn-update');
     const originalText = btn.textContent;
+    const contactName = document.getElementById('contactName').value;
+
+    if (!validateName(contactName)) {
+        alert("Please enter a valid contact name (only letters and spaces, at least 2 characters).");
+        return;
+    }
+
     btn.textContent = "Saving...";
     btn.disabled = true;
 
@@ -99,4 +106,9 @@ async function updateProfile() {
         btn.textContent = originalText;
         btn.disabled = false;
     }
+}
+
+function validateName(name) {
+    const re = /^[A-Za-z\s]{2,50}$/;
+    return re.test(name.trim());
 }

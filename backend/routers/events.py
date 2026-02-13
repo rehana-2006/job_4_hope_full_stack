@@ -29,7 +29,8 @@ def create_event(
         location=event.location,
         date=event.date,
         time=event.time,
-        category=event.category
+        category=event.category,
+        capacity=event.capacity
     )
     db.add(db_event)
     db.commit()
@@ -40,6 +41,7 @@ def create_event(
 def get_events(
     category: Optional[str] = None,
     location: Optional[str] = None,
+    search: Optional[str] = None,
     db: Session = Depends(get_db)
 ):
     query = db.query(models.Event)
@@ -47,8 +49,22 @@ def get_events(
         query = query.filter(models.Event.location.ilike(f"%{location}%"))
     if category:
         query = query.filter(models.Event.category == category)
+    if search:
+        query = query.filter(
+            (models.Event.title.ilike(f"%{search}%")) | 
+            (models.Event.description.ilike(f"%{search}%"))
+        )
     
-    return query.all()
+    events = query.all()
+    
+    # Add enrollment count to each event
+    for event in events:
+        enrollment_count = db.query(models.Enrollment).filter(
+            models.Enrollment.event_id == event.id
+        ).count()
+        event.enrollment_count = enrollment_count
+        
+    return events
 
 @router.get("/my", response_model=List[schemas.Event])
 def get_my_events(
@@ -90,6 +106,19 @@ def enroll_in_event(
         parent_id=parent.id,
         child_name=child_name
     )
+    
+    # Check capacity
+    event = db.query(models.Event).filter(models.Event.id == event_id).first()
+    if not event:
+        raise HTTPException(status_code=404, detail="Event not found")
+        
+    current_enrollments = db.query(models.Enrollment).filter(
+        models.Enrollment.event_id == event_id
+    ).count()
+    
+    if current_enrollments >= event.capacity:
+        raise HTTPException(status_code=400, detail="This event has reached its maximum capacity")
+
     db.add(enrollment)
     db.commit()
     db.refresh(enrollment)
@@ -198,3 +227,29 @@ def get_my_enrollments(
             en.event_category = event.category
             
     return enrollments
+
+@router.delete("/{event_id}", status_code=status.HTTP_204_NO_CONTENT)
+def delete_event(
+    event_id: int, 
+    db: Session = Depends(get_db), 
+    current_user: models.User = Depends(auth.get_current_user)
+):
+    if current_user.role != "educator":
+        raise HTTPException(status_code=403, detail="Only educators can delete events")
+    
+    educator = db.query(models.EducatorProfile).filter(models.EducatorProfile.user_id == current_user.id).first()
+    if not educator:
+        raise HTTPException(status_code=404, detail="Educator profile not found")
+
+    event = db.query(models.Event).filter(models.Event.id == event_id, models.Event.educator_id == educator.id).first()
+    if not event:
+        raise HTTPException(status_code=404, detail="Event not found")
+    
+    # Optional: Check if there are enrollments before deleting
+    # enrollments_count = db.query(models.Enrollment).filter(models.Enrollment.event_id == event_id).count()
+    # if enrollments_count > 0:
+    #     raise HTTPException(status_code=400, detail="Cannot delete event with active enrollments")
+
+    db.delete(event)
+    db.commit()
+    return None

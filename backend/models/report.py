@@ -20,3 +20,4 @@ class IncidentReport(Base):
     status = Column(String, default="pending")
     reporter_role = Column(String, nullable=True)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
+
