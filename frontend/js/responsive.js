@@ -22,23 +22,34 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Login/Logout Toggle Logic
     const token = localStorage.getItem('token');
-    const role = localStorage.getItem('role');
 
-    if (token && navActions) {
+    if (navActions) {
         const isIndexPage = !window.location.pathname.includes('/pages/');
         const loginUrl = isIndexPage ? './pages/sign_in.html' : './sign_in.html';
         const homeUrl = isIndexPage ? './index.html' : '../index.html';
 
-        navActions.innerHTML = `
-            <a href="#" class="btn btn-login" id="logoutBtn" style="background-color: #dc3545; border-color: #dc3545;">Logout</a>
-        `;
+        if (token) {
+            // User is logged in - show Logout
+            navActions.innerHTML = `
+                <a href="#" class="btn btn-login" id="logoutBtn" style="background-color: #dc3545; color: white; border: none; border-radius: 6px; padding: 0.6rem 1.5rem; font-weight: 500; text-decoration: none;">Logout</a>
+            `;
 
-        document.getElementById('logoutBtn').addEventListener('click', (e) => {
-            e.preventDefault();
-            localStorage.removeItem('token');
-            localStorage.removeItem('role');
-            localStorage.removeItem('user_id');
-            window.location.href = homeUrl;
-        });
+            const logoutBtn = document.getElementById('logoutBtn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    localStorage.removeItem('token');
+                    localStorage.removeItem('role');
+                    localStorage.removeItem('user_id');
+                    localStorage.removeItem('email');
+                    window.location.href = homeUrl;
+                });
+            }
+        } else {
+            // User is NOT logged in - show Login
+            navActions.innerHTML = `
+                <a href="${loginUrl}" class="btn btn-login" style="background-color: #000; color: white; border: none; border-radius: 6px; padding: 0.6rem 1.5rem; font-weight: 500; text-decoration: none;">Login</a>
+            `;
+        }
     }
 });
